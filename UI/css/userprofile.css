@@ -1,0 +1,33 @@
+
+.container
+{
+    min-height: 100vh;
+}
+.aside 
+{
+    margin: 0;
+    padding: 10px;
+    width: 200px;
+    background-color: rgba(0,0,0,0.80);
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .aside a 
+  {
+    display: block;
+    color: #fff;
+    border: 2px solid  #FF690C;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+.content
+{
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 381px;    
+}
