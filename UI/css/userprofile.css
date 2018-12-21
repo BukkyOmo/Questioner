@@ -14,7 +14,7 @@
     overflow: auto;
   }
   
-  .aside a 
+  .aside .items 
   {
     display: block;
     color: #fff;
@@ -30,4 +30,26 @@
     margin-left: 200px;
     padding: 1px 16px;
     height: 381px;    
+}
+
+.admin-nav h2
+{
+    color: #fff;
+    margin: 10px;
+}
+
+.admin-nav a
+{
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    margin: 15px;
+    padding: 10px;
+    /* border: 1px solid black; */
+    display: block;
+}
+
+.admin-nav a:hover
+{
+    background: #FF690C;
 }
