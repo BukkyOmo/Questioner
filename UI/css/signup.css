@@ -7,11 +7,6 @@ form
     font-family: 'Lato', sans-serif;
 }
 
-.form-card
-{
-    margin-bottom: 30px;
-}
-
 .label
 {
     display: block;
@@ -63,6 +58,12 @@ input[type=text], input[type=email], input[type=date], input[type=select], input
     width: 75%;
     margin-top: 6px;
 }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
 #login 
 {
