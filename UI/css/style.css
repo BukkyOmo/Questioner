@@ -55,7 +55,6 @@ body
     height: 100px;
     line-height: 1em;
     font-weight: 100;
-    padding: 1em;
     color: #fff;
     display: flex;
     flex-direction: row;
@@ -90,7 +89,7 @@ ul
     flex-flow: row wrap;
     background-color: rgba(0,0,0,0.80);
     margin: 0;
-    padding: 0px 10px;
+    padding: 0;
     width: 100%;
     list-style-type: none;
 }
@@ -187,8 +186,6 @@ img
     align-self: flex-end;
 }
 
-
-
 section
 {
     text-align: center;
@@ -257,7 +254,7 @@ main
     {
     background: #007bff;
     padding: 6px;
-    height: 156px;
+    height: 170px;
     line-height: 2em;
     color: #fff;
     display: flex;
@@ -285,3 +282,6 @@ main
     font-size: 14px;
     }
   }
+
+
+
