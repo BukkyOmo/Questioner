@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/login.css">
 
     <title>Login | Questioner</title>
 
@@ -34,54 +34,49 @@
 
     </nav>
 
-    <main>
-        <div class="form-card">
+    <main  class="container">
 
-            <form id="form" method="POST" action="#"> 
+            <form action="" class="flex">
+    
+                <div class="items">
+    
+                    <h1>Sign In</h1>
+    
+                </div>
+    
+    
+                <div class="items">
+    
+                    <input type="text" name="username" id="username" placeholder="Userame">
+    
+                </div>
+    
+                <div class="items">
+    
+                    <input type="password" name="password" id="password" placeholder="Password">
+    
+                </div>
+    
+                <div class="items">
 
-                <h1 class="form-card-header">Sign In</h1>
+                    <button class="button"><a href="userprofile.html">Sign in</a></button>
+    
+                </div>
+    
+                <div class="items">
+    
+                    <p id="login">Don't have an account? <a href="signup.html"> Sign up </a></p>
                     
-                    <div id="message-output"></div> 
-
-                        <div class="row">
-                                <div class="col-25">
-                                    <label for="email">Email address</label>
-                                </div>
-
-                                <div class="col-75">
-                                    <input type="email" id="email" name="email" placeholder="Enter your email">
-                                </div>
-                        </div>
-
-                        <div class="row">
-                                <div class="col-25">
-                                    <label for="password">Password</label>
-                                </div>
-
-                                <div class="col-75">
-                                    <input type="password" id="password" name="password" placeholder="Enter your password">
-                                </div>
-                        </div>
-
-                        <div class="row">
-                                <div class="col-25">
-                                
-                                </div>
-
-                                <div class="col-75">
-                                    <input type="submit" value="Sign in" class="btn"> 
-                                </div>
-                        </div>
-
-                        <p id="signup">Don't have an account? <a href="signup.html"> Signup </a></p>
-
-                        <p id="signup"><a href="forgotpassword.html">Forgot Password</a></p>
-
+                </div>
+                <div class="items">
+    
+                        <p id="login"><a href="forgotpassword.html"> Forgot Password </a></p>
+                        
+                </div>
+    
             </form>
 
-        </div>
-
-    </main>
+        </main>
 
     <footer>
         

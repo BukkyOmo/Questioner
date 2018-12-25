@@ -25,11 +25,15 @@
     text-decoration: none;
   }
 
+  a{
+      text-decoration: none;
+  }
+
 .content
 {
     margin-left: 200px;
     padding: 1px 16px;
-    height: 381px;    
+    height: 370px;    
 }
 
 .admin-nav h2
@@ -45,7 +49,6 @@
     color: #fff;
     margin: 15px;
     padding: 10px;
-    /* border: 1px solid black; */
     display: block;
 }
 

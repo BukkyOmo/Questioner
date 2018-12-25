@@ -32,103 +32,63 @@
         </ul>
 
     </nav>
-    
-    <main>
-            <div class="form-card">
-    
-                <form id="form" method="POST" action="#"> 
-    
-                    <h1 class="form-card-header">Sign Up</h1>
-                        
-                        <div id="message-output"></div> 
-    
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="fname">Firstname</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="text" id="firstname" name="firstname" placeholder="Enter your firstname" required>
-                                    </div>
-                            </div>
-                                
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="lastname">Lastname</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="text" id="lastname" name="lastname" placeholder="Enter your lastname" required>
-                                    </div>
-                            </div>
-                                
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="othername">Othername</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="text" id="othername" name="othername" placeholder="Enter your othername" required>
-                                    </div>
-                            </div>
-                                
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="username">Username</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="text" id="username" name="username" placeholder="Enter your Username" required>
-                                    </div>
-                            </div>
-    
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="phone">Phone number</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="text" id="phone" name="phone" placeholder="Enter your Phone number" required>
-                                    </div>
-                            </div>
-    
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="email">Email address</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-                                    </div>
-                            </div>
-             
-                            <div class="row">
-                                    <div class="col-25">
-                                        <label for="password">Password</label>
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="password" id="password" name="password" placeholder="Enter your password">
-                                    </div>
-                            </div>
 
-                            <div class="row">
-                                    <div class="col-25">
-                                    
-                                    </div>
-    
-                                    <div class="col-75">
-                                        <input type="submit" value="Sign up" class="btn"> 
-                                    </div>
-                            </div>
-    
-                            <p id="login">Already have an account? <a href="login.html"> Log in </a></p>
-    
-                </form>
+    <main  class="container">
+
+        <form action="" class="flex">
+
+            <div class="items">
+
+                <h1>Sign Up</h1>
+
+            </div>
+
+            <div class="items">
+
+                <input type="text" name="firstname" id="firstname" placeholder="First Name">
+
+                <input type="text" name="firstname" id="firstname" placeholder="Last Name">
+
+            </div>
+
+            <div class="items">
+
+                <input type="text" name="othername" id="othername" placeholder="Other Name">
+
+                <input type="text" name="username" id="username" placeholder="User Name">
+
+            </div>
+
+            <div class="items">
+
+                <input type="text" name="phone" id="phone" placeholder="Phone Number">
+
+                <input type="email" name="email" id="email" placeholder="Email">
+
+            </div>
+
+            <div class="items">
+
+                <input type="password" name="password" id="password" placeholder="Password">
+
+                <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password">
+
+            </div>
+
+            <div class="items">
+
+                    <button class="button"><a href="login.html">Sign in</a></button>
     
             </div>
-    
-        </main>
+
+            <div class="items">
+
+                <p id="login">Already have an account? <a href="login.html"> Log in </a></p>
+
+            </div>
+
+        </form>
+    </main>
 
     <footer>
 
