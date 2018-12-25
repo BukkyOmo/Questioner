@@ -122,7 +122,7 @@ li:nth-child(1)
     margin-left: 47px;
     border: 1px solid #FF690C;
     font-size:16px;
-    border-radius: 3px;
+    /* border-radius: 3px; */
 }
 
 .flex2 a
@@ -154,7 +154,8 @@ img
     border-radius: 5px;
 }
 
-.flex3{
+.flex3
+{
     display: flex;
     flex-direction: column;
     max-width: 400px;
@@ -167,7 +168,8 @@ img
 
 }
 
-.flex-item{
+.flex-item
+{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -176,11 +178,13 @@ img
     height: 140px;
 }
 
-.flex-item h3{
+.flex-item h3
+{
     text-transform: uppercase;
 }
 
-.flex-item a{
+.flex-item a
+{
     text-decoration: none;
     text-transform: capitalize;
     align-self: flex-end;
@@ -240,7 +244,8 @@ main
     margin-bottom: 180px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px)
+ {
     li a 
     {
     display: block;
