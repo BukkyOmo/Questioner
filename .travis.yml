@@ -3,4 +3,6 @@ language: node_js
     -"8"
   script:
     -npm test
+  after_success:
+    -npm run coveralls
     
