@@ -8,3 +8,9 @@ app.get('/', (request, response) => {
 app.listen(8080, () => {
     console.log('Questioner app listening on port 8080');
 });
+
+module.exports = app();
+
+
+
+
