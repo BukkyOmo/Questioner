@@ -23,6 +23,9 @@
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
+    "eslint": "^5.11.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9"
   },
