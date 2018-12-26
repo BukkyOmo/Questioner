@@ -19,6 +19,7 @@ module.exports = {
             "tab",
         ],
         "no-tabs": 0,
+        "no-unused-vars": ["off"],
         'no-console': 'off',
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
