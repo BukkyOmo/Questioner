@@ -1,15 +1,12 @@
 import express from 'express';
+import bodyparser from 'body-parser';
 
 const app = express();
+app.use(bodyparser.urlencoded({ extended : false }));
+app.use(bodyparser.json());
 
 app.get('/', (request, response) => {
 	response.send('Hello World');
-});
-
-app.get('/question', (request, response) => {
-	response.json({
-		data: 'i am blessed',
-	});
 });
 
 app.listen(8080, () => {

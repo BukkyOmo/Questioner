@@ -1,19 +1,22 @@
 module.exports = {
-    "env": {
+    	"env": {
         "browser": true,
         "es6": true,
         "node": true
-    },
-    "extends": "airbnb-base",
-    "parserOptions": {
+    	},
+    	"extends": "airbnb-base",
+    	"parserOptions": {
         "ecmaVersion": 2015,
-        "sourceType": "module"
-    },
+        "sourceType": "module",
+  		"ecmaFeatures": {
+    	"experimentalObjectRestSpread": true
+    	},
+		"parser": "babel-eslint",
     
-    "plugins": [
+   		"plugins": [
         "import"
-    ],
-    "rules": {
+    	],
+    	"rules": {
         "indent": [
             2,
             "tab",
