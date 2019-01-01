@@ -5,8 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node --presets env,stage-2 app.js",
+    "build": "babel app.js --out-dir build",
     "test": "mocha || true",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "dev-start": "babel-watch app.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
+    "babel-watch": "^2.0.7",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "coveralls": "^3.0.2",
