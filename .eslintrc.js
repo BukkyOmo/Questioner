@@ -1,27 +1,25 @@
 module.exports = {
-    	"env": {
+    "env": {
         "browser": true,
         "es6": true,
-        "node": true
-    	},
-    	"extends": "airbnb-base",
-    	"parserOptions": {
+        "node": true,
+		"mocha": true
+    },
+    "extends": "airbnb-base",
+    "parserOptions": {
         "ecmaVersion": 2015,
-        "sourceType": "module",
-  		"ecmaFeatures": {
-    	"experimentalObjectRestSpread": true
-    	},
-		"parser": "babel-eslint",
-    
-   		"plugins": [
+        "sourceType": "module"
+    },    
+    "plugins": [
         "import"
-    	],
-    	"rules": {
+    ],
+    "rules": {
         "indent": [
             2,
             "tab",
         ],
         "no-tabs": 0,
+		"comma-dangle": 0,
         "no-unused-vars": ["off"],
         'no-console': 'off',
         'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
