@@ -1,14 +1,16 @@
 import express from 'express';
 import bodyparser from 'body-parser';
+import morgan from 'morgan';
 
 const app = express();
-app.use(bodyparser.urlencoded({ extended : false }));
+const port = process.env.PORT || 8080;
+
+app.use(morgan('tiny'));
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
-app.get('/', (request, response) => {
-	response.send('Hello World');
+app.listen(port, () => {
+	console.log(`Questioner app listening on port ${port}`);
 });
 
-app.listen(8080, () => {
-	console.log('Questioner app listening on port 8080');
-});
+export default app;
