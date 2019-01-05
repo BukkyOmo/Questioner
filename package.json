@@ -12,7 +12,8 @@
     "dev-start": "babel-watch app.js",
     "lint": "eslint app.js",
     "clean": "rm -rf build && mkdir build",
-    "build-server": "babel -d ./build ./server -s"
+    "build-server": "babel -d ./build ./server -s",
+	"cover": "istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
