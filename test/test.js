@@ -16,7 +16,7 @@ describe('Meetups', () => {
 					return done(err);
 				}
 				return expect(res.status).equal(200);
-			})
+			});
 		done();
 	});
 
