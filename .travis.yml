@@ -1,6 +1,12 @@
 language: node_js
-  node_js:
-    - "node"
+node_js:
+ - "8.11.4"
+script:
+  - npm test
+after_success:
+  - npm run coverage
+  - npm run report-coverage
+  - npm run codeclimate-report
   
  
     
