@@ -1,23 +1,35 @@
 import meetup from '../models/database';
 
-const getMeetup = (req, res) => {
-	const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(req.params.meetupId));
-	if (!oneMeetup) {
+const meetupController = {
+	getMeetup(req, res) {
+		const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(req.params.meetupId));
+		if (!oneMeetup) {
+			return res.json({
+				status: 404,
+				message: false,
+				error: 'This meetup record cannot be found'
+			});
+		}
 		return res.json({
-			status: 404,
-			message: false,
-			error: 'This meetup record cannot be found'
+			status: 200,
+			message: true,
+			data: [{
+				id: oneMeetup.id,
+				topic: oneMeetup.topic,
+				location: oneMeetup.location,
+				happeningOn: oneMeetup.happeningOn
+			}]
+		});
+	},
+
+	getAllMeetups(req, res) {
+		return res.status(200).json({
+			status: 200,
+			message: true,
+			data: meetup
 		});
 	}
-	return res.json({
-		status: 200,
-		message: true,
-		data: [{
-			id: oneMeetup.id,
-			topic: oneMeetup.topic,
-			location: oneMeetup.location,
-			happeningOn: oneMeetup.happeningOn
-		}]
-	});
+
 };
-export default getMeetup;
+
+export default meetupController;
