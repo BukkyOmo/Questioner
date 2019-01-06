@@ -1,4 +1,4 @@
-import meetup from '../models/database';
+import meetup from '../models/meetup';
 
 const meetupController = {
 	getMeetup(req, res) {

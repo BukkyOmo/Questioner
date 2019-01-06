@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('tEST ALL MEETUP ENDPOINTS', () => {
+describe('TEST ALL MEETUP ENDPOINTS', () => {
 	it('it should get a specific meetup', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups/1')
@@ -83,6 +83,48 @@ describe('tEST ALL MEETUP ENDPOINTS', () => {
 					done(err);
 				}
 				expect(res.body.status).to.be.equal(404);
+				done();
+			});
+	});
+});
+
+describe('TEST ENDPOINT FOR RSVP', () => {
+	it('it should create an rsvp for a meetup', (done) => {
+		const rsvpMeetup = {
+			id: 1,
+			meetup: 1,
+			user: 'odunayobukky@gmail.com',
+			reply: 'yes'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/1/rsvp')
+			.send(rsvpMeetup)
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw error if reply is incorrect', (done) => {
+		const rsvpMeetup = {
+			id: 8,
+			meetup: 'The experience 2019',
+			user: 2,
+			reply: 'gedifok'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/9/rsvp')
+			.send(rsvpMeetup)
+			.end((err, res) => {
+				if (err) {
+					done(err);
+				}
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
