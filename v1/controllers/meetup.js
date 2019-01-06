@@ -28,6 +28,39 @@ const meetupController = {
 			message: true,
 			data: meetup
 		});
+	},
+
+	createMeetup(request, response) {
+		const newMeetup = {
+			id: meetup.length + 1,
+			createdOn: Date(),
+			location: request.body.location,
+			topic: request.body.topic,
+			happeningOn: Date(request.body.happeningOn),
+			tags: request.body.tags || null
+		};
+		if (newMeetup.location && newMeetup.topic && newMeetup.happeningOn) {
+			meetup.push(newMeetup);
+			return response.status(200).json(
+				{
+					status: 200,
+					message: true,
+					data: {
+						topic: request.body.topic,
+						location: request.body.location,
+						happeningOn: newMeetup.happeningOn,
+						tags: request.body.tags
+					}
+				}
+			);
+		}
+		return response.status(404).json(
+			{
+				status: 404,
+				message: false,
+				data: 'meetup cannot be created'
+			}
+		);
 	}
 
 };
