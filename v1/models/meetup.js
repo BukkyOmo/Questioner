@@ -1,5 +1,3 @@
-// const database = [];
-
 
 const meetup = [{
 	id: 1,
