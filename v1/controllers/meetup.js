@@ -23,7 +23,7 @@ const meetupController = {
 	},
 
 	getAllMeetups(req, res) {
-		return res.status(200).json({
+		return res.json({
 			status: 200,
 			message: true,
 			data: meetup
@@ -41,7 +41,7 @@ const meetupController = {
 		};
 		if (newMeetup.location && newMeetup.topic && newMeetup.happeningOn) {
 			meetup.push(newMeetup);
-			return response.status(200).json(
+			return response.json(
 				{
 					status: 200,
 					message: true,
@@ -54,7 +54,7 @@ const meetupController = {
 				}
 			);
 		}
-		return response.status(404).json(
+		return response.json(
 			{
 				status: 404,
 				message: false,
