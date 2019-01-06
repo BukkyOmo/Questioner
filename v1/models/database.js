@@ -1,6 +1,7 @@
-const database = [];
+// const database = [];
 
-database.meetup = [{
+
+const meetup = [{
 	id: 1,
 	createdOn: '1-2-2019',
 	location: 'Lagos',
@@ -10,4 +11,4 @@ database.meetup = [{
 	tags: ['tech', 'blockchain', 'ethereum']
 }];
 
-export default database;
+export default meetup;

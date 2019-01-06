@@ -1,16 +1,15 @@
-import database from '../models/database';
+import meetup from '../models/database';
 
-const getMeetup = (request, response) => {
-	const { meetupId } = request.params;
-	const oneMeetup = database.meetup.find(onemeetup => onemeetup.id === parseInt(meetupId, 10));
+const getMeetup = (req, res) => {
+	const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(req.params.meetupId));
 	if (!oneMeetup) {
-		return response.json({
+		return res.json({
 			status: 404,
 			message: false,
 			error: 'This meetup record cannot be found'
 		});
 	}
-	return response.json({
+	return res.json({
 		status: 200,
 		message: true,
 		data: [{
