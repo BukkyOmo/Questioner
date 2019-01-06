@@ -5,29 +5,16 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-const { expect, should } = chai;
+const { expect } = chai;
 
-describe('Meetups', () => {
+describe('Get a meetup', () => {
 	it('it should get a specific meetup', (done) => {
 		chai.request(app)
 			.get('api/v1/meetups/1')
+			.set('Accept', 'application/json')
 			.end((err, res) => {
-				if (err) {
-					return done(err);
-				}
-				return expect(res.status).equal(200);
-			})
-		done();
-	});
-
-	it('it should return status code 404', (done) => {
-		chai.request(app)
-			.get('api/v1/meetups/10')
-			.end((err, res) => {
-				if (err) {
-					return done(err);
-				}
-				return expect(res.status).equal(404);
+				expect(res.status).to.equal(200);
+				expect(res.message).to.equal(true);
 			});
 		done();
 	});
