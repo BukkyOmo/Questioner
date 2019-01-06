@@ -53,7 +53,8 @@ describe('tEST ALL MEETUP ENDPOINTS', () => {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
 			topic: 'why is it dark over there?',
-			happeningOn: '15-02-2018'
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -72,7 +73,7 @@ describe('tEST ALL MEETUP ENDPOINTS', () => {
 	it('it should throw an error when all required fields are not submitted', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
-			topic: 'why is it dark over there?',
+			topic: 'why is it dark over there?'
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -81,9 +82,7 @@ describe('tEST ALL MEETUP ENDPOINTS', () => {
 				if (err) {
 					done(err);
 				}
-				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
