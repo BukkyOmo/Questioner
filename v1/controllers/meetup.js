@@ -21,5 +21,4 @@ const getMeetup = (request, response) => {
 		}]
 	});
 };
-
 export default getMeetup;
