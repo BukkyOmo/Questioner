@@ -10,7 +10,7 @@ module.exports = {
         "ecmaVersion": 2015,
         "sourceType": "module"
     },
-	 "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],   
+	//  "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],   
     "plugins": [
         "import"
     ],

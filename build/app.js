@@ -24,6 +24,10 @@ var _rsvp = require('./v1/routes/rsvp');
 
 var _rsvp2 = _interopRequireDefault(_rsvp);
 
+var _question = require('./v1/routes/question');
+
+var _question2 = _interopRequireDefault(_question);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -35,6 +39,7 @@ app.use(_bodyParser2.default.json());
 
 app.use('/api/v1', _meetup2.default);
 app.use('/api/v1/meetups', _rsvp2.default);
+app.use('/api/v1/meetups', _question2.default);
 
 app.listen(port, function () {
 	console.log('Questioner app listening on port ' + port);
