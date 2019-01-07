@@ -1,6 +1,5 @@
 import meetup from '../models/meetup';
 import rsvpmeetup from '../models/rsvp';
-import user from '../models/users';
 
 const rsvpController = {
 	createRsvp(request, response) {

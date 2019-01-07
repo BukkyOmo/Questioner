@@ -34,8 +34,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "babel-watch": "^2.0.7",
-    "chai": "^4.2.0",
-    "chai-http": "^4.2.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -51,6 +49,8 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "express": "^4.16.4",
     "moment": "^2.23.0",
     "morgan": "^1.9.1"

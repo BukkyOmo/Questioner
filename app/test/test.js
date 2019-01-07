@@ -108,3 +108,42 @@ describe('TEST ENDPOINT FOR RSVP', () => {
 			});
 	});
 });
+
+describe('TEST ALL QUESTION ENDPOINTS', () => {
+	it('it should create a question for a meetup', (done) => {
+		const newQuestion = {
+			id: 1,
+			createdOn: '2-3-2015',
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: 'let us celebrate'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when either title or content is not created', (done) => {
+		const newQuestion = {
+			id: 1,
+			createdOn: '2-3-2015',
+			createdBy: 1,
+			meetup: 3,
+			content: 'let us celebrate'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+});
