@@ -12,9 +12,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 		chai.request(app)
 			.get('/api/v1/meetups/1')
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
 				expect(res.body.message).to.be.equal(true);
@@ -26,9 +23,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 		chai.request(app)
 			.get('/api/v1/meetups/3')
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res.body.status).equal(404);
 				done();
 			});
@@ -38,9 +32,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 		chai.request(app)
 			.get('/api/v1/meetups')
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
 				expect(res.body.message).to.be.equal(true);
@@ -60,9 +51,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
 				expect(res.body.message).to.be.equal(true);
@@ -79,9 +67,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res.body.status).to.be.equal(404);
 				done();
 			});
@@ -100,9 +85,6 @@ describe('TEST ENDPOINT FOR RSVP', () => {
 			.post('/api/v1/meetups/1/rsvp')
 			.send(rsvpMeetup)
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res.body.status).to.be.equal(200);
 				expect(res.body.message).to.be.equal(true);
 				done();
@@ -120,9 +102,6 @@ describe('TEST ENDPOINT FOR RSVP', () => {
 			.post('/api/v1/meetups/9/rsvp')
 			.send(rsvpMeetup)
 			.end((err, res) => {
-				if (err) {
-					done(err);
-				}
 				expect(res.body.status).to.be.equal(404);
 				expect(res.body.message).to.be.equal(false);
 				done();
