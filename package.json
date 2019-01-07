@@ -4,7 +4,7 @@
   "description": "Questioner is an app that crowd-sources questions for meetups/events.",
   "main": "app/app.js",
   "scripts": {
-    "start": "node build/app.js",
+    "start": "npm run build && node build/app.js",
     "serve": "nodemon app.js --exec babel-node --presets env,stage-2 app.js",
     "build": "babel app --out-dir build",
     "test": "nyc mocha --exit --compilers js:babel-core/register ./app/test/**/*.js",
