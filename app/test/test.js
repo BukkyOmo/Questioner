@@ -146,4 +146,45 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				done();
 			});
 	});
+
+	it('it should upvote a question', (done) => {
+		const newQuestion = {
+			id: 1,
+			createdOn: '2-3-2015',
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: 'let us celebrate',
+			votes: 0,
+		};
+		chai.request(app)
+			.patch('/api/v1/meetups/3/questions/1')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when question to be upvoted does not exist', (done) => {
+		const newQuestion = {
+			id: 9,
+			createdOn: '2-3-2015',
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: 'let us celebrate',
+			votes: 0,
+		};
+		chai.request(app)
+			.patch('/api/v1/meetups/6/questions/9')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
 });
