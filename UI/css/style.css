@@ -122,7 +122,6 @@ li:nth-child(1)
     margin-left: 47px;
     border: 1px solid #FF690C;
     font-size:16px;
-    /* border-radius: 3px; */
 }
 
 .flex2 a
@@ -244,9 +243,76 @@ main
     margin-bottom: 180px;
 }
 
-@media only screen and (max-width: 600px)
- {
-    li a 
+@media only screen and (max-width: 600px) and (min-width: 300px) {
+img 
+{
+    width: 300px;
+    height: 180px;
+    border-radius: 5px;
+}	
+
+.flex3
+{
+    display: flex;
+    flex-direction: column;
+	font-size: 16px;
+    max-width: 300px;
+    height: auto;
+    border: 1px solid #e4e6e8;
+    background: #FFF;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    border-radius: 5px;
+    margin-bottom: 40px;
+
+}
+
+.banner2
+{
+    background: #007bff;
+    height: 100px;
+    line-height: 1em;
+    font-weight: 100;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+    font-size: 1.2em;
+	padding: 10px;
+
+}
+
+.flex2
+{
+    height: 40px;
+    background-color: #FF690C;
+    margin-bottom: 5px;
+    width: 200px;
+    margin-left: 30px;
+    border: 1px solid #FF690C;
+    font-size:14px;
+	padding: 5px;
+}
+
+.banner2
+{
+    background: #007bff;
+    height: 140px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+	font-size: 14px;
+}
+
+.banner2 h2 {
+	line-height: 1.2em;
+}
+
+li a 
     {
     display: block;
     color: #fff;
@@ -255,38 +321,64 @@ main
     margin: 10px 15px;
     text-decoration: none;
     }
-    .banner2
-    {
-    background: #007bff;
-    padding: 6px;
-    height: 170px;
-    line-height: 2em;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    }
-    .flex2
-    {
-    height: 40px;
-    background-color: #FF690C;
-    width: 197px;
-    margin: auto;
-    margin-top: 10px;
-    border: 1px solid #FF690C;
-    border-radius: 3px;
-    }
-    img
-    {
+
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 720px) {
+img 
+{
     width: 350px;
     height: 300px;
-    border-radius: 7px;
-    }
-    .flex-item
-    {
-    font-size: 14px;
-    }
-  }
+    border-radius: 5px;
+}	
+
+.flex3
+{
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+    height: auto;
+    border: 1px solid #e4e6e8;
+    background: #FFF;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    border-radius: 5px;
+    margin-bottom: 45px;
+
+}
+
+.flex2
+{
+    height: 40px;
+    background-color: #FF690C;
+    margin-bottom: 5px;
+    width: 200px;
+    margin-left: 100px;
+    border: 1px solid #FF690C;
+    font-size:16px;
+	margin-right: 20px; 
+}
+
+.banner2
+{
+    background: #007bff;
+    height: 100px;
+    line-height: 2em;
+    font-weight: 100;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+    font-size: 1.2em;
+	margin-right: 1em;
+	width: 100vw;
+}
+
+.banner2 h2 {
+	margin-left: 1em;
+}
+}
 
 
 
