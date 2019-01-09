@@ -2,7 +2,7 @@ import question from '../models/question';
 import user from '../models/users';
 
 const questionController = {
-	/**
+	/** Create a question record
 	 *
 	 *
 	 * @param {object} request
@@ -42,7 +42,7 @@ const questionController = {
 		);
 	},
 	/**
-	 *
+	 *Upvote a question record
 	 *
 	 * @param {object} request
 	 * @param {object} response
@@ -72,7 +72,7 @@ const questionController = {
 		});
 	},
 	/**
-		 * Downvote a question record
+		 *Downvote a question record
 		 *
 		 * @param {object} request
 		 * @param {object} response
