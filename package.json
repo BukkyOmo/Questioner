@@ -1,0 +1,65 @@
+{
+  "name": "questioner",
+  "version": "1.0.0",
+  "description": "Questioner is an app that crowd-sources questions for meetups/events.",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node app.js",
+    "serve": "nodemon app.js --exec babel-node --presets env,stage-2 app.js",
+    "build": "babel app.js --out-dir build",
+    "test": "mocha --require babel-register --exit",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "dev-start": "babel-watch app.js",
+    "lint": "eslint app.js",
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build ./server -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BukkyOmo/Questioner.git"
+  },
+  "author": "Bukola Omosefunmi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BukkyOmo/Questioner/issues"
+  },
+  "homepage": "https://github.com/BukkyOmo/Questioner#readme",
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": 2000
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babel-watch": "^2.0.7",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.11.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "nyc": "^13.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "moment": "^2.23.0",
+    "morgan": "^1.9.1"
+  },
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": 4000
+  },
+  "directories": {
+    "test": "test"
+  }
+}
