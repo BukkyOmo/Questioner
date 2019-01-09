@@ -13,12 +13,7 @@ const meetupController = {
 		return res.json({
 			status: 200,
 			message: true,
-			data: [{
-				id: oneMeetup.id,
-				topic: oneMeetup.topic,
-				location: oneMeetup.location,
-				happeningOn: oneMeetup.happeningOn
-			}]
+			data: [{ oneMeetup }]
 		});
 	},
 
@@ -26,18 +21,21 @@ const meetupController = {
 		return res.json({
 			status: 200,
 			message: true,
-			data: meetup
+			data: [{ meetup }]
 		});
 	},
 
 	createMeetup(request, response) {
+		const {
+			topic, location, happeningOn, tags,
+		} = request.body;
 		const newMeetup = {
 			id: meetup.length + 1,
 			createdOn: Date(),
-			location: request.body.location,
-			topic: request.body.topic,
-			happeningOn: Date(request.body.happeningOn),
-			tags: request.body.tags || null
+			topic,
+			location,
+			happeningOn,
+			tags
 		};
 		if (newMeetup.location && newMeetup.topic && newMeetup.happeningOn) {
 			meetup.push(newMeetup);
@@ -45,12 +43,7 @@ const meetupController = {
 				{
 					status: 200,
 					message: true,
-					data: {
-						topic: request.body.topic,
-						location: request.body.location,
-						happeningOn: newMeetup.happeningOn,
-						tags: request.body.tags
-					}
+					data: [{ newMeetup }]
 				}
 			);
 		}
@@ -58,7 +51,7 @@ const meetupController = {
 			{
 				status: 404,
 				message: false,
-				data: 'meetup cannot be created'
+				data: ({ message: 'meetup cannot be created' })
 			}
 		);
 	}
