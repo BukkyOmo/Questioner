@@ -2,6 +2,15 @@ import meetup from '../models/meetup';
 import rsvpmeetup from '../models/rsvp';
 
 const rsvpController = {
+
+	/**
+	 *Create rsvp for a question record
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
 	createRsvp(request, response) {
 		const findmeetup = meetup.find(onemeetup => onemeetup.id === Number(request.params.meetupId));
 		const rsvpMeetup = {

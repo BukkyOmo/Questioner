@@ -1,9 +1,15 @@
-
-
 import question from '../models/question';
 import user from '../models/users';
 
 const questionController = {
+	/**
+	 * Create question method
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
 	createQuestion(request, response) {
 		const newQuestion = {
 			id: question.length + 1,
@@ -37,6 +43,14 @@ const questionController = {
 		);
 	},
 
+	/**
+		 * Upvote a question record
+		 *
+		 * @param {object} request
+		 * @param {object} response
+		 *
+		 * @returns {object}
+		 */
 	upvoteQuestion(request, response) {
 		const findQuestion = question
 			.find(onequestion => onequestion.id === Number(request.params.id));
@@ -59,6 +73,7 @@ const questionController = {
 			}]
 		});
 	},
+
 };
 
 export default questionController;
