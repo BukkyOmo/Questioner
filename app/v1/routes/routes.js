@@ -16,7 +16,8 @@ router.route('/meetups/:meetupsId/questions')
 	.post(questionController.createQuestion);
 
 router.route('/meetups/:meetupId/questions/:id')
-	.patch(questionController.upvoteQuestion);
+	.patch(questionController.upvoteQuestion)
+	.patch(questionController.downvoteQuestion);
 
 router.route('/meetups/:meetupId/rsvp')
 	.post(rsvpController.createRsvp);

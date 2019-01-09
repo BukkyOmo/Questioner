@@ -12,7 +12,6 @@ describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
 		chai.request(app)
 			.get('/api/v1/blow')
 			.end((err, res) => {
-				console.log('response', res);
 				expect(res.body.status).to.be.equal(404);
 				expect(res.body.message).to.be.equal(false);
 				done();
@@ -168,7 +167,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			upvotes: 0,
+			votes: 5
 		};
 		chai.request(app)
 			.patch('/api/v1/meetups/3/questions/1')
@@ -189,7 +188,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			votes: 0,
+			votes: 5
 		};
 		chai.request(app)
 			.patch('/api/v1/meetups/6/questions/9')
@@ -197,6 +196,45 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res.body.status).to.be.equal(404);
 				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+
+	it('it should downvote a question', (done) => {
+		const myQuestion = {
+			id: 2,
+			createdOn: '2-3-2015',
+			createdBy: 2,
+			meetup: 4,
+			title: 'i love code',
+			content: 'let us celebrate',
+			votes: 7
+		};
+		chai.request(app)
+			.patch('/api/v1/meetups/4/questions/2')
+			.send(myQuestion)
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when question to be downvoted does not exist', (done) => {
+		const downQuestion = {
+			id: 10,
+			createdOn: '2-3-2015',
+			createdBy: 6,
+			meetup: 9,
+			title: 'i love code',
+			content: 'let us celebrate',
+			votes: 3
+		};
+		chai.request(app)
+			.patch('/api/v1/meetups/19/questions/3')
+			.send(downQuestion)
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(200);
 				done();
 			});
 	});
