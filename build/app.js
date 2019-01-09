@@ -30,7 +30,8 @@ app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
 
 app.use('/api/v1', _routes2.default);
-app.use('*', function (request, response) {
+
+app.get('*', function (request, response) {
 	return response.json({
 		status: 404,
 		message: false,
