@@ -13,11 +13,11 @@ app.use(bodyparser.json());
 
 app.use('/api/v1', routes);
 
-// app.use('*', (request, response) => response.json({
-// 	status: 404,
-// 	message: false,
-// 	error: ({ message: 'The page you tried to access cannot be found' })
-// }));
+app.get('*', (request, response) => response.json({
+	status: 404,
+	message: false,
+	error: ({ message: 'The page you tried to access cannot be found' })
+}));
 
 app.listen(port, () => {
 	console.log('Questioner app listening on port', port);
