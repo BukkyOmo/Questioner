@@ -170,7 +170,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			votes: 5
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/3/questions/1')
+			.patch('/api/v1/meetups/3/questions/1/upvote')
 			.send(newQuestion)
 			.end((err, res) => {
 				expect(res).to.have.status(200);
@@ -191,7 +191,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			votes: 5
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/6/questions/9')
+			.patch('/api/v1/meetups/6/questions/5/upvote')
 			.send(newQuestion)
 			.end((err, res) => {
 				expect(res.body.status).to.be.equal(404);
@@ -201,19 +201,20 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 	});
 
 	it('it should downvote a question', (done) => {
-		const myQuestion = {
-			id: 2,
+		const newQuestion = {
+			id: 1,
 			createdOn: '2-3-2015',
-			createdBy: 2,
-			meetup: 4,
+			createdBy: 1,
+			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			votes: 7
+			votes: 5,
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/4/questions/2')
-			.send(myQuestion)
+			.patch('/api/v1/meetups/3/questions/1/downvote')
+			.send(newQuestion)
 			.end((err, res) => {
+				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
 				expect(res.body.message).to.be.equal(true);
 				done();
@@ -221,20 +222,21 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 	});
 
 	it('it should throw an error when question to be downvoted does not exist', (done) => {
-		const downQuestion = {
-			id: 10,
+		const newQuestion = {
+			id: 9,
 			createdOn: '2-3-2015',
-			createdBy: 6,
-			meetup: 9,
+			createdBy: 1,
+			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			votes: 3
+			votes: 5
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/19/questions/3')
-			.send(downQuestion)
+			.patch('/api/v1/meetups/6/questions/5/downvote')
+			.send(newQuestion)
 			.end((err, res) => {
-				expect(res.body.status).to.be.equal(200);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});

@@ -104,7 +104,6 @@ const questionController = {
 			}]
 		});
 	},
-
 };
 
 export default questionController;
