@@ -7,19 +7,6 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
-	it('it should test for routes that are not specified', (done) => {
-		chai.request(app)
-			.get('/api/v1/blow')
-			.end((err, res) => {
-				console.log('response', res);
-				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
-				done();
-			});
-	});
-});
-
 describe('TEST ALL MEETUP ENDPOINTS', () => {
 	it('it should get a specific meetup', (done) => {
 		chai.request(app)
@@ -168,7 +155,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			upvotes: 0,
+			votes: 0,
 		};
 		chai.request(app)
 			.patch('/api/v1/meetups/3/questions/1')
