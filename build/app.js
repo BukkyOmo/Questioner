@@ -32,15 +32,14 @@ app.use(_bodyParser2.default.json());
 app.use('/api/v1', _routes2.default);
 
 app.get('*', function (request, response) {
-	return response.json({
+	response.json({
 		status: 404,
 		message: false,
-		error: { message: 'The page you tried to access cannot be found' }
+		error: { message: 'The route you are trying to access does not exist' }
 	});
 });
 
 app.listen(port, function () {
 	console.log('Questioner app listening on port', port);
 });
-
 exports.default = app;
