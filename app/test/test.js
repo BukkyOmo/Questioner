@@ -7,6 +7,18 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
+	it('it should test for routes that are not specified', (done) => {
+		chai.request(app)
+			.get('/api/v1/blow')
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+});
+
 describe('TEST ALL MEETUP ENDPOINTS', () => {
 	it('it should get a specific meetup', (done) => {
 		chai.request(app)
@@ -155,10 +167,10 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			votes: 0,
+			votes: 5
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/3/questions/1')
+			.patch('/api/v1/meetups/3/questions/1/upvote')
 			.send(newQuestion)
 			.end((err, res) => {
 				expect(res).to.have.status(200);
@@ -176,10 +188,51 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			meetup: 3,
 			title: 'i love code',
 			content: 'let us celebrate',
-			votes: 0,
+			votes: 5
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/6/questions/9')
+			.patch('/api/v1/meetups/6/questions/5/upvote')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+
+	it('it should downvote a question', (done) => {
+		const newQuestion = {
+			id: 1,
+			createdOn: '2-3-2015',
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: 'let us celebrate',
+			votes: 5,
+		};
+		chai.request(app)
+			.patch('/api/v1/meetups/3/questions/1/downvote')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when question to be downvoted does not exist', (done) => {
+		const newQuestion = {
+			id: 9,
+			createdOn: '2-3-2015',
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: 'let us celebrate',
+			votes: 5
+		};
+		chai.request(app)
+			.patch('/api/v1/meetups/6/questions/5/downvote')
 			.send(newQuestion)
 			.end((err, res) => {
 				expect(res.body.status).to.be.equal(404);

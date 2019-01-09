@@ -44,10 +44,41 @@ const questionController = {
 			return response.json({
 				status: 404,
 				message: false,
-				data: 'The question you tried to upvote does not exist'
+				error: 'The question you tried to upvote does not exist'
 			});
 		}
 		findQuestion.votes += 1;
+		return response.json({
+			status: 200,
+			message: true,
+			data: [{
+				meetup: request.params.meetupId,
+				title: findQuestion.title,
+				content: findQuestion.content,
+				votes: findQuestion.votes
+			}]
+		});
+	},
+
+	/**
+		 * Downvote a question record
+		 *
+		 * @param {object} request
+		 * @param {object} response
+		 *
+		 * @returns {object}
+		 */
+	downvoteQuestion(request, response) {
+		const findQuestion = question
+			.find(onequestion => onequestion.id === Number(request.params.id));
+		if (!findQuestion) {
+			return response.json({
+				status: 404,
+				message: false,
+				error: 'The question you tried to downvote does not exist'
+			});
+		}
+		findQuestion.votes -= 1;
 		return response.json({
 			status: 200,
 			message: true,
