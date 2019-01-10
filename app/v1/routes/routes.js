@@ -12,8 +12,11 @@ router.route('/meetups')
 router.route('/meetups/:meetupId')
 	.get(meetupController.getMeetup);
 
-router.route('/meetups/:meetupsId/questions')
+router.route('/meetups/:meetupId/questions')
 	.post(questionController.createQuestion);
+
+router.route('/questions/:id')
+	.get(questionController.getQuestion);
 
 router.route('/meetups/:meetupId/questions/:id/upvote')
 	.patch(questionController.upvoteQuestion);
