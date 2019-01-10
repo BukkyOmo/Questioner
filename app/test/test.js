@@ -159,6 +159,26 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
+	it('it should get a question for a meetup', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/1')
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error if question cannot be found', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/7')
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+
 	it('it should upvote a question', (done) => {
 		const newQuestion = {
 			id: 1,

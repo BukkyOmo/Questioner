@@ -41,6 +41,31 @@ const questionController = {
 			}
 		);
 	},
+
+	/**
+	 *Get a question record
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
+	getQuestion(request, response) {
+		const findQuestion = question.find(onequestion => onequestion.id === Number(request.params.id));
+		if (!findQuestion) {
+			return response.json({
+				status: 404,
+				message: false,
+				error: ({ message: 'This quetsion does not exist' })
+			});
+		}
+		return response.json({
+			status: 200,
+			message: true,
+			data: [{ findQuestion }]
+		});
+	},
+
 	/**
 	 *Upvote a question record
 	 *
@@ -101,5 +126,6 @@ const questionController = {
 			}]
 		});
 	},
+
 };
 export default questionController;
