@@ -63,6 +63,29 @@ body
     line-height: 20px;
     width: 96%;
 } 
+.flex_admincreate{
+ 	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 40%;
+    height: 500px;
+    margin: auto;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;	
+}
+.items_admincreate
+{
+    display: flex;
+    flex-direction: row; 
+    justify-content: flex-start;
+    height: 45px;  
+	padding: 10px; 
+ }
 
 input[type=button]
 {
