@@ -18,7 +18,7 @@ body
 
 .container
 {
-    min-height: 100%;
+    height: 100vh;
     position: relative;
 }
 
@@ -157,8 +157,23 @@ img
 .flex3
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     max-width: 400px;
+    height: auto;
+    border: 1px solid #e4e6e8;
+    background: #FFF;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    border-radius: 5px;
+    margin-bottom: 45px;
+
+}
+
+
+.flex4
+{
+    display: flex;
+    /* flex-direction: column; */
+    width: 400px;
     height: auto;
     border: 1px solid #e4e6e8;
     background: #FFF;
@@ -220,7 +235,7 @@ footer
     min-height: 60px;
     width: 100%;
     text-align:center;
-    position: relative;
+    position: absolute;
     bottom:0;
     left:0;
 }
@@ -242,6 +257,18 @@ main
 {
     overflow: auto;
     margin-bottom: 180px;
+}
+
+.foot
+{
+    background-color: rgba(0,0,0,0.95);
+    color: #fff;
+    min-height: 60px;
+    width: 100%;
+    text-align:center;
+    position: relative;
+    bottom:0;
+    left:0;
 }
 
 @media only screen and (max-width: 600px) and (min-width: 320px)
@@ -353,6 +380,30 @@ main
     border-radius: 3px;
     }
 }
+
+  @media only screen and (max-width: 2000px) and (min-width: 1200px){
+img
+    {
+    width: 600px;
+    height: 300px;
+    border-radius: 7px;
+    }
+	
+.flex3
+{
+    display: flex;
+    flex-direction: column;
+    max-width: 620px;
+    height: auto;
+    border: 1px solid #e4e6e8;
+    background: #FFF;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    border-radius: 5px;
+    margin-bottom: 45px;
+
+}
+  }
+
 
 
 
