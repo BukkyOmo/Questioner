@@ -37,20 +37,6 @@ input[type=submit]
     cursor: pointer;
     float: right;
 }
-
-.col-25 
-{
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-  
-  .col-75 
-{
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-}
  
   .row:after 
 {
@@ -58,7 +44,52 @@ input[type=submit]
     display: table;
     clear: both;
 }
+.meetup_details{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
+	width: 600px;
+	background-color: #fff;
+	padding: 20px;
+	margin: 20px;
+	}
+.meetup-div{
+	margin-top:20px;
+}
+.quest_btn{
+	display: flex;
+	justify-content:flex-end;
+}
 
+.quest_btn button{
+	height: 40px;
+    background-color: #FF690C;
+    margin-bottom: 5px;
+    width: 197px;
+    margin-left: 47px;
+    border: 1px solid #FF690C;
+    font-size:16px;
+}
+
+.single-meetup-layout{
+	display: flex;
+	justify-content: center;
+}
+
+.single-meetup-layout .content{
+	width: 45%;
+	/* background: red; */
+}
+/*  */
+.meetup{
+	display: flex;
+	justify-content: center;
+}
+.meetup-image{
+	width: 150px;
+	height:  150px;
+}
 
 @media only screen and (max-width: 600px) 
 {
