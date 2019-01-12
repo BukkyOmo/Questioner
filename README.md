@@ -11,8 +11,26 @@ Questioner is an app that crowd-sources questions for meetups.
 The template for the front end application can be found here <a href="https://bukkyomo.github.io/Questioner/UI/indexpage.html">UI Template</a><br>
 
 <h3>The Application</h3>
+Questioner is an application that crowd-sources questions for meetups. It allows meetup organizers to prioritize the questions to be answered. And users of this platform can upvote or downvote a question. The questions however, are ranked according to their votes.
 
 The main application is hosted here <a href="#">Questioner</a><br>
+
+<h3>Getting Stated</h3><hr>
+
+The tools to get started are
+
+<a href="nodejs.org">Node</a>
+
+<a href="npm.com">NPM</a>
+
+<h3>To download dependencies</h3>
+npm install
+
+<h3>To start application</h3>
+npm start
+
+<h3>To run tests</h3>
+npm run test
 
 
 <h3>Pivotal Tracker Link</h3>
@@ -83,3 +101,22 @@ An admin can add images to a meetup record. The endpoint used here is api/v1/mee
 
 <h4>Admin can add tags</h4>
 An admin can add tags to a meetup record. The endpoint used here is api/v1/meetups/:meetupId.<br>
+
+<h3>Dependencies</h3>
+<ul>
+	<li>Express JS: Web application framework for Node.js.</li>
+	<li>Body-Parser: Parse incoming request bodies in a middleware before your handlers, available under the req.body property</li>
+	<li>Babel: The compiler for writing next generation JavaScript.</li>
+	<li>Morgan: HTTP Request logger middleware for nodejs</li>
+	<li>Chai: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.</li>
+</ul>
+
+<h3>Dev Dependencies</h3>
+<ul>
+	<li>Coveralls: takes json-cov output into stdin and POSTs to coveralls.io</li>
+	<li>eslint: An AST-based pattern checker for JavaScript.</li>
+	<li>expect: This package exports the `expect` function used in [Jest](https://jestjs.io/)\. You can find its documentation [on Jest's website](https://jestjs.io/docs/en/expect.html)\.</li>
+	<li>Mocha: simple, flexible, fun test framework</li>
+	<li>Istanbul: Yet another JS code coverage tool that computes statement, line, function and branch coverage with module loader hooks to transparently add coverage when running tests. Supports all JS coverage use cases including unit tests, server side functional tests</li>
+	<li>nyc: the Istanbul command line interface</li>
+</ul>
