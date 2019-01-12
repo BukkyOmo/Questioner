@@ -79,6 +79,33 @@ const meetupController = {
 			message: true,
 			data: [{ meetup }]
 		});
+	},
+
+	/**
+	 *Delete a specific meetup record
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
+	deleteMeetup(request, response) {
+		const meetupId = parseInt(request.params.meetupId, 10);
+		const oneMeetup = meetup.find(onemeetup => onemeetup.id === meetupId);
+		if (oneMeetup) {
+			const removeMeetup = meetup
+				.filter(onemeetup => onemeetup.id !== meetupId);
+			return response.status(200).json({
+				status: 200,
+				message: true,
+				data: removeMeetup
+			});
+		}
+		return response.status(404).json({
+			status: 404,
+			message: false,
+			error: ({ message: 'The meetup record does not exist' })
+		});
 	}
 };
 

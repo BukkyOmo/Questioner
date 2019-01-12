@@ -10,7 +10,8 @@ router.route('/meetups')
 	.post(meetupController.createMeetup);
 
 router.route('/meetups/:meetupId')
-	.get(meetupController.getMeetup);
+	.get(meetupController.getMeetup)
+	.delete(meetupController.deleteMeetup);
 
 router.route('/meetups/:meetupId/questions')
 	.post(questionController.createQuestion);
