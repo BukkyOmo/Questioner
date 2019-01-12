@@ -21,21 +21,21 @@ const meetupController = {
 			happeningOn,
 			tags
 		};
-		if (newMeetup.location && newMeetup.topic && newMeetup.happeningOn) {
+		if (location && topic && happeningOn) {
 			meetup.push(newMeetup);
-			return response.json(
+			return response.status(201).json(
 				{
-					status: 200,
+					status: 201,
 					message: true,
 					data: [{ newMeetup }]
 				}
 			);
 		}
-		return response.json(
+		return response.status(400).json(
 			{
-				status: 404,
+				status: 400,
 				message: false,
-				data: ({ message: 'meetup cannot be created' })
+				data: ({ message: 'meetup should contain location, topic and happening Date' })
 			}
 		);
 	},
@@ -43,21 +43,22 @@ const meetupController = {
 	/**
 	 *Get a meetup record
 	 *
-	 * @param {object} req
-	 * @param {object} res
+	 * @param {object} request
+	 * @param {object} response
 	 *
 	 * @returns {object}
 	 */
-	getMeetup(req, res) {
-		const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(req.params.meetupId));
+	getMeetup(request, response) {
+		const { meetupId } = request.params;
+		const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(meetupId));
 		if (!oneMeetup) {
-			return res.json({
+			return response.status(404).json({
 				status: 404,
 				message: false,
 				error: 'This meetup record cannot be found'
 			});
 		}
-		return res.json({
+		return response.status(200).json({
 			status: 200,
 			message: true,
 			data: [{ oneMeetup }]
@@ -67,19 +68,18 @@ const meetupController = {
 	/**
 	 *Get all meetup records
 	 *
-	 * @param {object} req
-	 * @param {object} res
+	 * @param {object} request
+	 * @param {object} response
 	 *
 	 * @returns {object}
 	 */
-	getAllMeetups(req, res) {
-		return res.json({
+	getAllMeetups(request, response) {
+		return response.status(200).json({
 			status: 200,
 			message: true,
 			data: [{ meetup }]
 		});
-	},
-
+	}
 };
 
 export default meetupController;

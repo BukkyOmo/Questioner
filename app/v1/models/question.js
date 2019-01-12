@@ -15,7 +15,8 @@ const question = [{
 	meetup: 3,
 	title: 'i love code',
 	content: 'let us celebrate',
-	votes: 9
+	upvotes: 9,
+	downvotes: 4
 }
 ];
 
