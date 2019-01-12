@@ -69,7 +69,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 
 	it('it should not get a specific meetup with invalid id', (done) => {
 		chai.request(app)
-			.get('/api/v1/meetups/3')
+			.get('/api/v1/meetups/9')
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).equal(404);
@@ -85,6 +85,28 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
 				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should get delete a meetup', (done) => {
+		chai.request(app)
+			.delete('/api/v1/meetups/2')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw error if meetup to be deleted does not exist in database', (done) => {
+		chai.request(app)
+			.delete('/api/v1/meetups/9')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
