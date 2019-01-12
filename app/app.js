@@ -1,9 +1,7 @@
 import express from 'express';
 import bodyparser from 'body-parser';
 import morgan from 'morgan';
-import meetup from './v1/routes/meetup';
-import rsvp from './v1/routes/rsvp';
-import question from './v1/routes/question';
+import router from './v1/routes/routes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,9 +10,15 @@ app.use(morgan('tiny'));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
-app.use('/api/v1', meetup);
-app.use('/api/v1/meetups', rsvp);
-app.use('/api/v1/meetups', question);
+app.use('/api/v1', router);
+
+app.get('*', (request, response) => {
+	response.json({
+		status: 404,
+		message: false,
+		error: ({ message: 'The route you are trying to access does not exist' })
+	});
+});
 
 app.listen(port, () => {
 	console.log('Questioner app listening on port', port);

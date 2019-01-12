@@ -4,7 +4,7 @@
   "description": "Questioner is an app that crowd-sources questions for meetups/events.",
   "main": "app/app.js",
   "scripts": {
-    "start": "npm run build && node build/app.js",
+    "start": "babel-node app/app.js",
     "serve": "nodemon app.js --exec babel-node --presets env,stage-2 app.js",
     "build": "babel app --out-dir build",
     "test": "nyc mocha --exit --compilers js:babel-core/register ./app/test/**/*.js",
@@ -28,12 +28,6 @@
   },
   "homepage": "https://github.com/BukkyOmo/Questioner#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^10.0.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "babel-watch": "^2.0.7",
     "coveralls": "^3.0.2",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -48,6 +42,12 @@
     "supertest": "^3.3.0"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babel-watch": "^2.0.8",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",

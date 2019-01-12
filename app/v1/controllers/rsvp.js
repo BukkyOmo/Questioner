@@ -2,32 +2,41 @@ import meetup from '../models/meetup';
 import rsvpmeetup from '../models/rsvp';
 
 const rsvpController = {
+	/**
+	 *Create an rsvp for an upcoming meetup
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
 	createRsvp(request, response) {
+		const { user, reply } = request.body;
+		const { meetupId } = request.params;
 		const findmeetup = meetup.find(onemeetup => onemeetup.id === Number(request.params.meetupId));
 		const rsvpMeetup = {
 			id: rsvpmeetup.length + 1,
-			meetup: request.params.meetupId,
-			user: request.body.email,
-			reply: request.body.reply
+			meetupId,
+			user,
+			reply
 		};
-		const reply = rsvpMeetup.reply.toLowerCase();
 		if (reply === 'yes' || reply === 'no' || reply === 'maybe') {
-			return response.json(
+			return response.status(201).json(
 				{
-					status: 200,
+					status: 201,
 					message: true,
 					data: [{
-						meetup: request.params.meetupId,
+						meetup: meetupId,
 						topic: findmeetup.topic,
-						reply: request.body.reply
+						reply
 					}]
 				}
 			);
 		}
-		return response.json({
-			status: 404,
+		return response.status(400).json({
+			status: 400,
 			message: false,
-			data: 'Staus field cannot be empty'
+			error: ({ message: 'Reply must be either yes, no or maybe' })
 		});
 	}
 };
