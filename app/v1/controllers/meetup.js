@@ -1,4 +1,6 @@
+import moment, { now } from 'moment';
 import meetup from '../models/meetup';
+
 
 const meetupController = {
 	/**
@@ -15,27 +17,28 @@ const meetupController = {
 		} = request.body;
 		const newMeetup = {
 			id: meetup.length + 1,
-			createdOn: Date(),
+			createdOn: moment(Date.now()),
 			topic,
 			location,
-			happeningOn,
+			happeningOn: moment(happeningOn),
 			tags
 		};
-		if (location && topic && happeningOn) {
-			meetup.push(newMeetup);
-			return response.status(201).json(
+		const findMeetup = meetup.find(onemeetup => onemeetup.topic === request.body.topic);
+		if (findMeetup) {
+			return response.status(400).json(
 				{
-					status: 201,
-					message: true,
-					data: [{ newMeetup }]
+					status: 400,
+					message: false,
+					data: ({ message: 'meetup already exist in database' })
 				}
 			);
 		}
-		return response.status(400).json(
+		meetup.push(newMeetup);
+		return response.status(201).json(
 			{
-				status: 400,
-				message: false,
-				data: ({ message: 'meetup should contain location, topic and happening Date' })
+				status: 201,
+				message: true,
+				data: [{ newMeetup }]
 			}
 		);
 	},
@@ -105,6 +108,16 @@ const meetupController = {
 			status: 404,
 			message: false,
 			error: ({ message: 'The meetup record does not exist' })
+		});
+	},
+
+	getAllUpcomingMeetups(request, response) {
+		const upcoming = meetup
+			.filter(comingmeetups => moment(comingmeetups.happeningOn) > moment(Date.now()));
+		return response.status(200).json({
+			status: 200,
+			message: true,
+			data: upcoming
 		});
 	}
 };

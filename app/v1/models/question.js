@@ -6,7 +6,8 @@ const question = [{
 	meetup: 3,
 	title: 'i love code',
 	content: 'let us celebrate',
-	votes: 5
+	upvotes: 5,
+	downvotes: 3
 },
 {
 	id: 2,
