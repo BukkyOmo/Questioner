@@ -12,23 +12,24 @@ const questionController = {
 	 */
 	createQuestion(request, response) {
 		const { title, content } = request.body;
-		const { meetup } = request.params;
+		const { meetupId } = request.params;
 		const newQuestion = {
 			id: question.length + 1,
 			createdOn: Date(),
 			createdBy: user.id,
-			meetup,
+			meetup: meetupId,
 			title,
 			content
 		};
-		if (title && content) {
+		const findQuestion = question.find(onequestion => onequestion.title === request.body.title);
+		if (!findQuestion) {
 			question.push(newQuestion);
 			return response.status(201).json({
 				status: 201,
 				message: true,
 				data: [{
 					user: user.id,
-					meetup: request.params,
+					meetup: meetupId,
 					title: request.body.title,
 					content: request.body.content
 				}]
@@ -52,12 +53,13 @@ const questionController = {
 	 * @returns {object}
 	 */
 	getQuestion(request, response) {
-		const findQuestion = question.find(onequestion => onequestion.id === Number(request.params.id));
+		const findQuestion = question
+			.find(onequestion => onequestion.id === Number(request.params.questionId));
 		if (!findQuestion) {
 			return response.status(404).json({
 				status: 404,
 				message: false,
-				error: ({ message: 'This quetsion does not exist' })
+				error: ({ message: 'This question does not exist' })
 			});
 		}
 		return response.status(200).json({
@@ -77,7 +79,7 @@ const questionController = {
 	 */
 	upvoteQuestion(request, response) {
 		const findQuestion = question
-			.find(onequestion => onequestion.id === Number(request.params.id));
+			.find(onequestion => onequestion.id === Number(request.params.questionId));
 		if (!findQuestion) {
 			return response.status(404).json({
 				status: 404,
@@ -107,7 +109,7 @@ const questionController = {
 		 */
 	downvoteQuestion(request, response) {
 		const searchQuestion = question
-			.find(onequestion => onequestion.id === Number(request.params.id));
+			.find(onequestion => onequestion.id === Number(request.params.questionId));
 		if (!searchQuestion) {
 			return response.status(404).json({
 				status: 404,

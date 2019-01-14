@@ -20,7 +20,7 @@ describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
 });
 
 describe('TEST ALL MEETUP ENDPOINTS', () => {
-	it('it should create a meetup', (done) => {
+	it('it should create a meetup that is not already in database', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
@@ -39,19 +39,21 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it('it should throw an error when all required fields are not submitted', (done) => {
+	it('it should throw an error when the meetup already exists in database', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
+			location: 'Abuja',
 			topic: 'why is it dark over there?',
-			happeningOn: '4-5-2018'
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
 				expect(res).to.have.status(400);
-				expect(res).to.have.status(400);
 				expect(res.body.status).to.be.equal(400);
+				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
@@ -89,7 +91,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it('it should get delete a meetup', (done) => {
+	it('it should delete a meetup', (done) => {
 		chai.request(app)
 			.delete('/api/v1/meetups/2')
 			.end((err, res) => {
@@ -107,6 +109,17 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
 				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+
+	it('it should get all meetups', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups/upcoming')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal(true);
 				done();
 			});
 	});
@@ -151,14 +164,16 @@ describe('TEST ENDPOINT FOR RSVP', () => {
 });
 
 describe('TEST ALL QUESTION ENDPOINTS', () => {
-	it('it should create a question for a meetup', (done) => {
+	it('it should create a question for a meetup that is not already in database', (done) => {
 		const newQuestion = {
 			id: 1,
 			createdOn: '2-3-2015',
 			createdBy: 1,
 			meetup: 3,
-			title: 'i love code',
-			content: 'let us celebrate'
+			title: 'i love ALCforLoop',
+			content: 'let us celebrate',
+			upvotes: 8,
+			downvotes: 2
 		};
 		chai.request(app)
 			.post('/api/v1/meetups/1/questions')
@@ -171,16 +186,19 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
-	it('it should throw an error when either title or content is not created', (done) => {
+	it('it should throw an error when question is in database', (done) => {
 		const newQuestion = {
-			id: 1,
+			id: 2,
 			createdOn: '2-3-2015',
 			createdBy: 1,
 			meetup: 3,
-			content: 'let us celebrate'
+			title: 'i love code',
+			content: 'let us celebrate',
+			upvotes: 9,
+			downvotes: 4
 		};
 		chai.request(app)
-			.post('/api/v1/meetups/1/questions')
+			.post('/api/v1/meetups/3/questions')
 			.send(newQuestion)
 			.end((err, res) => {
 				expect(res).to.have.status(404);
@@ -192,7 +210,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 
 	it('it should get a question for a meetup', (done) => {
 		chai.request(app)
-			.get('/api/v1/questions/1')
+			.get('/api/v1/meetups/3/questions/1')
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
@@ -203,7 +221,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 
 	it('it should throw an error if question cannot be found', (done) => {
 		chai.request(app)
-			.get('/api/v1/questions/7')
+			.get('/api/v1/meetups/1/questions/7')
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
@@ -296,6 +314,196 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
 				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+});
+
+
+describe('TEST ALL MIDDLEWARES', () => {
+	it('it should throw an error when the topic is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: 12345,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				// expect(res.body.errors).to.be.a(Array);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when the topic is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: '',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when the topic is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: 125678,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when the location is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when the location is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			location: 56879,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when the happening date is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			location: 'Lokoja',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it('it should throw an error when the content of the question is empty', (done) => {
+		const newQuestion = {
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: '',
+			upvotes: 9,
+			downvotes: 4
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors).to.eql(['Content is required']);
+				done();
+			});
+	});
+
+	it('it should throw an error when the content of the question is not a string', (done) => {
+		const newQuestion = {
+			createdBy: 1,
+			meetup: 3,
+			title: 'i love code',
+			content: [23456],
+			upvotes: 9,
+			downvotes: 4
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/3/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors).to.eql(['Content must be a string']);
+				done();
+			});
+	});
+
+	it('it should throw an error when the title of the question is empty', (done) => {
+		const newQuestion = {
+			createdBy: 1,
+			meetup: 3,
+			title: '',
+			content: 'Bingo',
+			upvotes: 9,
+			downvotes: 4
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors).to.eql(['Title is required']);
+				done();
+			});
+	});
+
+	it('it should throw an error when the title of the question is not a string', (done) => {
+		const newQuestion = {
+			createdBy: 1,
+			meetup: 3,
+			title: 12089,
+			content: 'Bingo',
+			upvotes: 9,
+			downvotes: 4
+		};
+		chai.request(app)
+			.post('/api/v1/meetups/1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors).to.eql(['Title must be a string']);
 				done();
 			});
 	});
