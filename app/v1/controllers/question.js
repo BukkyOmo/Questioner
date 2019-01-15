@@ -35,9 +35,9 @@ const questionController = {
 				}]
 			});
 		}
-		return response.status(404).json(
+		return response.status(400).json(
 			{
-				status: 404,
+				status: 400,
 				message: false,
 				error: ({ message: 'meetup cannot be created' })
 			}

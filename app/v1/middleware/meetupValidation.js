@@ -14,7 +14,7 @@ class meetupValidator {
 		request.check('topic', 'Topic must be a string').isString();
 		request.check('location', 'Location is required').notEmpty();
 		request.check('location', 'Location must be a string').isString();
-		request.check('happeningOn', 'Happening Date is required').notEmpty();
+		request.check('happeningOn', 'Date is required').notEmpty();
 		const errors = request.validationErrors();
 		const validationErrors = [];
 		if (errors) {

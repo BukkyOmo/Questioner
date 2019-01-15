@@ -201,8 +201,8 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.post('/api/v1/meetups/3/questions')
 			.send(newQuestion)
 			.end((err, res) => {
-				expect(res).to.have.status(404);
-				expect(res.body.status).to.be.equal(404);
+				expect(res).to.have.status(400);
+				expect(res.body.status).to.be.equal(400);
 				expect(res.body.message).to.be.equal(false);
 				done();
 			});
