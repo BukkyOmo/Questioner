@@ -16,7 +16,7 @@
     "coverage": "nyc --reporter=lcov --reporter=text-lcov --require babel-core/register  _mocha --exit test/*.js",
     "report-coverage": "nyc report --reporter=text-lcov | coveralls",
     "codeclimate-report": "codeclimate-test-reporter < ./coverage/lcov.info",
-	"migration": "babel-node ./app/v1/dbModel/db"
+    "migration": "babel-node ./app/v1/dbModel/db"
   },
   "repository": {
     "type": "git",
@@ -58,6 +58,7 @@
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
     "morgan": "^1.9.1",
+    "password-hash": "^1.2.2",
     "pg": "^7.8.0"
   },
   "env": {

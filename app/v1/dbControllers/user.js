@@ -1,6 +1,7 @@
-import pool from '../dbModel/connection';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import pool from '../dbModel/connection';
+
 
 dotenv.config();
 
@@ -11,9 +12,8 @@ class UserController {
 		const {
 			firstname, lastname, username, phoneNumber, email, password
 		} = request.body;
-		pool.query({ text: 'SELECT email FROM users WHERE email = $1', values: [email] })
+		pool.query({ text: 'SELECT * FROM users WHERE email = $1 OR username = $2', values: [email, username] })
 			.then((result) => {
-				console.log(result);
 				if (result.rows.length > 0) {
 					return response.status(409).json({
 						status: 409,
@@ -27,12 +27,14 @@ class UserController {
 				};
 				pool.query(selectQuery).then((users) => {
 					if (users.rows) {
-						const token = jwt.sign({ id: users.rows[0].id, isAdmin: users.rows[0].isadmin}, secret, { expiresIn: 'hrs' });
+						const token = jwt.sign({ id: users.rows[0].user_id, isAdmin: users.rows[0].isadmin }, secret, { expiresIn: '1h' });
 						return response.status(201).json({
-							token, 
 							status: 201,
-							message: true,
-							data: [users.rows[0]]
+							message: 'Your registration was successful',
+							data: [{
+								token,
+								user: users.rows[0]
+							}],
 						});
 					}
 				}).catch(error => (
