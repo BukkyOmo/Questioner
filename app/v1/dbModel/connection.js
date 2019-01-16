@@ -3,13 +3,12 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// const config = {
-// 	development: process.env.DATABASE_URL,
-// 	test: process.env.DATABASE_MIGRATION,
-// };
+const config = {
+	development: process.env.DATABASE_URL,
+	test: process.env.DATABASE_MIGRATION,
+};
 
-// const env = process.env.NODE_ENV || 'development';
-const DATABASE_URL = process.env.NODE_ENV || 'DATABASE_URL';
+const env = process.env.NODE_ENV || 'development';
 
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL
