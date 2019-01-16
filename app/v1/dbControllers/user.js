@@ -1,3 +1,4 @@
+import passwordhash from 'password-hash';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../dbModel/connection';
@@ -12,6 +13,7 @@ class UserController {
 		const {
 			firstname, lastname, username, phoneNumber, email, password
 		} = request.body;
+		const hash = passwordhash.generate(password);
 		pool.query({ text: 'SELECT * FROM users WHERE email = $1 OR username = $2', values: [email, username] })
 			.then((result) => {
 				if (result.rows.length > 0) {
@@ -23,7 +25,7 @@ class UserController {
 				}
 				const selectQuery = {
 					text: 'INSERT INTO users (firstname, lastname, username, phoneNumber, email, password, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-					values: [firstname, lastname, username, phoneNumber, email, password, false]
+					values: [firstname, lastname, username, phoneNumber, email, hash, false]
 				};
 				pool.query(selectQuery).then((users) => {
 					if (users.rows) {
