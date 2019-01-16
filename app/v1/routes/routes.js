@@ -4,8 +4,12 @@ import questionController from '../controllers/question';
 import rsvpController from '../controllers/rsvp';
 import meetupValidator from '../middleware/meetupValidation';
 import questionVlidator from '../middleware/questionValidation';
+import UserController from '../dbControllers/user';
 
 const router = express.Router();
+
+router.route('/test')
+	.post(UserController.signup);
 
 router.route('/meetups')
 	.get(meetupController.getAllMeetups)

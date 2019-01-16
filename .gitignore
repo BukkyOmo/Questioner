@@ -3,3 +3,4 @@ package-lock.json
 build/
 .nyc_output/
 .coveralls.yml
+.env
