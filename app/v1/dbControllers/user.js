@@ -1,4 +1,10 @@
 import pool from '../dbModel/connection';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const secret = process.env.SECRET;
 
 class UserController {
 	static signup(request, response) {
@@ -21,7 +27,9 @@ class UserController {
 				};
 				pool.query(selectQuery).then((users) => {
 					if (users.rows) {
+						const token = jwt.sign({ id: users.rows[0].id, isAdmin: users.rows[0].isadmin}, secret, { expiresIn: 'hrs' });
 						return response.status(201).json({
+							token, 
 							status: 201,
 							message: true,
 							data: [users.rows[0]]
