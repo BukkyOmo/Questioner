@@ -10,12 +10,12 @@ const { expect } = chai;
 
 describe('TEST ALL USER ENDPOINTS', () => {
 	const newUser = {
-		firstname: 'bukola',
+		firstname: 'bukky',
 		lastname: 'Odunayo',
 		password: 'flexy',
-		email: 'odunbabe@gmail.com',
+		email: 'odunbabey@gmail.com',
 		phoneNumber: '09039136484',
-		username: 'bukkie'
+		username: 'bukkade'
 	};
 	it.only('it should create a user that is not already in database', (done) => {
 		chai.request(app)
@@ -30,6 +30,14 @@ describe('TEST ALL USER ENDPOINTS', () => {
 	});
 
 	it.only('it should not create a user whose email is not unique', (done) => {
+		const myUser = {
+			firstname: 'bukky',
+			lastname: 'Odunayo',
+			password: 'flexy',
+			email: 'odunbabey@gmail.com',
+			phoneNumber: '09039136484',
+			username: 'bukkadeye'
+		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send(newUser)
