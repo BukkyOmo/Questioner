@@ -43,10 +43,43 @@ class UserController {
 					response.status(500).json({
 						status: 500,
 						message: false,
-						error: ({ message: 'Internal server error' })
+						error: 'Internal server error'
 					})
 				));
 			});
+	}
+
+	static signin(request, response) {
+		const { email, password } = request.body;
+		console.log(request.body);
+		pool.query({ text: 'SELECT * from users WHERE email = $1', values: [email] })
+			.then((result) => {
+				if (result.rows.length > 0) {
+					if (passwordhash.verify(password, result.rows[0].password)) {
+						const token = jwt.sign({ id: result.rows[0].user_id, isAdmin: result.rows[0].isadmin }, secret, { expiresIn: '432h' });
+						return response.status(200).json({
+							status: 200,
+							message: 'Login was successful',
+							data: [{
+								token,
+								user: result.rows[0]
+							}],
+						});
+					}
+					return response.status(409).json({
+						status: 409,
+						message: false,
+						error: 'Invalid credentials'
+					});
+				}
+				return response.status(404).json({
+					status: 404,
+					message: false,
+					error: 'No user found'
+				});
+			}).catch(err => (
+				response.status(500).json({ err })
+			));
 	}
 }
 export default UserController;

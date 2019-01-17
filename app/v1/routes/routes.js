@@ -11,6 +11,9 @@ const router = express.Router();
 router.route('/auth/signup')
 	.post(UserController.signup);
 
+router.route('/auth/signin')
+	.post(UserController.signin);
+
 router.route('/meetups')
 	.get(meetupController.getAllMeetups)
 	.post(meetupValidator.createMeetupValidator, meetupController.createMeetup);
