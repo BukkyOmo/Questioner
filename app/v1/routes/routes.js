@@ -8,7 +8,7 @@ import UserController from '../dbControllers/user';
 
 const router = express.Router();
 
-router.route('/test')
+router.route('/auth/signup')
 	.post(UserController.signup);
 
 router.route('/meetups')
