@@ -8,7 +8,7 @@
     "serve": "nodemon app.js --exec babel-node --presets env,stage-2 app.js",
     "build": "babel app --out-dir build",
 	"pretest": "export NODE_ENV=test || SET \"NODE_ENV=test\" && npm run migration",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nyc mocha --exit --compilers js:babel-core/register --timeout 10000 ./app/test/**/*.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nyc mocha --exit --compilers js:babel-core/register --timeout 30000 ./app/test/**/*.js",
     "dev-start": "babel-watch app/app.js",
     "lint": "eslint app/app.js",
     "clean": "rm -rf build && mkdir build",
