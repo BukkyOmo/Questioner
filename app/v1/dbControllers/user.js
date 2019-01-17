@@ -19,7 +19,7 @@ class UserController {
 				if (result.rows.length > 0) {
 					return response.status(409).json({
 						status: 409,
-						message: false,
+						message: 'User already exists',
 						error: ({ message: 'user already exists' })
 					});
 				}

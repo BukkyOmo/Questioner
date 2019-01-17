@@ -5,13 +5,13 @@ dotenv.config();
 
 const config = {
 	development: process.env.DATABASE_URL,
-	test: process.env.DATABASE_MIGRATION,
+	test: process.env.TESTDATABASE_URL,
 };
 
 const env = process.env.NODE_ENV || 'development';
 
 const pool = new Pool({
-	connectionString: process.env.DATABASE_URL
+	connectionString: config[env]
 });
 
 pool.on('connect', () => {
