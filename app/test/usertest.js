@@ -13,10 +13,10 @@ describe('TEST ALL USER ENDPOINTS', () => {
 		const newUser = {
 			firstname: 'bukky',
 			lastname: 'Odunayo',
-			password: 'flexy',
-			email: 'odunbabey@gmail.com',
+			password: 'flexyB',
+			email: 'odunbukky@gmail.com',
 			phoneNumber: '09039136484',
-			username: 'bukkade'
+			username: 'bukkade1'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
@@ -114,6 +114,136 @@ describe('TEST ALL USER ENDPOINTS', () => {
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
 				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+});
+
+describe('TEST ALL MEETUP ENDPOINTS', () => {
+	it.only('it should create a meetup that is not already in database', (done) => {
+		const newMeetup = {
+			topic: 'God saves',
+			location: 'Anambra',
+			happeningOn: '2019-04-02',
+			tags: 'event'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(201);
+				expect(res.body.status).to.be.equal(201);
+				expect(res.body.message).to.be.equal('Your registration was successful');
+				done();
+			});
+	});
+});
+
+
+describe('TEST ALL MIDDLEWARES', () => {
+	it.only('it should throw an error when the topic is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: 12345,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the topic is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: '',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the topic is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: 125678,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the location is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the location is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			location: 56879,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the happening date is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			location: 'Lokoja',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
