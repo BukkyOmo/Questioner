@@ -104,8 +104,8 @@ describe('TEST ALL USER ENDPOINTS', () => {
 
 	it.only('it should not log in a user whose password is incorrect', (done) => {
 		const newUser = {
-			email: 'odunbabey@gmail.com',
-			password: 'bukkadeerty'
+			email: 'odunbukola@gmail.com',
+			password: 'bukkade12'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signin')
@@ -135,6 +135,17 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
 				expect(res.body.message).to.be.equal('Your registration was successful');
+				done();
+			});
+	});
+
+	it.only('it should get all meetups', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.success).to.be.equal(true);
+				expect(res.body.message).to.be.equal('Successfully Retrived all meetups');
 				done();
 			});
 	});

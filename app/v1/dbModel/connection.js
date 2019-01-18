@@ -6,6 +6,7 @@ dotenv.config();
 const config = {
 	development: process.env.DATABASE_URL,
 	test: process.env.TESTDATABASE_URL,
+	production: process.env.PRODUCTION_URL
 };
 
 const env = process.env.NODE_ENV || 'development';
