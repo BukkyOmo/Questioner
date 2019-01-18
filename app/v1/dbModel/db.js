@@ -11,8 +11,7 @@ const TABLE = [
 		email VARCHAR(128) UNIQUE NOT NULL,
 		password VARCHAR NOT NULL,
 		isAdmin BOOLEAN,
-        created_date TIMESTAMP NOT NULL DEFAULT NOW(),
-        modified_date TIMESTAMP
+        created_date TIMESTAMP NOT NULL DEFAULT NOW()
       )`,
 	`DROP TABLE IF EXISTS meetup;
 		CREATE TABLE meetup(
@@ -23,8 +22,7 @@ const TABLE = [
         images BYTEA,
 		tags VARCHAR(128),
         user_id INTEGER,
-        created_date TIMESTAMP NOT NULL DEFAULT NOW(),
-        modified_date TIMESTAMP
+        created_date TIMESTAMP NOT NULL DEFAULT NOW()
       )`,
 	`DROP TABLE IF EXISTS question;
 		CREATE TABLE question(
