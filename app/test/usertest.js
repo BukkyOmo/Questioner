@@ -11,19 +11,19 @@ const { expect } = chai;
 describe('TEST ALL USER ENDPOINTS', () => {
 	it.only('it should create a user that is not already in database', (done) => {
 		const newUser = {
-			firstname: 'Nikola',
-			lastname: 'Charis',
-			password: 'Buksy',
-			email: 'odunayobukola@gmail.com',
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'Buks',
+			email: 'odunbukola@gmail.com',
 			phoneNumber: '09039136484',
-			username: 'bukkys'
+			username: 'bukkade12'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send(newUser)
 			.end((err, res) => {
 				console.log(err);
-				console.log(res);
+				console.log(res.body);
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
 				expect(res.body.message).to.be.equal('Your registration was successful');

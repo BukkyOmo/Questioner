@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import dotenv from 'dotenv';
 import pool from '../dbModel/connection';
 
