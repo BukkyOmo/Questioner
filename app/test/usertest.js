@@ -22,8 +22,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.post('/api/v1/auth/signup')
 			.send(newUser)
 			.end((err, res) => {
-				console.log(err);
-				console.log(res);
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
 				expect(res.body.message).to.be.equal('Your registration was successful');
