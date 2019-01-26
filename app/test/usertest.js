@@ -104,8 +104,8 @@ describe('TEST ALL USER ENDPOINTS', () => {
 
 	it.only('it should not log in a user whose password is incorrect', (done) => {
 		const newUser = {
-			email: 'odunbabey@gmail.com',
-			password: 'bukkadeerty'
+			password: 'Buksyy',
+			email: 'odunbukola@gmail.com',
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signin')

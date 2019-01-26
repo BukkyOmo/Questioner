@@ -1,6 +1,5 @@
 import express from 'express';
 import meetupValidator from '../middleware/meetupValidation';
-import questionVlidator from '../middleware/questionValidation';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 
