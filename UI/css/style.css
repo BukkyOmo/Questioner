@@ -246,14 +246,10 @@ body:before
     margin-top: -32767px;
 }
 
-p{
-    text-align: center;
-}
-
 main
 {
     overflow: auto;
-    margin-bottom: 180px;
+    margin-bottom: 40px;
 }
 
 .foot
@@ -270,6 +266,7 @@ main
 
 .meetups-header{
 	margin: 30px;
+	text-align: center;
 	text-decoration: underline;
 	text-decoration-color: #FF690C;
 	font-weight: 700;
@@ -293,7 +290,8 @@ main
   margin: 0 4px;
 }
 
-.pagination a.active {
+.pagination a
+ctive {
   background-color: #FF690C;
   color: white;
   border: 1px solid #FF690C;
@@ -310,7 +308,7 @@ main
 	display: flex;
 	justify-content: flex-start;
 	align-items: flex-start;
-	width: 45%;
+	width: 44vw;
 	height: auto;
 	margin: 20px;
 	padding: 10px;
@@ -320,7 +318,7 @@ main
 }
 
 .question-flex{
-	width: 45%;
+	width: 44vw;
 	height: auto;
 	margin: 10px;
 	padding: 10px;
@@ -350,10 +348,20 @@ main
 textarea{
 	resize: none;
 	outline: none;
+	border: #FFF;
+	width: 44vw;
+	box-shadow: 5px 5px 5px #e4e6e8;
+}
+
+hr{
+	color: #e4e6e8;	
+	height: 1px;
+	background-color: #e4e6e8;
+	border: none;
 }
 
 .fas{
-	font-size: 30px;
+	font-size: 18px;
 }
 
 .bg-blue{
@@ -369,8 +377,139 @@ textarea{
 	justify-content: space-around;
 }
 
+.submit{
+	height: 40px;
+    background-color: #FF690C;
+    margin: 10px;
+    width: 97px;
+	color: #fff;
+    border: 1px solid #FF690C;
+    font-size:16px;
+}
+
+#meetup_topic, #meetup_location, #meetup_date, #meetup_image, #meetup_tag{
+	width: 75%;
+}
+
+
 .pagination a:hover:not(.active) {background-color: #ddd;}
-@media only screen and (max-width: 600px) and (min-width: 320px)
+
+.profile-card{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 27%;
+	height: auto;
+	background-color: #FFF;
+	color: #007bff;
+	padding: 10px;
+}
+
+.rsvp-card{
+	width: 50%;
+	height: auto;
+	background-color: #FFF;
+	padding: 10px;
+	margin: auto;
+	margin-top: 30px;
+}
+.mt_30{
+	margin-top: 30px;
+}
+
+.align-text{
+	text-align: center;
+}
+
+.blue{
+	color: #007bff;
+}
+
+.blue a{
+	text-decoration: none;
+}
+
+.rsvp-flex{
+	display: flex;
+    flex-flow: column;
+    justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: relative; /* Stay in place */
+  z-index: 1;
+  margin: auto;
+  /* left: 500px; */
+  top: 0;
+  width: 50%; /* Full width */
+  height: 50%; /* Full height */
+}
+
+/* Modal Content */
+.modal-content {
+  position: fixed;
+  bottom: 200px;
+  left: 450px;
+  margin: auto;
+  background-color: #fefefe;
+  text-align: center;
+  width: 20%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.1s;
+  animation-name: slideIn;
+  animation-duration: 0.1s
+}
+
+/* The Close Button */
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+.modal-body {
+	padding: 2px 16px;
+	width: 200px;
+	}
+
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+  from {bottom: -300px; opacity: 0} 
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+
+@media only screen and (max-width: 690px) and (min-width: 320px)
  {
     li a 
     {
@@ -426,6 +565,83 @@ textarea{
     {
     font-size: 14px;
     }
+
+	.profile-card{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 80%;
+	height: auto;
+	background-color: #FFF;
+	color: #007bff;
+	padding: 10px;
+	}
+
+	.rsvp-card{
+	width: 80%;
+	height: auto;
+	background-color: #FFF;
+	padding: 7px;
+	margin: auto;
+	margin-top: 30px;
+	}
+
+	.rsvp-flex{
+	display: flex;
+    flex-flow: column;
+    justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+	}
+
+	.meetup-flex{
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: 90vw;
+	height: auto;
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #fff;
+	background-color: #FFF;
+	box-shadow: 5px 5px 5px #e4e6e8;
+}
+
+	.question-flex{
+	width: 90vw;
+	height: auto;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid #fff;
+	background-color: #FFF;
+	box-shadow: 5px 5px 5px #e4e6e8;
+}
+textarea{
+	resize: none;
+	outline: none;
+	border: #FFF;
+	width: 90vw;
+	box-shadow: 5px 5px 5px #e4e6e8;
+}
+
+.modal-body {
+	padding: 2px 16px;
+	width: 100%;
+	}
+.modal-content {
+  position: fixed;
+  bottom: 200px;
+  left: 100px;
+  margin: auto;
+  background-color: #fefefe;
+  text-align: center;
+  width: 50%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.1s;
+  animation-name: slideIn;
+  animation-duration: 0.1s
+}
   }
   @media only screen and (max-width: 1500px) and (min-width: 700px)
 	{
@@ -474,6 +690,23 @@ textarea{
     border: 1px solid #FF690C;
     border-radius: 3px;
     }
+	.modal-body {
+	padding: 2px 16px;
+	width: 50%;
+	}
+.modal-content {
+  position: fixed;
+  bottom: 200px;
+  left: 100px;
+  margin: auto;
+  background-color: #fefefe;
+  text-align: center;
+  width: 30%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.1s;
+  animation-name: slideIn;
+  animation-duration: 0.1s
+}
 }
 
   @media only screen and (max-width: 2000px) and (min-width: 1500px){
@@ -498,6 +731,34 @@ textarea{
     border-radius: 5px;
     margin-bottom: 45px;
 
+}
+.profile-card{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 27%;
+	height: auto;
+	background-color: #FFF;
+	color: #007bff;
+	padding: 10px;
+}
+
+.rsvp-card{
+	width: 50%;
+	height: auto;
+	background-color: #FFF;
+	padding: 10px;
+	margin: auto;
+	margin-top: 30px;
+}
+
+.rsvp-flex{
+	display: flex;
+    flex-flow: column;
+    justify-content: center;
+	align-items: center;
+	margin-top: 50px;
 }
   }
 
