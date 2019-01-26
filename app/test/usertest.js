@@ -178,24 +178,6 @@ describe('TEST ALL MIDDLEWARES', () => {
 			});
 	});
 
-	it.only('it should throw an error when the topic is not a string', (done) => {
-		const newMeetup = {
-			createdOn: '3-12-2018',
-			location: 'Abuja',
-			topic: 125678,
-			happeningOn: '15-02-2018',
-			tags: ['flowers', 'love']
-		};
-		chai.request(app)
-			.post('/api/v1/meetups')
-			.send(newMeetup)
-			.end((err, res) => {
-				expect(res).to.have.status(400);
-				expect(res.body.error).to.be.equal(true);
-				done();
-			});
-	});
-
 	it.only('it should throw an error when the location is empty', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',

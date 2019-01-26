@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import passwordhash from 'password-hash';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';

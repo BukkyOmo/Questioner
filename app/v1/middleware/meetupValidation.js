@@ -10,11 +10,11 @@ class meetupValidator {
 	 * @memberof meetupValidator
 	 */
 	static createMeetupValidator(request, response, next) {
-		request.check('topic', 'Topic is required').notEmpty();
-		request.check('topic', 'Topic must be a string').isString();
-		request.check('location', 'Location is required').notEmpty();
-		request.check('location', 'Location must be a string').isString();
-		request.check('happeningOn', 'Date is required').notEmpty();
+		request.check('topic', 'Topic is required').trim().notEmpty();
+		request.check('topic', 'Topic must be a string').trim().isString();
+		request.check('location', 'Location is required').trim().notEmpty();
+		request.check('location', 'Location must be a string').trim().isString();
+		request.check('happeningOn', 'Date is required').trim().notEmpty();
 		const errors = request.validationErrors();
 		const validationErrors = [];
 		if (errors) {
