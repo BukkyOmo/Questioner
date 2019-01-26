@@ -1,8 +1,7 @@
 import express from 'express';
 import meetupValidator from '../middleware/meetupValidation';
-import questionVlidator from '../middleware/questionValidation';
-import UserController from '../dbControllers/user';
-import MeetupController from '../dbControllers/meetup';
+import UserController from '../dbControllers/UserController';
+import MeetupController from '../dbControllers/MeetupController';
 
 const router = express.Router();
 
