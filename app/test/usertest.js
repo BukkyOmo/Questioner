@@ -22,7 +22,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.post('/api/v1/auth/signup')
 			.send(newUser)
 			.end((err, res) => {
-				console.log(err);
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
 				expect(res.body.message).to.be.equal('Your registration was successful');
@@ -104,8 +103,8 @@ describe('TEST ALL USER ENDPOINTS', () => {
 
 	it.only('it should not log in a user whose password is incorrect', (done) => {
 		const newUser = {
-			password: 'Buksyy',
 			email: 'odunbukola@gmail.com',
+			password: 'bukkade12'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signin')
@@ -138,6 +137,17 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				done();
 			});
 	});
+
+	it.only('it should get all meetups', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.success).to.be.equal(true);
+				expect(res.body.message).to.be.equal('Successfully Retrived all meetups');
+				done();
+			});
+	});
 });
 
 
@@ -165,6 +175,24 @@ describe('TEST ALL MIDDLEWARES', () => {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
 			topic: '',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the topic is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: 125678,
 			happeningOn: '15-02-2018',
 			tags: ['flowers', 'love']
 		};

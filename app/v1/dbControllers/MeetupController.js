@@ -57,5 +57,28 @@ class MeetupController {
 					));
 			});
 	}
+
+	static getAllMeetups(request, response) {
+		pool.query('SELECT * FROM meetup')
+			.then((allmeetups) => {
+				const meetups = allmeetups.rows;
+				if (meetups.length < 1) {
+					return response.status(404).json({
+						success: false,
+						message: 'No meetup was found in the database',
+					});
+				}
+				return response.status(200).json({
+					success: true,
+					message: 'Successfully Retrived all meetups',
+					data: meetups
+				});
+			})
+			.catch(error => response.status(500).json({
+				success: false,
+				message: 'Internal Server Error',
+				error: error.message,
+			}));
+	}
 }
 export default MeetupController;
