@@ -67,11 +67,11 @@ body
  	display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-width: 40%;
-    height: 500px;
+    min-width: 30%;
+    height: 400px;
     margin: auto;
     box-shadow: 2px 2px 2px #e4e6e8;
-    padding: 10px;
+    padding: 5px;
     background-color: #fff;
 	transform: translate(-50%, -50%);
 	position: absolute; 
@@ -83,7 +83,7 @@ body
     display: flex;
     flex-direction: row; 
     justify-content: flex-start;
-    height: 45px;  
+    height: 40px;  
 	padding: 10px; 
  }
 

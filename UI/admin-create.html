@@ -17,6 +17,7 @@
 </head>
 <body>
      <div class="container"> 
+
     <nav>
         
         <ul>
@@ -42,43 +43,43 @@
 				<div class="items">
 					<label for="meetup_topic">Topic</label>
     
-                    <input type="text" name="meetup_topic" id="meetup_topic" placeholder="topic">
+                    <input type="text" name="meetup_topic" id="meetup_topic" placeholder="topic" class="admin">
     
                 </div>
     
                 <div class="items">
 					<label for="meetup_location">Location</label>
 
-                    <input type="text" name="meetup_location" id="meetup_location" placeholder="location">
+                    <input type="text" name="meetup_location" id="meetup_location" placeholder="location" class="admin-input">
     
                 </div>
     
                 <div class="items">
 					<label for="meetup_date">Date</label>
     
-                    <input type="date" name="meetup_date" id="meetup_date" placeholder="date">
-    
-                </div>
-
-				 <div class="items_create">
-					<label for="meetup_date">Image</label>
-    
-                    <input type="file" name="meetup_image" id="meetup_image" placeholder="image">
+                    <input type="date" name="meetup_date" id="meetup_date" placeholder="date" class="admin-input">
     
                 </div>
 
 				 <div class="items">
 					<label for="meetup_tag">Tags</label>
     
-                    <input type="text" name="meetup_tag" id="meetup_tag" placeholder="Add tags">
+                    <input type="text" name="meetup_tag" id="meetup_tag" placeholder="Add tags" class="admin-input">
     
                 </div>
 
-				<div class="items">
+				 <div class="items">
+					<label for="meetup_date">Image</label>
     
-                    <input type="button" value="Add meetup">
+                    <input type="file" name="meetup_image" id="meetup_image" placeholder="image" class="admin-input">
     
                 </div>
+
+				 <div class="items">
+
+                    <button class="button" type="submit"><a href="#">Add Meetup</a></button>
+    
+            </div>
     
             </form>
 
@@ -91,7 +92,9 @@
         <p>Website Designed by Bukola Omosefunmi</p>
 
     </footer>
+
 	</div>
+
 </body>
 
 </html>
