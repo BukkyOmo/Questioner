@@ -12,6 +12,7 @@ router.route('/auth/signin')
 	.post(UserController.signin);
 
 router.route('/meetups')
+	.get(MeetupController.getAllMeetups)
 	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup);
 
 export default router;
