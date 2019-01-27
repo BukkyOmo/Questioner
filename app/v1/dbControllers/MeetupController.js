@@ -58,10 +58,21 @@ class MeetupController {
 			});
 	}
 
+	/**
+	 *To get all meetups
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns {object}
+	 * @memberof MeetupController
+	 */
 	static getAllMeetups(request, response) {
-		pool.query('SELECT * FROM meetup')
-			.then((allmeetups) => {
-				const meetups = allmeetups.rows;
+		const selectQuery = 'SELECT * FROM meetup';
+
+		pool.query(selectQuery)
+			.then((result) => {
+				const meetups = result.rows;
 				if (meetups.length < 1) {
 					return response.status(404).json({
 						success: false,
@@ -70,7 +81,7 @@ class MeetupController {
 				}
 				return response.status(200).json({
 					success: true,
-					message: 'Successfully Retrived all meetups',
+					message: 'Successfully Retrieved all meetups',
 					data: meetups
 				});
 			})

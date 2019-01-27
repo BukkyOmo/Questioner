@@ -13,10 +13,10 @@ describe('TEST ALL USER ENDPOINTS', () => {
 		const newUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
-			password: 'Buks',
-			email: 'odunbukola@gmail.com',
+			password: 'Buksy',
+			email: 'odunbukola1@gmail.com',
 			phoneNumber: '09039136484',
-			username: 'bukkade12'
+			username: 'bukkade123'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
@@ -34,7 +34,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
 			password: 'Buks',
-			email: 'odunbukola@gmail.com',
+			email: 'odunbukola1@gmail.com',
 			phoneNumber: '09039136484',
 			username: 'bukkadeye'
 		};
@@ -56,7 +56,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			password: 'Buks',
 			email: 'odunbukola12@gmail.com',
 			phoneNumber: '09039136484',
-			username: 'bukkade12'
+			username: 'bukkade123'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
@@ -103,8 +103,8 @@ describe('TEST ALL USER ENDPOINTS', () => {
 
 	it.only('it should not log in a user whose password is incorrect', (done) => {
 		const newUser = {
-			email: 'odunbukola@gmail.com',
-			password: 'bukkade12'
+			email: 'odunbukola1@gmail.com',
+			password: 'bukks'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signin')
@@ -144,7 +144,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				expect(res.body.success).to.be.equal(true);
-				expect(res.body.message).to.be.equal('Successfully Retrived all meetups');
+				expect(res.body.message).to.be.equal('Successfully Retrieved all meetups');
 				done();
 			});
 	});
