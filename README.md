@@ -1,8 +1,8 @@
 # Questioner
 Questioner is an app that crowd-sources questions for meetups.
 
-[![Build Status](https://travis-ci.org/BukkyOmo/Questioner.svg?branch=server)](https://travis-ci.org/BukkyOmo/Questioner)
-[![Coverage Status](https://coveralls.io/repos/github/BukkyOmo/Questioner/badge.svg?branch=server&kill_cache=1")](https://coveralls.io/github/BukkyOmo/Questioner)
+[![Build Status](https://travis-ci.org/BukkyOmo/Questioner.svg?branch=develop)](https://travis-ci.org/BukkyOmo/Questioner)
+[![Coverage Status](https://coveralls.io/repos/github/BukkyOmo/Questioner/badge.svg?branch=develop&kill_cache=1")](https://coveralls.io/github/BukkyOmo/Questioner)
 [![Maintainability](https://api.codeclimate.com/v1/badges/908298e713ba426ef975/maintainability)](https://codeclimate.com/github/BukkyOmo/Questioner/maintainability)
 
 
@@ -13,7 +13,7 @@ The template for the front end application can be found here <a href="https://bu
 <h3>The Application</h3>
 Questioner is an application that crowd-sources questions for meetups. It allows meetup organizers to prioritize the questions to be answered. And users of this platform can upvote or downvote a question. The questions however, are ranked according to their votes.
 
-The main application is hosted here <a href="#">Questioner</a><br>
+The main application is hosted here <a href="https://bukkyomo-questioner.herokuapp.com/api/v1">Questioner</a><br>
 
 <h3>Getting Stated</h3><hr>
 

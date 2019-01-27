@@ -8,7 +8,6 @@ const config = {
 	test: process.env.TESTDATABASE_URL,
 	production: process.env.PRODUCTION_URL
 };
-
 const env = process.env.NODE_ENV || 'development';
 
 const pool = new Pool({
