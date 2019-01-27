@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body
+{
+    background-color: #f2f2f2;
+}
+
+.flex
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 30%;
+    height: 420px;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+}
+
+.align
+{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 25px; 
+}
+
+.items
+{
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around;
+    height: 45px;
+    
+ }
+
+ input[type=text], input[type=email], input[type=date], input[type=select], input[type=password] 
+ {
+    border: 1px solid #e4e6e8;
+    padding-left: 10px;
+    height: 44px;
+    outline: none;
+    line-height: 20px;
+    width: 46%;
+} 
+
+.items input[type=button]
+{
+    height: 38px;
+    width: 96%;
+    margin-top: 10px;
+    background-color: #FF690C; 
+    border: 1px solid #FF690C;
+    font-size: 18px;
+    color: #fff;
+} 
+
+.button
+{
+    height: 38px;
+    width: 96%;
+    margin-top: 10px;
+    background-color: #FF690C; 
+    border: 1px solid #FF690C;
+    font-size: 18px;
+} 
+
+.button a
+{
+    color: #fff;
+}
+
+.items input::placeholder
+{
+    padding: 5px;
+    color: grey;
+}
+
+p
+{
+    font-size: 14px;
+}
+
+#login 
+{
+    margin-top: 2%;
+    text-align: center;
+}
+
+a:link
+{
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) and (min-width: 320px)
+ {
+	 .flex
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 90%;
+    height: 420px;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+}
+ }
+

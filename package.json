@@ -4,10 +4,11 @@
   "description": "Questioner is an app that crowd-sources questions for meetups/events.",
   "main": "app/app.js",
   "scripts": {
-    "start": "npm run build && node build/app.js",
+    "start": "babel-node app/app.js",
     "serve": "nodemon app.js --exec babel-node --presets env,stage-2 app.js",
     "build": "babel app --out-dir build",
-    "test": "nyc mocha --exit --compilers js:babel-core/register ./app/test/**/*.js",
+    "pretest": "export NODE_ENV=test || SET \"NODE_ENV=test\" && npm run migration",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nyc mocha --exit --compilers js:babel-core/register --timeout 30000 ./app/test/**/*.js",
     "dev-start": "babel-watch app/app.js",
     "lint": "eslint app/app.js",
     "clean": "rm -rf build && mkdir build",
@@ -15,7 +16,8 @@
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov --require babel-core/register  _mocha --exit test/*.js",
     "report-coverage": "nyc report --reporter=text-lcov | coveralls",
-    "codeclimate-report": "codeclimate-test-reporter < ./coverage/lcov.info"
+    "codeclimate-report": "codeclimate-test-reporter < ./coverage/lcov.info",
+    "migration": "babel-node ./app/v1/dbModel/db"
   },
   "repository": {
     "type": "git",
@@ -28,12 +30,6 @@
   },
   "homepage": "https://github.com/BukkyOmo/Questioner#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^10.0.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "babel-watch": "^2.0.7",
     "coveralls": "^3.0.2",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -48,12 +44,24 @@
     "supertest": "^3.3.0"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babel-watch": "^2.0.8",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "chai-http": "^4.2.1",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "password-hash": "^1.2.2",
+    "pg": "^7.8.0"
   },
   "env": {
     "NODE_ENV": "development",

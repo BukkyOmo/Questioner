@@ -1,49 +1,311 @@
 import app from '../app';
 
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
+chai.use(chaiAsPromised);
 
 const { expect } = chai;
 
-describe('TEST ALL MEETUP ENDPOINTS', () => {
-	it('it should get a specific meetup', (done) => {
+describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
+	it.only('it should test for routes that are not specified', (done) => {
 		chai.request(app)
-			.get('/api/v1/meetups/1')
+			.get('/api/v1/blow')
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				expect(res.body.error).to.be.equal('The route you are trying to access does not exist');
+				done();
+			});
+	});
+});
+
+describe('TEST ALL USER ENDPOINTS', () => {
+	it.only('it should create a user that is not already in database', (done) => {
+		const newUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'Buksy',
+			email: 'odunbukola1@gmail.com',
+			phoneNumber: '09039136484',
+			username: 'bukkade123'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(newUser)
+			.end((err, res) => {
+				expect(res).to.have.status(201);
+				expect(res.body.status).to.be.equal(201);
+				expect(res.body.message).to.be.equal('Your registration was successful');
+				done();
+			});
+	});
+
+	it.only('it should not create a user whose email is not unique', (done) => {
+		const myUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'BukkyO',
+			email: 'odunbukola1@gmail.com',
+			phoneNumber: '09039136484',
+			username: 'bukkadeye'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(myUser)
+			.end((err, res) => {
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				expect(res.body.message).to.be.equal('User already exists');
+				done();
+			});
+	});
+
+	it.only('it should not create a user whose email is empty', (done) => {
+		const myUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'Bukola',
+			email: '',
+			phoneNumber: '09039136484',
+			username: 'bukkadeye'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(myUser)
+			.end((err, res) => {
+				expect(res.body.errors[0]).to.eql('email must be a valid email');
+				expect(res.body.errors[1]).to.eql('email is required');
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should not create a user whose email is not valid', (done) => {
+		const myUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'Bukola',
+			email: 'bukola',
+			phoneNumber: '09039136484',
+			username: 'bukkadeye'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(myUser)
+			.end((err, res) => {
+				expect(res.body.errors[0]).to.eql('email must be a valid email');
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should not create a user whose username is not unique', (done) => {
+		const newUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'BuksYTT',
+			email: 'odunbukola1@gmail.com',
+			phoneNumber: '09039136484',
+			username: 'bukkade123'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(newUser)
+			.end((err, res) => {
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				expect(res.body.message).to.be.equal('User already exists');
+				done();
+			});
+	});
+
+	it.only('it should not create a user whose username is empty', (done) => {
+		const newUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'BuksYTT',
+			email: 'odunbukola1@gmail.com',
+			phoneNumber: '09039136484',
+			username: ''
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(newUser)
+			.end((err, res) => {
+				expect(res.body.errors[0]).to.be.equal('username is required');
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should not create a user whose username is not a string', (done) => {
+		const newUser = {
+			firstname: 'bukola',
+			lastname: 'Odunayo',
+			password: 'BuksYTT',
+			email: 'odunbukola1@gmail.com',
+			phoneNumber: '09039136484',
+			username: []
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(newUser)
+			.end((err, res) => {
+				expect(res.body.errors[0]).to.be.equal('username must be a string');
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should not create a user with empty fields', (done) => {
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send()
+			.end((err, res) => {
+				expect(res.body.errors[0]).to.be.equal('firstname is required');
+				expect(res.body.errors[2]).to.be.equal('lastname is required');
+				expect(res.body.errors[5]).to.be.equal('email is required');
+				expect(res.body.errors[8]).to.be.equal('password is required');
+				expect(res.body.errors[11]).to.be.equal('username is required');
+				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+
+	it.only('it should log in a user who is in database', (done) => {
+		const newUser = {
+			email: 'odunbukola1@gmail.com',
+			password: 'Buksy'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signin')
+			.send(newUser)
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal(true);
+				expect(res.body.message).to.be.equal('Login was successful');
 				done();
 			});
 	});
 
-	it('it should not get a specific meetup with invalid id', (done) => {
+	it.only('it should not log in a user who is not in database', (done) => {
+		const newUser = {
+			email: 'odmreferral@gmail.com',
+			password: '34567'
+		};
 		chai.request(app)
-			.get('/api/v1/meetups/3')
+			.post('/api/v1/auth/signin')
+			.send(newUser)
 			.end((err, res) => {
-				expect(res.body.status).equal(404);
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
 
-	it('it should get all meetups', (done) => {
+	it.only('it should not log in a user whose email is incorrect', (done) => {
+		const newUser = {
+			email: 'odunbabey11@gmail.com',
+			password: 'flexy'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signin')
+			.send(newUser)
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+
+	it.only('it should not log in a user whose password is incorrect', (done) => {
+		const newUser = {
+			email: 'odunbukola1@gmail.com',
+			password: 'bukks'
+		};
+		chai.request(app)
+			.post('/api/v1/auth/signin')
+			.send(newUser)
+			.end((err, res) => {
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				expect(res.body.message).to.be.equal(false);
+				done();
+			});
+	});
+});
+
+describe('TEST ALL MEETUP ENDPOINTS', () => {
+	it.only('it should get all meetups', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.message).to.be.equal('No meetup was found in the database');
+				done();
+			});
+	});
+
+	it.only('it should create a meetup that is not already in database', (done) => {
+		const newMeetup = {
+			topic: 'God saves',
+			location: 'Anambra',
+			happeningOn: '2019-04-02',
+			tags: 'event'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(201);
+				expect(res.body.status).to.be.equal(201);
+				expect(res.body.message).to.be.equal('Your registration was successful');
+				done();
+			});
+	});
+
+	it.only('it should throw an error if meetup is already in database', (done) => {
+		const newMeetup = {
+			topic: 'God saves',
+			location: 'Niger',
+			happeningOn: '2019-04-02',
+			tags: 'event-center'
+		};
+		chai.request(app)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				expect(res.body.message).to.be.equal('Meetup already exists');
+				done();
+			});
+	});
+
+	it.only('it should get all meetups', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups')
 			.end((err, res) => {
 				expect(res).to.have.status(200);
-				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal(true);
+				expect(res.body.success).to.be.equal(true);
+				expect(res.body.message).to.be.equal('Successfully Retrieved all meetups');
 				done();
 			});
 	});
 
-	it('it should create a meetup', (done) => {
+	it.only('it should throw an error when the topic is not a string', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
-			topic: 'why is it dark over there?',
+			topic: 12345,
 			happeningOn: '15-02-2018',
 			tags: ['flowers', 'love']
 		};
@@ -51,139 +313,96 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
-				expect(res).to.have.status(200);
-				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal(true);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
 
-	it('it should throw an error when all required fields are not submitted', (done) => {
+	it.only('it should throw an error when the topic is empty', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
-			topic: 'why is it dark over there?'
+			location: 'Abuja',
+			topic: '',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
-				expect(res.body.status).to.be.equal(404);
-				done();
-			});
-	});
-});
-
-describe('TEST ENDPOINT FOR RSVP', () => {
-	it('it should create an rsvp for a meetup', (done) => {
-		const rsvpMeetup = {
-			id: 1,
-			meetup: 1,
-			user: 'odunayobukky@gmail.com',
-			reply: 'yes'
-		};
-		chai.request(app)
-			.post('/api/v1/meetups/1/rsvp')
-			.send(rsvpMeetup)
-			.end((err, res) => {
-				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal(true);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
 
-	it('it should throw error if reply is incorrect', (done) => {
-		const rsvpMeetup = {
-			id: 8,
-			meetup: 'The experience 2019',
-			user: 2,
-			reply: 'gedifok'
+	it.only('it should throw an error when the topic is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			location: 'Abuja',
+			topic: 125678,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
-			.post('/api/v1/meetups/9/rsvp')
-			.send(rsvpMeetup)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
 			.end((err, res) => {
-				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
-				done();
-			});
-	});
-});
-
-describe('TEST ALL QUESTION ENDPOINTS', () => {
-	it('it should create a question for a meetup', (done) => {
-		const newQuestion = {
-			id: 1,
-			createdOn: '2-3-2015',
-			createdBy: 1,
-			meetup: 3,
-			title: 'i love code',
-			content: 'let us celebrate'
-		};
-		chai.request(app)
-			.post('/api/v1/meetups/1/questions')
-			.send(newQuestion)
-			.end((err, res) => {
-				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal(true);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
 
-	it('it should throw an error when either title or content is not created', (done) => {
-		const newQuestion = {
-			id: 1,
-			createdOn: '2-3-2015',
-			createdBy: 1,
-			meetup: 3,
-			content: 'let us celebrate'
+	it.only('it should throw an error when the location is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
-			.post('/api/v1/meetups/1/questions')
-			.send(newQuestion)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
 			.end((err, res) => {
-				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
 
-	it('it should upvote a question', (done) => {
-		const newQuestion = {
-			id: 1,
-			createdOn: '2-3-2015',
-			createdBy: 1,
-			meetup: 3,
-			title: 'i love code',
-			content: 'let us celebrate',
-			votes: 0,
+	it.only('it should throw an error when the location is not a string', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			location: 56879,
+			happeningOn: '15-02-2018',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/3/questions/1')
-			.send(newQuestion)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
 			.end((err, res) => {
-				expect(res).to.have.status(200);
-				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal(true);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
 
-	it('it should throw an error when question to be upvoted does not exist', (done) => {
-		const newQuestion = {
-			id: 9,
-			createdOn: '2-3-2015',
-			createdBy: 1,
-			meetup: 3,
-			title: 'i love code',
-			content: 'let us celebrate',
-			votes: 0,
+	it.only('it should throw an error when the happening date is empty', (done) => {
+		const newMeetup = {
+			createdOn: '3-12-2018',
+			topic: 'The influx of gayism in Nigeria',
+			location: 'Lokoja',
+			tags: ['flowers', 'love']
 		};
 		chai.request(app)
-			.patch('/api/v1/meetups/6/questions/9')
-			.send(newQuestion)
+			.post('/api/v1/meetups')
+			.send(newMeetup)
 			.end((err, res) => {
-				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});

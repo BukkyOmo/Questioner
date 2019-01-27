@@ -1,68 +1,125 @@
+import moment, { now } from 'moment';
 import meetup from '../models/meetup';
 
+
 const meetupController = {
-	getMeetup(req, res) {
-		const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(req.params.meetupId));
+	/**
+	 *Create a meetup record
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
+	createMeetup(request, response) {
+		const {
+			topic, location, happeningOn, tags,
+		} = request.body;
+		const newMeetup = {
+			id: meetup.length + 1,
+			createdOn: moment(Date.now()),
+			topic,
+			location,
+			happeningOn: moment(happeningOn),
+			tags
+		};
+		const findMeetup = meetup.find(onemeetup => onemeetup.topic === request.body.topic);
+		if (findMeetup) {
+			return response.status(400).json(
+				{
+					status: 400,
+					message: false,
+					data: ({ message: 'meetup already exist in database' })
+				}
+			);
+		}
+		meetup.push(newMeetup);
+		return response.status(201).json(
+			{
+				status: 201,
+				message: true,
+				data: [{ newMeetup }]
+			}
+		);
+	},
+
+	/**
+	 *Get a meetup record
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
+	getMeetup(request, response) {
+		const { meetupId } = request.params;
+		const oneMeetup = meetup.find(onemeetup => onemeetup.id === Number(meetupId));
 		if (!oneMeetup) {
-			return res.json({
+			return response.status(404).json({
 				status: 404,
 				message: false,
 				error: 'This meetup record cannot be found'
 			});
 		}
-		return res.json({
+		return response.status(200).json({
 			status: 200,
 			message: true,
-			data: [{
-				id: oneMeetup.id,
-				topic: oneMeetup.topic,
-				location: oneMeetup.location,
-				happeningOn: oneMeetup.happeningOn
-			}]
+			data: [{ oneMeetup }]
 		});
 	},
 
-	getAllMeetups(req, res) {
-		return res.json({
+	/**
+	 *Get all meetup records
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
+	getAllMeetups(request, response) {
+		return response.status(200).json({
 			status: 200,
 			message: true,
-			data: meetup
+			data: [{ meetup }]
 		});
 	},
 
-	createMeetup(request, response) {
-		const newMeetup = {
-			id: meetup.length + 1,
-			createdOn: Date(),
-			location: request.body.location,
-			topic: request.body.topic,
-			happeningOn: Date(request.body.happeningOn),
-			tags: request.body.tags || null
-		};
-		if (newMeetup.location && newMeetup.topic && newMeetup.happeningOn) {
-			meetup.push(newMeetup);
-			return response.json(
-				{
-					status: 200,
-					message: true,
-					data: {
-						topic: request.body.topic,
-						location: request.body.location,
-						happeningOn: newMeetup.happeningOn,
-						tags: request.body.tags
-					}
-				}
-			);
+	/**
+	 *Delete a specific meetup record
+	 *
+	 * @param {object} request
+	 * @param {object} response
+	 *
+	 * @returns {object}
+	 */
+	deleteMeetup(request, response) {
+		const meetupId = parseInt(request.params.meetupId, 10);
+		const oneMeetup = meetup.find(onemeetup => onemeetup.id === meetupId);
+		if (oneMeetup) {
+			const removeMeetup = meetup
+				.filter(onemeetup => onemeetup.id !== meetupId);
+			return response.status(200).json({
+				status: 200,
+				message: true,
+				data: removeMeetup
+			});
 		}
-		return response.json(
-			{
-				status: 404,
-				message: false,
-				data: 'meetup cannot be created'
-			}
-		);
-	}
+		return response.status(404).json({
+			status: 404,
+			message: false,
+			error: ({ message: 'The meetup record does not exist' })
+		});
+	},
 
+	getAllUpcomingMeetups(request, response) {
+		const upcoming = meetup
+			.filter(comingmeetups => moment(comingmeetups.happeningOn) > moment(Date.now()));
+		return response.status(200).json({
+			status: 200,
+			message: true,
+			data: upcoming
+		});
+	}
 };
 
 export default meetupController;

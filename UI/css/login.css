@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body
+{
+    background-color: #f2f2f2;
+}
+
+.flex
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 30%;
+    height: 320px;
+    margin: auto;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+}
+
+.flex-forgotpassword
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 20%;
+    height: 200px;
+    margin: auto;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+}
+
+.align
+{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 25px; 
+}
+
+.items
+{
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around;
+    height: 45px;   
+ }
+
+ input[type=text], input[type=email], input[type=date], input[type=select], input[type=password]
+  {
+    border: 1px solid #e4e6e8;
+    padding-left: 10px;
+    height: 44px;
+    outline: none;
+    line-height: 20px;
+    width: 96%;
+} 
+.flex_admincreate{
+ 	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 40%;
+    height: 500px;
+    margin: auto;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;	
+}
+.items_admincreate
+{
+    display: flex;
+    flex-direction: row; 
+    justify-content: flex-start;
+    height: 45px;  
+	padding: 10px; 
+ }
+
+input[type=button]
+{
+    height: 38px;
+    width: 96%;
+    margin-top: 10px;
+    background-color: #FF690C; 
+    border: 1px solid #FF690C;
+    font-size: 18px;
+    color: #fff;
+}
+
+.button
+{
+    height: 38px;
+    width: 96%;
+    margin-top: 10px;
+    background-color: #FF690C; 
+    border: 1px solid #FF690C;
+    font-size: 18px;
+} 
+
+.button a
+{
+    color: #fff;
+}
+
+.items input::placeholder
+{
+    padding: 10px;
+    font-size: 15px;
+    color: grey;
+}
+
+p
+{
+    font-size: 14px;
+}
+
+#login 
+{
+    margin-top: 2%;
+    text-align: center;
+}
+
+a:link
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+@media only screen and (max-width: 600px) and (min-width: 320px)
+ {
+.flex
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 70%;
+    height: 320px;
+    margin: auto;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+}
+
+.flex-forgotpassword
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 60%;
+    height: 200px;
+    margin: auto;
+    box-shadow: 2px 2px 2px #e4e6e8;
+    padding: 10px;
+    background-color: #fff;
+	transform: translate(-50%, -50%);
+	position: absolute; 
+	top: 50%;
+	left: 50%;
+}
+ }
+
