@@ -13,7 +13,7 @@ The template for the front end application can be found here <a href="https://bu
 <h3>The Application</h3>
 Questioner is an application that crowd-sources questions for meetups. It allows meetup organizers to prioritize the questions to be answered. And users of this platform can upvote or downvote a question. The questions however, are ranked according to their votes.
 
-The main application is hosted here <a href="https://bukkyomo-questioner.herokuapp.com/api/v1/">Questioner</a><br>
+The main application is hosted here <a href="https://bukkyomo-questioner.herokuapp.com/api/v1">Questioner</a><br>
 
 <h3>Getting Stated</h3><hr>
 
