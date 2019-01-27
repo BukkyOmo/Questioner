@@ -16,11 +16,11 @@ app.use(bodyparser.json());
 
 app.use('/api/v1', router);
 
-app.get('*', (request, response) => {
+app.all('*', (request, response) => {
 	response.json({
 		status: 404,
 		message: false,
-		error: ({ message: 'The route you are trying to access does not exist' })
+		error: 'The route you are trying to access does not exist'
 	});
 });
 
