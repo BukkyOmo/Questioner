@@ -241,7 +241,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 });
 
 describe('TEST ALL MEETUP ENDPOINTS', () => {
-	it.only('it should get all meetups', (done) => {
+	it.only('it should get all meetups when there is no meetup in database', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups')
 			.end((err, res) => {
@@ -297,6 +297,39 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				expect(res).to.have.status(200);
 				expect(res.body.success).to.be.equal(true);
 				expect(res.body.message).to.be.equal('Successfully Retrieved all meetups');
+				done();
+			});
+	});
+
+	it.only('it should get a meetup that is in the database', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups/1')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.success).to.be.equal(true);
+				expect(res.body.message).to.be.equal('Meetup successfully retrieved');
+				done();
+			});
+	});
+
+	it.only('it should not get a meetup that is not in the database', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups/36')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Meetup cannot be found');
+				done();
+			});
+	});
+
+	it.only('it should throw an error when the wrong params is passed', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups/b:')
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Id must be a number');
 				done();
 			});
 	});

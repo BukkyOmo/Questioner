@@ -91,5 +91,41 @@ class MeetupController {
 				error: error.message,
 			}));
 	}
+	/**
+	 *To get a specific meetup
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns {object}
+	 * @memberof MeetupController
+	 */
+
+	static getAMeetup(request, response) {
+		const { id } = request.params;
+
+		const selectQuery = { text: 'SELECT * FROM meetup WHERE meetup_id = $1', values: [id] };
+
+		pool.query(selectQuery)
+			.then((result) => {
+				const meetup = result.rows;
+				if (meetup.length === 1) {
+					return response.status(200).json({
+						success: true,
+						message: 'Meetup successfully retrieved',
+						data: meetup
+					});
+				}
+				return response.status(404).json({
+					success: false,
+					error: 'Meetup cannot be found'
+				});
+			})
+			.catch(error => response.status(500).json({
+				success: false,
+				message: 'Internal server Error',
+				error: error.message
+			}));
+	}
 }
 export default MeetupController;

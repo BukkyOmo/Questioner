@@ -10,24 +10,21 @@ class paramsValidator {
 	 * @memberof paramsValidator
 	 */
 	static getParamsValidator(request, response, next) {
-		const {
-			meetupId, userId, questionId, commentId
-		} = request.params;
+		const { id } = request.params;
 		const validateId = /^[0-9]+$/;
 		const validateParams = (params) => {
 			if (!params.match(validateId)) {
 				return response.status(400).json({
 					status: 400,
-					message: false,
-					error: ({ message: 'ID must be a number' })
+					success: false,
+					error: 'Id must be a number'
 				});
 			}
 			return next();
 		};
-		if (meetupId) validateParams(meetupId);
-		if (questionId) validateParams(questionId);
-		if (userId) validateParams(userId);
-		if (commentId) validateParams(commentId);
+		if (id) {
+			validateParams(id);
+		}
 	}
 }
 export default paramsValidator;
