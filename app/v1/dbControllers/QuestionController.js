@@ -96,5 +96,55 @@ class QuestionController {
 				});
 			});
 	}
+
+	/**
+	 *Upvote a question
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns object
+	 * @memberof QuestionController
+	 */
+	static upvoteQuestion(request, response) {
+		const { id } = request.params;
+
+		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+
+		pool.query(selectQuery)
+			.then((result) => {
+				if (result.rows.length < 1) {
+					return response.status(404).json({
+						status: 404,
+						success: false,
+						error: 'Question you wish to upvote does not exist'
+					});
+				}
+				// eslint-disable-next-line no-param-reassign
+				result.rows[0].upvotes += 1;
+				const updateQuery = {
+					text: 'UPDATE questions SET upvotes = $1 WHERE question_id = $2 RETURNING *',
+					values: [result.rows[0].upvotes, id],
+				};
+
+				pool.query(updateQuery)
+					.then((upvote) => {
+						if (upvote.rows.length > 0) {
+							return response.status(200).json({
+								status: 200,
+								message: 'Question successfully upvoted',
+								data: upvote.rows
+							});
+						}
+					})
+					.catch((error) => {
+						response.status(500).json({
+							status: 500,
+							message: false,
+							error: 'Internal server error'
+						});
+					});
+			});
+	}
 }
 export default QuestionController;

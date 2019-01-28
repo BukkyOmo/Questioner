@@ -576,4 +576,36 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				done();
 			});
 	});
+
+	it('it should not upvote a question that is not in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/99/upvote')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Question you wish to upvote does not exist');
+				done();
+			});
+	});
+
+	it('it should upvote a question that is in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/1/upvote')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.message).to.be.equal('Question successfully upvoted');
+				done();
+			});
+	});
+
+	it('it should throw an error when the wrong param is passed to be upvoted', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/u/upvote')
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Id must be a number');
+				done();
+			});
+	});
 });

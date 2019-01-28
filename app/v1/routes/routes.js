@@ -28,4 +28,7 @@ router.route('/questions')
 router.route('/questions/:id')
 	.get(paramsValidator.getParamsValidator, QuestionController.getQuestion);
 
+router.route('/questions/:id/upvote')
+	.patch(paramsValidator.getParamsValidator, QuestionController.upvoteQuestion);
+
 export default router;

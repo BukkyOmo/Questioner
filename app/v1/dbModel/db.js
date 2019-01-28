@@ -34,7 +34,7 @@ const TABLE = [
 		upvotes INTEGER DEFAULT 0,
 		downvotes INTEGER DEFAULT 0,
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
-		 modified_date TIMESTAMP
+		modified_date TIMESTAMP
       )`,
 	`DROP TABLE IF EXISTS comment;
 		CREATE TABLE comment(
