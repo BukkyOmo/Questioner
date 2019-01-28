@@ -7,7 +7,7 @@ import router from './v1/routes/routes';
 
 const app = express();
 app.use(expressValidator());
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5050;
 
 app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({ extended: false }));

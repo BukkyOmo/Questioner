@@ -1,9 +1,11 @@
 import express from 'express';
 import meetupValidator from '../middleware/meetupValidator';
 import userValidator from '../middleware/userValidator';
+import questionValidator from '../middleware/questionValidator';
 import paramsValidator from '../middleware/paramsValidator';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
+import QuestionController from '../dbControllers/QuestionController';
 
 const router = express.Router();
 
@@ -19,5 +21,8 @@ router.route('/meetups')
 
 router.route('/meetups/:id')
 	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup);
+
+router.route('/questions')
+	.post(questionValidator.createQuestionValidator, QuestionController.createQuestion);
 
 export default router;

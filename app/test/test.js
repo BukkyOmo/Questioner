@@ -10,7 +10,7 @@ chai.use(chaiAsPromised);
 const { expect } = chai;
 
 describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
-	it.only('it should test for routes that are not specified', (done) => {
+	it('it should test for routes that are not specified', (done) => {
 		chai.request(app)
 			.get('/api/v1/blow')
 			.end((err, res) => {
@@ -23,7 +23,7 @@ describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
 });
 
 describe('TEST ALL USER ENDPOINTS', () => {
-	it.only('it should create a user that is not already in database', (done) => {
+	it('it should create a user that is not already in database', (done) => {
 		const newUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -43,7 +43,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user whose email is not unique', (done) => {
+	it('it should not create a user whose email is not unique', (done) => {
 		const myUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -63,7 +63,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user whose email is empty', (done) => {
+	it('it should not create a user whose email is empty', (done) => {
 		const myUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -83,7 +83,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user whose email is not valid', (done) => {
+	it('it should not create a user whose email is not valid', (done) => {
 		const myUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -102,7 +102,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user whose username is not unique', (done) => {
+	it('it should not create a user whose username is not unique', (done) => {
 		const newUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -122,7 +122,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user whose username is empty', (done) => {
+	it('it should not create a user whose username is empty', (done) => {
 		const newUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -141,7 +141,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user whose username is not a string', (done) => {
+	it('it should not create a user whose username is not a string', (done) => {
 		const newUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
@@ -160,7 +160,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not create a user with empty fields', (done) => {
+	it('it should not create a user with empty fields', (done) => {
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send()
@@ -175,7 +175,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should log in a user who is in database', (done) => {
+	it('it should log in a user who is in database', (done) => {
 		const newUser = {
 			email: 'odunbukola1@gmail.com',
 			password: 'Buksy'
@@ -191,7 +191,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not log in a user who is not in database', (done) => {
+	it('it should not log in a user who is not in database', (done) => {
 		const newUser = {
 			email: 'odmreferral@gmail.com',
 			password: '34567'
@@ -207,7 +207,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not log in a user whose email is incorrect', (done) => {
+	it('it should not log in a user whose email is incorrect', (done) => {
 		const newUser = {
 			email: 'odunbabey11@gmail.com',
 			password: 'flexy'
@@ -223,7 +223,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not log in a user whose password is incorrect', (done) => {
+	it('it should not log in a user whose password is incorrect', (done) => {
 		const newUser = {
 			email: 'odunbukola1@gmail.com',
 			password: 'bukks'
@@ -241,7 +241,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 });
 
 describe('TEST ALL MEETUP ENDPOINTS', () => {
-	it.only('it should get all meetups when there is no meetup in database', (done) => {
+	it('it should get all meetups when there is no meetup in database', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups')
 			.end((err, res) => {
@@ -252,7 +252,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should create a meetup that is not already in database', (done) => {
+	it('it should create a meetup that is not already in database', (done) => {
 		const newMeetup = {
 			topic: 'God saves',
 			location: 'Anambra',
@@ -271,7 +271,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error if meetup is already in database', (done) => {
+	it('it should throw an error if meetup is already in database', (done) => {
 		const newMeetup = {
 			topic: 'God saves',
 			location: 'Niger',
@@ -290,7 +290,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should get all meetups', (done) => {
+	it('it should get all meetups', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups')
 			.end((err, res) => {
@@ -301,7 +301,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should get a meetup that is in the database', (done) => {
+	it('it should get a meetup that is in the database', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups/1')
 			.end((err, res) => {
@@ -312,7 +312,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should not get a meetup that is not in the database', (done) => {
+	it('it should not get a meetup that is not in the database', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups/36')
 			.end((err, res) => {
@@ -323,7 +323,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the wrong params is passed', (done) => {
+	it('it should throw an error when the wrong params is passed', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups/b:')
 			.end((err, res) => {
@@ -334,7 +334,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the topic is not a string', (done) => {
+	it('it should throw an error when the topic is not a string', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
@@ -352,7 +352,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the topic is empty', (done) => {
+	it('it should throw an error when the topic is empty', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
@@ -370,7 +370,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the topic is not a string', (done) => {
+	it('it should throw an error when the topic is not a string', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			location: 'Abuja',
@@ -388,7 +388,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the location is empty', (done) => {
+	it('it should throw an error when the location is empty', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			topic: 'The influx of gayism in Nigeria',
@@ -405,7 +405,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the location is not a string', (done) => {
+	it('it should throw an error when the location is not a string', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			topic: 'The influx of gayism in Nigeria',
@@ -423,7 +423,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it.only('it should throw an error when the happening date is empty', (done) => {
+	it('it should throw an error when the happening date is empty', (done) => {
 		const newMeetup = {
 			createdOn: '3-12-2018',
 			topic: 'The influx of gayism in Nigeria',
@@ -436,6 +436,109 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(400);
 				expect(res.body.error).to.be.equal(true);
+				done();
+			});
+	});
+});
+
+describe('TEST ALL QUESTION ENDPOINTS', () => {
+	it('it should create a question that is not already in database', (done) => {
+		const newQuestion = {
+			title: 'God saves',
+			content: 'Niger is part of the present',
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(201);
+				expect(res.body.status).to.be.equal(201);
+				expect(res.body.message).to.be.equal('Question was successfully posted');
+				done();
+			});
+	});
+
+	it('it should not create a question that is already in database', (done) => {
+		const newQuestion = {
+			title: 'God saves all',
+			content: 'Niger is part of the present',
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				expect(res.body.message).to.be.equal('Question already exists');
+				done();
+			});
+	});
+
+	it('it should not create a question when the title is not a string', (done) => {
+		const newQuestion = {
+			title: 12345,
+			content: 'Niger is part of the present',
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors[0]).to.be.equal('Title must be a string');
+				done();
+			});
+	});
+
+	it('it should not create a question when the title is empty', (done) => {
+		const newQuestion = {
+			content: 'Niger is part of the present',
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors[0]).to.be.equal('Title is required');
+				done();
+			});
+	});
+
+	it('it should not create a question when the content is not a string', (done) => {
+		const newQuestion = {
+			title: 'The reward of labour',
+			content: {},
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors[0]).to.be.equal('Content must be a string');
+				done();
+			});
+	});
+
+	it('it should not create a question when the content is empty', (done) => {
+		const newQuestion = {
+			title: 'The reward of labour',
+			content: '',
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newQuestion)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(400);
+				expect(res.body.error).to.be.equal(true);
+				expect(res.body.errors[0]).to.be.equal('Content is required');
 				done();
 			});
 	});
