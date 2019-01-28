@@ -576,4 +576,37 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				done();
 			});
 	});
+
+	it('it should downvote a question that is in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/1/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.message).to.be.equal('Question was successfully downvoted');
+				done();
+			});
+	});
+
+	it('it should not downvote a question that is not in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/99/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('The question you wish to downvote does not exist');
+				done();
+			});
+	});
+
+	it('it should throw an error when the wrong params is passed to be downvoted', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/{}/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Id must be a number');
+				done();
+			});
+	});
 });
