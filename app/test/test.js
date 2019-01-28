@@ -542,4 +542,38 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				done();
 			});
 	});
+
+	it('it should get a question that is in the database', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/1')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				expect(res.body.success).to.be.equal(true);
+				expect(res.body.message).to.be.equal('Question successfully retrieved');
+				done();
+			});
+	});
+
+	it('it should not get a question that is not in the database', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/99')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Question cannot be found');
+				done();
+			});
+	});
+
+	it('it should throw an error when the wrong params is passed', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/{}')
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Id must be a number');
+				done();
+			});
+	});
 });

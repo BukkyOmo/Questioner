@@ -111,6 +111,7 @@ class MeetupController {
 				const meetup = result.rows;
 				if (meetup.length === 1) {
 					return response.status(200).json({
+						status: 200,
 						success: true,
 						message: 'Meetup successfully retrieved',
 						data: meetup
