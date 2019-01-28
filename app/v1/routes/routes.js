@@ -25,4 +25,7 @@ router.route('/meetups/:id')
 router.route('/questions')
 	.post(questionValidator.createQuestionValidator, QuestionController.createQuestion);
 
+router.route('/questions/:id')
+	.get(paramsValidator.getParamsValidator, QuestionController.getQuestion);
+
 export default router;

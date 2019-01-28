@@ -5,6 +5,15 @@ import pool from '../dbModel/connection';
 dotenv.config();
 
 class QuestionController {
+	/**
+	 *Create a question record
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns {object}
+	 * @memberof QuestionController
+	 */
 	static createQuestion(request, response) {
 		const {
 			title, content
@@ -45,6 +54,46 @@ class QuestionController {
 							error: 'Internal server error'
 						})
 					));
+			});
+	}
+
+	/**
+	 *Get a question record
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns {object}
+	 * @memberof QuestionController
+	 */
+	static getQuestion(request, response) {
+		const { id } = request.params;
+
+		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+
+		pool.query(selectQuery)
+			.then((result) => {
+				const question = result.rows;
+				if (question.length === 1) {
+					return response.status(200).json({
+						status: 200,
+						success: true,
+						message: 'Question successfully retrieved',
+						data: question
+					});
+				}
+				return response.status(404).json({
+					status: 404,
+					success: false,
+					error: 'Question cannot be found'
+				});
+			})
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					message: false,
+					error: 'Internal server error'
+				});
 			});
 	}
 }
