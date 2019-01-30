@@ -574,6 +574,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.patch('/api/v1/questions/1/upvote')
 			.end((err, res) => {
 				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
 				done();
 			});
 	});
