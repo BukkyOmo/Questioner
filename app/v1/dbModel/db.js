@@ -30,11 +30,11 @@ const TABLE = [
 		createdBy INTEGER,
 		meetup_id INTEGER,
         title VARCHAR(128) NOT NULL,
-        content VARCHAR(128) UNIQUE NOT NULL,
+        body VARCHAR(128) UNIQUE NOT NULL,
 		upvotes INTEGER DEFAULT 0,
 		downvotes INTEGER DEFAULT 0,
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
-		 modified_date TIMESTAMP
+		modified_date TIMESTAMP
       )`,
 	`DROP TABLE IF EXISTS comment;
 		CREATE TABLE comment(
