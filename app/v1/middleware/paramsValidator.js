@@ -1,4 +1,4 @@
-class ParamsValidator {
+class paramsValidator {
 	/**
 	 *@description - Checks the request parameters for the ID sent via url
 	 *
@@ -27,4 +27,4 @@ class ParamsValidator {
 		}
 	}
 }
-export default ParamsValidator;
+export default paramsValidator;

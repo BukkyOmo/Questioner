@@ -1,4 +1,4 @@
-class QuestionValidator {
+class questionValidator {
 	/**
 	 *@description - Checks the request parameters for creating new question are of the right formart
 	 *
@@ -31,4 +31,4 @@ class QuestionValidator {
 		return next();
 	}
 }
-export default QuestionValidator;
+export default questionValidator;
