@@ -252,12 +252,13 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it('it should create a meetup that is not already in database', (done) => {
+	it('it should create a meetup only if user is an admin', (done) => {
 		const newMeetup = {
 			topic: 'God saves',
 			location: 'Anambra',
 			happeningOn: '2019-04-02',
-			tags: 'event'
+			tags: 'event',
+			token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU0ODc3OTc4OSwiZXhwIjoxNTQ4NzgzMzg5fQ.CmVQvBkaAZUh5TCyxP904d9JQYAJZ0rWcoJR5uzL820'
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -271,7 +272,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it('it should throw an error if meetup is already in database', (done) => {
+	it('it should throw an error if user is not an admin', (done) => {
 		const newMeetup = {
 			topic: 'God saves',
 			location: 'Niger',
@@ -282,10 +283,9 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
-				console.log(err);
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
-				expect(res.body.message).to.be.equal('Meetup already exists');
+				expect(res.body.message).to.be.equal('Only an admin can create a meetup');
 				done();
 			});
 	});

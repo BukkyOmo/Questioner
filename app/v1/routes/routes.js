@@ -6,6 +6,8 @@ import paramsValidator from '../middleware/paramsValidator';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 import QuestionController from '../dbControllers/QuestionController';
+import RsvpController from '../dbControllers/RsvpController';
+import RsvpValidator from '../middleware/RsvpValidator';
 
 const router = express.Router();
 
@@ -27,5 +29,8 @@ router.route('/questions')
 
 router.route('/questions/:id')
 	.get(paramsValidator.getParamsValidator, QuestionController.getQuestion);
+
+router.route('/meetups/:id/rsvp')
+	.post(paramsValidator.getParamsValidator, RsvpValidator.rsvpValidator, RsvpController.rsvpMeetup);
 
 export default router;
