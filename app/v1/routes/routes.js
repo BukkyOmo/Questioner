@@ -1,5 +1,5 @@
 import express from 'express';
-import MeetupValidator from '../middleware/MeetupValidator';
+import meetupValidator from '../middleware/meetupValidator';
 import UserValidator from '../middleware/UserValidator';
 import QuestionValidator from '../middleware/QuestionValidator';
 import ParamsValidator from '../middleware/ParamsValidator';
@@ -17,7 +17,7 @@ router.route('/auth/signin')
 
 router.route('/meetups')
 	.get(MeetupController.getAllMeetups)
-	.post(MeetupValidator.createMeetupValidator, MeetupController.createMeetup);
+	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup);
 
 router.route('/meetups/:id')
 	.get(ParamsValidator.getParamsValidator, MeetupController.getAMeetup);
