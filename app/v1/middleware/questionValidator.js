@@ -12,8 +12,8 @@ class questionValidator {
 	static createQuestionValidator(request, response, next) {
 		request.check('title', 'Title is required').notEmpty();
 		request.check('title', 'Title must be a string').isString();
-		request.check('content', 'Content is required').notEmpty();
-		request.check('content', 'Content must be a string').isString();
+		request.check('body', 'Body is required').notEmpty();
+		request.check('body', 'Body must be a string').isString();
 		const errors = request.validationErrors();
 		const validationErrors = [];
 		if (errors) {
@@ -24,10 +24,10 @@ class questionValidator {
 			});
 		}
 		const {
-			title, content
+			title, body
 		} = request.body;
 		request.body.title = title.replace(/\s{2,}/g, '').trim();
-		request.body.content = content.replace(/\s{1,}/g, '').trim();
+		request.body.body = body.replace(/\s{1,}/g, '').trim();
 		return next();
 	}
 }

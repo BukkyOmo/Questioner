@@ -6,7 +6,7 @@ dotenv.config();
 
 class QuestionController {
 	/**
-	 *Create a question record
+	 *@description- An endpoint to create a question record
 	 *
 	 * @static
 	 * @param {object} request
@@ -16,23 +16,23 @@ class QuestionController {
 	 */
 	static createQuestion(request, response) {
 		const {
-			title, content
+			title, body
 		} = request.body;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE content = $1', values: [content] };
+		const selectQuery = { text: 'SELECT * FROM questions WHERE body = $1', values: [body] };
 
 		pool.query(selectQuery)
 			.then((result) => {
 				if (result.rows.length > 0) {
 					return response.status(409).json({
 						status: 409,
-						message: 'Question already exists'
+						error: 'Question already exists'
 					});
 				}
 
 				const insertQuery = {
-					text: 'INSERT INTO questions (title, content) VALUES($1, $2) RETURNING *',
-					values: [title, content]
+					text: 'INSERT INTO questions (title, body) VALUES($1, $2) RETURNING *',
+					values: [title, body]
 				};
 
 				pool.query(insertQuery)
@@ -40,7 +40,6 @@ class QuestionController {
 						if (question.rows) {
 							return response.status(201).json({
 								status: 201,
-								message: 'Question was successfully posted',
 								data: [{
 									question: question.rows[0]
 								}],
@@ -50,7 +49,6 @@ class QuestionController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							message: false,
 							error: 'Internal server error'
 						})
 					));
@@ -58,7 +56,7 @@ class QuestionController {
 	}
 
 	/**
-	 *Get a question record
+	 *@description - An endpoint to get a question record
 	 *
 	 * @static
 	 * @param {object} request
@@ -77,28 +75,24 @@ class QuestionController {
 				if (question.length === 1) {
 					return response.status(200).json({
 						status: 200,
-						success: true,
-						message: 'Question successfully retrieved',
 						data: question
 					});
 				}
 				return response.status(404).json({
 					status: 404,
-					success: false,
 					error: 'Question cannot be found'
 				});
 			})
 			.catch((error) => {
 				response.status(500).json({
 					status: 500,
-					message: false,
 					error: 'Internal server error'
 				});
 			});
 	}
 
 	/**
-	 *Upvote a question
+	 *@description- An endpoint to upvote a particular question
 	 *
 	 * @static
 	 * @param {object} request
@@ -116,7 +110,6 @@ class QuestionController {
 				if (result.rows.length < 1) {
 					return response.status(404).json({
 						status: 404,
-						success: false,
 						error: 'Question you wish to upvote does not exist'
 					});
 				}
@@ -132,7 +125,6 @@ class QuestionController {
 						if (upvote.rows.length > 0) {
 							return response.status(200).json({
 								status: 200,
-								message: 'Question successfully upvoted',
 								data: upvote.rows
 							});
 						}
@@ -140,7 +132,6 @@ class QuestionController {
 					.catch((error) => {
 						response.status(500).json({
 							status: 500,
-							message: false,
 							error: 'Internal server error'
 						});
 					});
