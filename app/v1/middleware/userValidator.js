@@ -1,4 +1,4 @@
-class userValidator {
+class UserValidator {
 	/**
 	 *@description - Checks the request parameters for creating new meetup are of the right formart
 	 *
@@ -42,4 +42,4 @@ class userValidator {
 		return next();
 	}
 }
-export default userValidator;
+export default UserValidator;

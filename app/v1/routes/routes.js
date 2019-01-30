@@ -1,8 +1,8 @@
 import express from 'express';
-import meetupValidator from '../middleware/meetupValidator';
-import userValidator from '../middleware/userValidator';
-import questionValidator from '../middleware/questionValidator';
-import paramsValidator from '../middleware/paramsValidator';
+import MeetupValidator from '../middleware/MeetupValidator';
+import UserValidator from '../middleware/UserValidator';
+import QuestionValidator from '../middleware/QuestionValidator';
+import ParamsValidator from '../middleware/ParamsValidator';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 import QuestionController from '../dbControllers/QuestionController';
@@ -10,25 +10,28 @@ import QuestionController from '../dbControllers/QuestionController';
 const router = express.Router();
 
 router.route('/auth/signup')
-	.post(userValidator.signupValidator, UserController.signup);
+	.post(UserValidator.signupValidator, UserController.signup);
 
 router.route('/auth/signin')
 	.post(UserController.signin);
 
 router.route('/meetups')
 	.get(MeetupController.getAllMeetups)
-	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup);
+	.post(MeetupValidator.createMeetupValidator, MeetupController.createMeetup);
 
 router.route('/meetups/:id')
-	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup);
+	.get(ParamsValidator.getParamsValidator, MeetupController.getAMeetup);
 
 router.route('/questions')
-	.post(questionValidator.createQuestionValidator, QuestionController.createQuestion);
+	.post(QuestionValidator.createQuestionValidator, QuestionController.createQuestion);
 
 router.route('/questions/:id')
-	.get(paramsValidator.getParamsValidator, QuestionController.getQuestion);
+	.get(ParamsValidator.getParamsValidator, QuestionController.getQuestion);
 
 router.route('/questions/:id/downvote')
-	.patch(paramsValidator.getParamsValidator, QuestionController.downvoteQuestion);
+	.patch(ParamsValidator.getParamsValidator, QuestionController.downvoteQuestion);
+
+router.route('/questions/:id/upvote')
+	.patch(ParamsValidator.getParamsValidator, QuestionController.upvoteQuestion);
 
 export default router;

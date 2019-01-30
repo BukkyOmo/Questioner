@@ -11,7 +11,7 @@ const secret = process.env.SECRET;
 
 class UserController {
 	/**
-	 *Create a user account
+	 *@description- An endpoint to create a user account
 	 *
 	 * @static
 	 * @param {object} request
@@ -32,8 +32,7 @@ class UserController {
 				if (result.rows.length > 0) {
 					return response.status(409).json({
 						status: 409,
-						message: 'User already exists',
-						error: ({ message: 'user already exists' })
+						error: 'user already exists'
 					});
 				}
 
@@ -48,7 +47,6 @@ class UserController {
 							const token = jwt.sign({ id: users.rows[0].user_id, isAdmin: users.rows[0].isadmin }, secret, { expiresIn: '1h' });
 							return response.status(201).json({
 								status: 201,
-								message: 'Your registration was successful',
 								data: [{
 									token,
 									user: users.rows[0]
@@ -59,7 +57,6 @@ class UserController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							message: false,
 							error: 'Internal server error'
 						})
 					));
@@ -78,7 +75,6 @@ class UserController {
 						const token = jwt.sign({ id: result.rows[0].user_id, isAdmin: result.rows[0].isadmin }, secret, { expiresIn: '432h' });
 						return response.status(200).json({
 							status: 200,
-							message: 'Login was successful',
 							data: [{
 								token,
 								user: result.rows[0]
@@ -87,19 +83,20 @@ class UserController {
 					}
 					return response.status(409).json({
 						status: 409,
-						message: false,
 						error: 'Invalid credentials'
 					});
 				}
 
 				return response.status(404).json({
 					status: 404,
-					message: false,
 					error: 'No user found'
 				});
 			})
 			.catch(err => (
-				response.status(500).json({ err })
+				response.status(500).json({
+					status: 500,
+					error: 'Internal server error'
+				})
 			));
 	}
 }

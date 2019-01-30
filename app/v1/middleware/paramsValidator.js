@@ -1,4 +1,4 @@
-class paramsValidator {
+class ParamsValidator {
 	/**
 	 *@description - Checks the request parameters for the ID sent via url
 	 *
@@ -7,7 +7,7 @@ class paramsValidator {
 	 * @param {object} response
 	 * @param {object} next
 	 * @returns {object}
-	 * @memberof paramsValidator
+	 * @memberof getParamsValidator
 	 */
 	static getParamsValidator(request, response, next) {
 		const { id } = request.params;
@@ -27,4 +27,4 @@ class paramsValidator {
 		}
 	}
 }
-export default paramsValidator;
+export default ParamsValidator;

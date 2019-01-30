@@ -7,7 +7,7 @@ dotenv.config();
 
 class QuestionController {
 	/**
-	 *Create a question record
+	 *@description- An endpoint to create a question record
 	 *
 	 * @static
 	 * @param {object} request
@@ -17,49 +17,35 @@ class QuestionController {
 	 */
 	static createQuestion(request, response) {
 		const {
-			title, content
+			title, body
 		} = request.body;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE content = $1', values: [content] };
+		const insertQuery = {
+			text: 'INSERT INTO questions (title, body) VALUES($1, $2) RETURNING *',
+			values: [title, body]
+		};
 
-		pool.query(selectQuery)
-			.then((result) => {
-				if (result.rows.length > 0) {
-					return response.status(409).json({
-						status: 409,
-						message: 'Question already exists'
+		pool.query(insertQuery)
+			.then((question) => {
+				if (question.rows) {
+					return response.status(201).json({
+						status: 201,
+						data: [{
+							question: question.rows[0]
+						}],
 					});
 				}
-
-				const insertQuery = {
-					text: 'INSERT INTO questions (title, content) VALUES($1, $2) RETURNING *',
-					values: [title, content]
-				};
-
-				pool.query(insertQuery)
-					.then((question) => {
-						if (question.rows) {
-							return response.status(201).json({
-								status: 201,
-								message: 'Question was successfully posted',
-								data: [{
-									question: question.rows[0]
-								}],
-							});
-						}
-					})
-					.catch(error => (
-						response.status(500).json({
-							status: 500,
-							message: false,
-							error: 'Internal server error'
-						})
-					));
-			});
+			})
+			.catch(error => (
+				response.status(500).json({
+					status: 500,
+					error: 'Internal server error'
+				})
+			));
 	}
 
 	/**
-	 *Get a question record
+	 *@description - An endpoint to get a question record
 	 *
 	 * @static
 	 * @param {object} request
@@ -78,28 +64,24 @@ class QuestionController {
 				if (question.length === 1) {
 					return response.status(200).json({
 						status: 200,
-						success: true,
-						message: 'Question successfully retrieved',
 						data: question
 					});
 				}
 				return response.status(404).json({
 					status: 404,
-					success: false,
 					error: 'Question cannot be found'
 				});
 			})
 			.catch((error) => {
 				response.status(500).json({
 					status: 500,
-					message: false,
 					error: 'Internal server error'
 				});
 			});
 	}
 
 	/**
-	 *Downvote a question
+	 *@description- An endpoint to downvote a question
 	 *
 	 * @static
 	 * @param {object} request
@@ -121,7 +103,6 @@ class QuestionController {
 				if (rows.length < 1) {
 					return response.status(404).json({
 						status: 404,
-						success: false,
 						error: 'The question you wish to downvote does not exist'
 					});
 				}
@@ -136,7 +117,6 @@ class QuestionController {
 						if (downvote.rows.length > 0) {
 							return response.status(200).json({
 								status: 200,
-								message: 'Question was successfully downvoted',
 								data: downvote.rows
 							});
 						}
@@ -144,7 +124,56 @@ class QuestionController {
 					.catch((error) => {
 						response.status(500).json({
 							status: 500,
-							message: false,
+							error: 'Internal server error'
+						});
+					});
+			});
+	}
+
+	/**
+	 *@description- An endpoint to upvote a particular question
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns {object}
+	 * @memberof QuestionController
+	 *
+	 * returns object
+	 * @memberof QuestionController
+	 */
+	static upvoteQuestion(request, response) {
+		const { id } = request.params;
+
+		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+
+		pool.query(selectQuery)
+			.then((result) => {
+				if (result.rows.length < 1) {
+					return response.status(404).json({
+						status: 404,
+						error: 'Question you wish to upvote does not exist'
+					});
+				}
+				// eslint-disable-next-line no-param-reassign
+				result.rows[0].upvotes += 1;
+				const updateQuery = {
+					text: 'UPDATE questions SET upvotes = $1 WHERE question_id = $2 RETURNING *',
+					values: [result.rows[0].upvotes, id],
+				};
+
+				pool.query(updateQuery)
+					.then((upvote) => {
+						if (upvote.rows.length > 0) {
+							return response.status(200).json({
+								status: 200,
+								data: upvote.rows
+							});
+						}
+					})
+					.catch((error) => {
+						response.status(500).json({
+							status: 500,
 							error: 'Internal server error'
 						});
 					});

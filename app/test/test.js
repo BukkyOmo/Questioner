@@ -38,7 +38,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
-				expect(res.body.message).to.be.equal('Your registration was successful');
 				done();
 			});
 	});
@@ -58,7 +57,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
-				expect(res.body.message).to.be.equal('User already exists');
+				expect(res.body.error).to.be.equal('user already exists');
 				done();
 			});
 	});
@@ -117,7 +116,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
-				expect(res.body.message).to.be.equal('User already exists');
+				expect(res.body.error).to.be.equal('user already exists');
 				done();
 			});
 	});
@@ -186,7 +185,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal('Login was successful');
 				done();
 			});
 	});
@@ -202,7 +200,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
@@ -218,7 +215,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
@@ -234,7 +230,6 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
-				expect(res.body.message).to.be.equal(false);
 				done();
 			});
 	});
@@ -246,8 +241,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.get('/api/v1/meetups')
 			.end((err, res) => {
 				expect(res).to.have.status(404);
-				expect(res.body.success).to.be.equal(false);
-				expect(res.body.message).to.be.equal('No meetup was found in the database');
+				expect(res.body.error).to.be.equal('No meetup was found in the database');
 				done();
 			});
 	});
@@ -266,7 +260,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				console.log(err);
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
-				expect(res.body.message).to.be.equal('Your registration was successful');
 				done();
 			});
 	});
@@ -285,7 +278,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				console.log(err);
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
-				expect(res.body.message).to.be.equal('Meetup already exists');
+				expect(res.body.error).to.be.equal('Meetup already exists');
 				done();
 			});
 	});
@@ -295,8 +288,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.get('/api/v1/meetups')
 			.end((err, res) => {
 				expect(res).to.have.status(200);
-				expect(res.body.success).to.be.equal(true);
-				expect(res.body.message).to.be.equal('Successfully Retrieved all meetups');
 				done();
 			});
 	});
@@ -306,8 +297,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.get('/api/v1/meetups/1')
 			.end((err, res) => {
 				expect(res).to.have.status(200);
-				expect(res.body.success).to.be.equal(true);
-				expect(res.body.message).to.be.equal('Meetup successfully retrieved');
 				done();
 			});
 	});
@@ -317,7 +306,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.get('/api/v1/meetups/36')
 			.end((err, res) => {
 				expect(res).to.have.status(404);
-				expect(res.body.success).to.be.equal(false);
 				expect(res.body.error).to.be.equal('Meetup cannot be found');
 				done();
 			});
@@ -328,7 +316,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.get('/api/v1/meetups/b:')
 			.end((err, res) => {
 				expect(res).to.have.status(400);
-				expect(res.body.success).to.be.equal(false);
 				expect(res.body.error).to.be.equal('Id must be a number');
 				done();
 			});
@@ -347,7 +334,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.send(newMeetup)
 			.end((err, res) => {
 				expect(res).to.have.status(400);
-				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
@@ -365,7 +351,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.send(newMeetup)
 			.end((err, res) => {
 				expect(res).to.have.status(400);
-				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
@@ -383,7 +368,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.send(newMeetup)
 			.end((err, res) => {
 				expect(res).to.have.status(400);
-				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
@@ -400,7 +384,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.send(newMeetup)
 			.end((err, res) => {
 				expect(res).to.have.status(400);
-				expect(res.body.error).to.be.equal(true);
 				done();
 			});
 	});
@@ -444,8 +427,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 describe('TEST ALL QUESTION ENDPOINTS', () => {
 	it('it should create a question that is not already in database', (done) => {
 		const newQuestion = {
-			title: 'God saves',
-			content: 'Niger is part of the present',
+			title: 'God saves everyone',
+			body: 'Niger is part of the present',
 		};
 		chai.request(app)
 			.post('/api/v1/questions')
@@ -454,24 +437,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				console.log(err);
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
-				expect(res.body.message).to.be.equal('Question was successfully posted');
-				done();
-			});
-	});
-
-	it('it should not create a question that is already in database', (done) => {
-		const newQuestion = {
-			title: 'God saves all',
-			content: 'Niger is part of the present',
-		};
-		chai.request(app)
-			.post('/api/v1/questions')
-			.send(newQuestion)
-			.end((err, res) => {
-				console.log(err);
-				expect(res).to.have.status(409);
-				expect(res.body.status).to.be.equal(409);
-				expect(res.body.message).to.be.equal('Question already exists');
 				done();
 			});
 	});
@@ -479,7 +444,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 	it('it should not create a question when the title is not a string', (done) => {
 		const newQuestion = {
 			title: 12345,
-			content: 'Niger is part of the present',
+			body: 'Niger is part of the present',
 		};
 		chai.request(app)
 			.post('/api/v1/questions')
@@ -495,7 +460,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 
 	it('it should not create a question when the title is empty', (done) => {
 		const newQuestion = {
-			content: 'Niger is part of the present',
+			body: 'Niger is part of the present',
 		};
 		chai.request(app)
 			.post('/api/v1/questions')
@@ -509,10 +474,10 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
-	it('it should not create a question when the content is not a string', (done) => {
+	it('it should not create a question when the body is not a string', (done) => {
 		const newQuestion = {
 			title: 'The reward of labour',
-			content: {},
+			body: {},
 		};
 		chai.request(app)
 			.post('/api/v1/questions')
@@ -521,15 +486,15 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				console.log(err);
 				expect(res).to.have.status(400);
 				expect(res.body.error).to.be.equal(true);
-				expect(res.body.errors[0]).to.be.equal('Content must be a string');
+				expect(res.body.errors[0]).to.be.equal('Body must be a string');
 				done();
 			});
 	});
 
-	it('it should not create a question when the content is empty', (done) => {
+	it('it should not create a question when the body is empty', (done) => {
 		const newQuestion = {
 			title: 'The reward of labour',
-			content: '',
+			body: '',
 		};
 		chai.request(app)
 			.post('/api/v1/questions')
@@ -538,7 +503,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				console.log(err);
 				expect(res).to.have.status(400);
 				expect(res.body.error).to.be.equal(true);
-				expect(res.body.errors[0]).to.be.equal('Content is required');
+				expect(res.body.errors[0]).to.be.equal('Body is required');
 				done();
 			});
 	});
@@ -549,8 +514,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
-				expect(res.body.success).to.be.equal(true);
-				expect(res.body.message).to.be.equal('Question successfully retrieved');
 				done();
 			});
 	});
@@ -560,7 +523,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.get('/api/v1/questions/99')
 			.end((err, res) => {
 				expect(res).to.have.status(404);
-				expect(res.body.success).to.be.equal(false);
 				expect(res.body.error).to.be.equal('Question cannot be found');
 				done();
 			});
@@ -583,7 +545,16 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(200);
 				expect(res.body.status).to.be.equal(200);
-				expect(res.body.message).to.be.equal('Question was successfully downvoted');
+				done();
+			});
+	});
+
+	it('it should not upvote a question that is not in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/99/upvote')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.error).to.be.equal('Question you wish to upvote does not exist');
 				done();
 			});
 	});
@@ -593,8 +564,16 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.patch('/api/v1/questions/99/downvote')
 			.end((err, res) => {
 				expect(res).to.have.status(404);
-				expect(res.body.success).to.be.equal(false);
 				expect(res.body.error).to.be.equal('The question you wish to downvote does not exist');
+				done();
+			});
+	});
+
+	it('it should upvote a question that is in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/1/upvote')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
 				done();
 			});
 	});
@@ -602,6 +581,17 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 	it('it should throw an error when the wrong params is passed to be downvoted', (done) => {
 		chai.request(app)
 			.patch('/api/v1/questions/{}/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Id must be a number');
+				done();
+			});
+	});
+
+	it('it should throw an error when the wrong param is passed to be upvoted', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/u/upvote')
 			.end((err, res) => {
 				expect(res).to.have.status(400);
 				expect(res.body.success).to.be.equal(false);

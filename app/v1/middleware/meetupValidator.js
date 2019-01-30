@@ -1,4 +1,4 @@
-class meetupValidator {
+class MeetupValidator {
 	/**
 	 *@description - Checks the request parameters for creating new meetup are of the right formart
 	 *
@@ -7,7 +7,7 @@ class meetupValidator {
 	 * @param {object} response
 	 * @param {object} next
 	 * @returns {object}- status code and error message or next()
-	 * @memberof meetupValidator
+	 * @memberof createMeetupValidator
 	 */
 	static createMeetupValidator(request, response, next) {
 		request.check('topic', 'Topic is required').trim().notEmpty();
@@ -33,4 +33,4 @@ class meetupValidator {
 		return next();
 	}
 }
-export default meetupValidator;
+export default MeetupValidator;

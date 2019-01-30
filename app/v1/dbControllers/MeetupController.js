@@ -6,7 +6,7 @@ dotenv.config();
 
 class MeetupController {
 	/**
-	 * To create a meetup record
+	 * @description- An endpoint to create a meetup record
 	 *
 	 * @static
 	 * @param {object} request
@@ -26,7 +26,7 @@ class MeetupController {
 				if (result.rows.length > 0) {
 					return response.status(409).json({
 						status: 409,
-						message: 'Meetup already exists'
+						error: 'Meetup already exists'
 					});
 				}
 
@@ -40,7 +40,6 @@ class MeetupController {
 						if (meetup.rows) {
 							return response.status(201).json({
 								status: 201,
-								message: 'Your registration was successful',
 								data: [{
 									meetup: meetup.rows[0]
 								}],
@@ -51,7 +50,6 @@ class MeetupController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							message: false,
 							error: 'Internal server error'
 						})
 					));
@@ -59,7 +57,7 @@ class MeetupController {
 	}
 
 	/**
-	 *To get all meetups
+	 *@description- An endpoint to get all meetups
 	 *
 	 * @static
 	 * @param {object} request
@@ -75,24 +73,22 @@ class MeetupController {
 				const meetups = result.rows;
 				if (meetups.length < 1) {
 					return response.status(404).json({
-						success: false,
-						message: 'No meetup was found in the database',
+						status: 404,
+						error: 'No meetup was found in the database',
 					});
 				}
 				return response.status(200).json({
-					success: true,
-					message: 'Successfully Retrieved all meetups',
+					status: 200,
 					data: meetups
 				});
 			})
 			.catch(error => response.status(500).json({
-				success: false,
-				message: 'Internal Server Error',
-				error: error.message,
+				status: 500,
+				error: 'Internal server error'
 			}));
 	}
 	/**
-	 *To get a specific meetup
+	 *@description- An endpoint to get a specific meetup
 	 *
 	 * @static
 	 * @param {object} request
@@ -112,20 +108,17 @@ class MeetupController {
 				if (meetup.length === 1) {
 					return response.status(200).json({
 						status: 200,
-						success: true,
-						message: 'Meetup successfully retrieved',
 						data: meetup
 					});
 				}
 				return response.status(404).json({
-					success: false,
+					status: 404,
 					error: 'Meetup cannot be found'
 				});
 			})
 			.catch(error => response.status(500).json({
-				success: false,
-				message: 'Internal server Error',
-				error: error.message
+				status: 500,
+				error: 'Internal server error'
 			}));
 	}
 }
