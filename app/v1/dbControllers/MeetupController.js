@@ -73,20 +73,18 @@ class MeetupController {
 				const meetups = result.rows;
 				if (meetups.length < 1) {
 					return response.status(404).json({
-						success: false,
-						message: 'No meetup was found in the database',
+						status: 404,
+						error: 'No meetup was found in the database',
 					});
 				}
 				return response.status(200).json({
-					success: true,
-					message: 'Successfully Retrieved all meetups',
+					status: 200,
 					data: meetups
 				});
 			})
 			.catch(error => response.status(500).json({
-				success: false,
-				message: 'Internal Server Error',
-				error: error.message,
+				status: 500,
+				error: 'Internal server error'
 			}));
 	}
 	/**
@@ -110,20 +108,17 @@ class MeetupController {
 				if (meetup.length === 1) {
 					return response.status(200).json({
 						status: 200,
-						success: true,
-						message: 'Meetup successfully retrieved',
 						data: meetup
 					});
 				}
 				return response.status(404).json({
-					success: false,
+					status: 404,
 					error: 'Meetup cannot be found'
 				});
 			})
 			.catch(error => response.status(500).json({
-				success: false,
-				message: 'Internal server Error',
-				error: error.message
+				status: 500,
+				error: 'Internal server error'
 			}));
 	}
 }

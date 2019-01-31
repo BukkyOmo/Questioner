@@ -19,21 +19,35 @@ class RsvpController {
 					console.log(result.rows);
 					return response.status(404).json({
 						status: 404,
-						success: false,
-						message: 'The meetup you try to rsvp does not exist'
+						error: 'The meetup you try to rsvp does not exist'
 					});
 				}
+				 const token = req.headers.token || req.body.token;
+      			 const decodedToken = jwt.decode(token);
+      			 const user_id = decodedToken.id;
+      			 const userQuery = {
+					text: 'SELECT FROM rsvps WHERE meetup_id = $1 AND user_id = $2',
+					values: [id, user_id],
+				};
+				pool.query(userQuery)
+					.then((user) => {
+						if (user.rows.length === 1) {
+							return response.status(409).json({
+								status: 409,
+								error: 'You have already given a response'
+							});
+						}
+					})
 
 				const insertQuery = {
-					text: 'INSERT INTO rsvp(response) VALUES($1) RETURNING*',
-					values: [status],
+					text: 'INSERT INTO rsvp(response, meetup_id, user_id) VALUES($1, $2, $3) RETURNING*',
+					values: [status, meetup_id, user_id ],
 				};
 				pool.query(insertQuery)
 					.then((rsvp) => {
 						if (rsvp.rows) {
 							return response.status(200).json({
 								status: 200,
-								message: 'You have successfully rsvp this meetup',
 								data: rsvp.rows[0]
 							});
 						}

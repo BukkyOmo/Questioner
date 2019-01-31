@@ -33,4 +33,7 @@ router.route('/questions/:id')
 router.route('/meetups/:id/rsvp')
 	.post(paramsValidator.getParamsValidator, RsvpValidator.rsvpValidator, RsvpController.rsvpMeetup);
 
+router.route('/questions/:id/upvote')
+	.patch(paramsValidator.getParamsValidator, QuestionController.upvoteQuestion);
+
 export default router;
