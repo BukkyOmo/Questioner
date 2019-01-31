@@ -96,7 +96,6 @@ class MeetupController {
 	 * returns {object}
 	 * @memberof MeetupController
 	 */
-
 	static getAMeetup(request, response) {
 		const { id } = request.params;
 
@@ -121,6 +120,16 @@ class MeetupController {
 				error: 'Internal server error'
 			}));
 	}
+	 
+	 /**
+	 *@description- An endpoint to delete a specific meetup
+	 *
+	 * @static
+	 * @param {object} request
+	 * @param {object} response
+	 * returns {object}
+	 * @memberof MeetupController
+	 */ 
 	static deleteMeetup(request, response) {
 		const { id } = request.params;
 
@@ -134,7 +143,38 @@ class MeetupController {
 						error: 'Meetup you are trying to delete does not exist'
 					});
 				}
-				
+
+		const token = request.headers.token || request.body.token;
+		const decodedToken = jwt.decode(token);
+		const { isAdmin } = decodedToken;
+
+		if (isAdmin) {
+			const deleteQuery = {
+				text: 'DELETE FROM meetup WHERE meetup_id = $1',
+				values: [id]
+			};
+			pool.query(deleteQuery)
+			.then((delete) => {
+				if (delete.rows) {
+					return response.status(200).json({
+						status: 200,
+						data: delete.rows[0]
+					});
+				}
+			})
+			.catch(error => (
+				response.status(500).json({
+					status: 500,
+					message: false,
+					error: 'Internal server error'
+				})
+			));
+		}
+		return response.status(200).json({
+			status: 409,
+			error: 'Only an admin can delete a meetup'
+			});			
+		}
 	}
 }
 export default MeetupController;
