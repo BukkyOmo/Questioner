@@ -17,7 +17,8 @@ router.route('/auth/signin')
 
 router.route('/meetups')
 	.get(MeetupController.getAllMeetups)
-	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup);
+	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup)
+	.get(MeetupController.getUpcomingMeetups);
 
 router.route('/meetups/:id')
 	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup);
