@@ -121,5 +121,20 @@ class MeetupController {
 				error: 'Internal server error'
 			}));
 	}
+	static deleteMeetup(request, response) {
+		const { id } = request.params;
+
+		const selectQuery = { text: 'SELECT * FROM meetup WHERE meetup_id = $1', values: [id] };
+
+		pool.query(selectQuery)
+			.then((result) => {
+				if (result.rows.length === 0) {
+					return response.status(409).json({
+						status: 409,
+						error: 'Meetup you are trying to delete does not exist'
+					});
+				}
+				
+	}
 }
 export default MeetupController;
