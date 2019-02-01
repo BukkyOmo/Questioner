@@ -12,9 +12,9 @@ dotenv.config();
 
 class CommentController {
 	static createComment(request, response) {
-		const { comments } = request.body;
+		const { body } = request.body;
 		const { id } = request.params;
-		const { token } = request.headers;
+		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
 		const createdBy = decodedToken.id;
 		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
@@ -27,7 +27,7 @@ class CommentController {
 						error: 'Question you wish to comment on does not exist'
 					});
 				}
-				const insertQuery = `INSERT INTO comment (user_id, question_id, body) VALUES (${createdBy}, ${id}, '${comments}') RETURNING *`;
+				const insertQuery = `INSERT INTO comment (user_id, question_id, body) VALUES (${createdBy}, ${id}, '${body}') RETURNING *`;
 				pool.query(insertQuery)
 					.then((comment) => {
 						if (comment.rows) {

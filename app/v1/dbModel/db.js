@@ -1,7 +1,7 @@
 import pool from './connection';
 
 const TABLE = [
-	`DROP TABLE IF EXISTS users;
+	`DROP TABLE IF EXISTS users CASCADE;
 		CREATE TABLE users(
         user_id SERIAL NOT NULL PRIMARY KEY,
         firstname VARCHAR(128) NOT NULL,
@@ -13,7 +13,7 @@ const TABLE = [
 		isAdmin BOOLEAN,
         created_date TIMESTAMP NOT NULL DEFAULT NOW()
       )`,
-	`DROP TABLE IF EXISTS meetup;
+	`DROP TABLE IF EXISTS meetup CASCADE;
 		CREATE TABLE meetup(
         meetup_id SERIAL NOT NULL PRIMARY KEY,
 		user_id INTEGER,
@@ -24,7 +24,7 @@ const TABLE = [
 		tags VARCHAR(128),
         created_date TIMESTAMP NOT NULL DEFAULT NOW()
       )`,
-	`DROP TABLE IF EXISTS questions;
+	`DROP TABLE IF EXISTS questions CASCADE;
 		CREATE TABLE questions(
         question_id SERIAL NOT NULL PRIMARY KEY,
 		createdBy INTEGER,
@@ -36,7 +36,7 @@ const TABLE = [
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
 		modified_date TIMESTAMP
       )`,
-	`DROP TABLE IF EXISTS comment;
+	`DROP TABLE IF EXISTS comment CASCADE;
 		CREATE TABLE comment(
         comment_id SERIAL NOT NULL PRIMARY KEY,
 		body VARCHAR(128) NOT NULL,
@@ -45,7 +45,7 @@ const TABLE = [
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
         modified_date TIMESTAMP
       )`,
-	`DROP TABLE IF EXISTS rsvp;
+	`DROP TABLE IF EXISTS rsvp CASCADE;
 		CREATE TABLE rsvp(
         rsvp_id SERIAL NOT NULL PRIMARY KEY,
 		user_id INTEGER REFERENCES users ON DELETE CASCADE,
