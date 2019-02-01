@@ -8,7 +8,7 @@ class meetupValidator {
 	 * @param {object} response
 	 * @param {object} next
 	 * @returns {object}- status code and error message or next()
-	 * @memberof meetupValidator
+	 * @memberof createMeetupValidator
 	 */
 	static createMeetupValidator(request, response, next) {
 		request.check('topic', 'Topic is required').notEmpty();

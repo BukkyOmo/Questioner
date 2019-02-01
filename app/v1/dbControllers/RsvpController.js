@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../dbModel/connection';
 
@@ -8,6 +9,9 @@ class RsvpController {
 	static rsvpMeetup(request, response) {
 		const { status } = request.body;
 		const { id } = request.params;
+		const token = request.headers.token || request.body.token;
+		const decodedToken = jwt.decode(token);
+		const userId = decodedToken.id;
 
 		const selectQuery = {
 			text: 'SELECT FROM meetup WHERE meetup_id = $1',
@@ -22,12 +26,10 @@ class RsvpController {
 						error: 'The meetup you try to rsvp does not exist'
 					});
 				}
-				 const token = req.headers.token || req.body.token;
-      			 const decodedToken = jwt.decode(token);
-      			 const user_id = decodedToken.id;
-      			 const userQuery = {
+
+				const userQuery = {
 					text: 'SELECT FROM rsvps WHERE meetup_id = $1 AND user_id = $2',
-					values: [id, user_id],
+					values: [id, userId],
 				};
 				pool.query(userQuery)
 					.then((user) => {
@@ -37,11 +39,11 @@ class RsvpController {
 								error: 'You have already given a response'
 							});
 						}
-					})
+					});
 
 				const insertQuery = {
 					text: 'INSERT INTO rsvp(response, meetup_id, user_id) VALUES($1, $2, $3) RETURNING*',
-					values: [status, meetup_id, user_id ],
+					values: [status, id, userId],
 				};
 				pool.query(insertQuery)
 					.then((rsvp) => {

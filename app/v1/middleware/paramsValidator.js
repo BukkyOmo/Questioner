@@ -7,7 +7,7 @@ class paramsValidator {
 	 * @param {object} response
 	 * @param {object} next
 	 * @returns {object}
-	 * @memberof paramsValidator
+	 * @memberof getParamsValidator
 	 */
 	static getParamsValidator(request, response, next) {
 		const { id } = request.params;
@@ -16,8 +16,7 @@ class paramsValidator {
 			if (!params.match(validateId)) {
 				return response.status(400).json({
 					status: 400,
-					success: false,
-					error: 'Id must be a number'
+					error: 'Invalid ID. ID must be a number'
 				});
 			}
 			return next();
