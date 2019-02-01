@@ -18,19 +18,12 @@ class MeetupController {
 		const {
 			topic, location, happeningOn, tags, images
 		} = request.body;
+		const token = request.headers.token || request.body.token;
+		const decodedToken = verifyToken(token);
+		const createdBy = decodedToken.id;
 
-		const selectQuery = { text: 'SELECT * FROM meetup WHERE topic = $1', values: [topic] };
-
-		pool.query(selectQuery)
-			.then((result) => {
-				if (result.rows.length > 0) {
-					return response.status(409).json({
-						status: 409,
-						error: 'Meetup already exists'
-					});
-				}
-
-				const insertQuery = {
+		if (createdBy !== isAdmin) {
+			const insertQuery = {
 					text: 'INSERT into meetup( location, topic, happeningOn, images, tags) VALUES($1, $2, $3, $4, $5) RETURNING *',
 					values: [location, topic, happeningOn, images, tags]
 				};
@@ -53,7 +46,7 @@ class MeetupController {
 							error: 'Internal server error'
 						})
 					));
-			});
+		}
 	}
 
 	/**
