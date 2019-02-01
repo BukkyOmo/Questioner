@@ -7,7 +7,7 @@ class paramsValidator {
 	 * @param {object} response
 	 * @param {object} next
 	 * @returns {object}
-	 * @memberof paramsValidator
+	 * @memberof getParamsValidator
 	 */
 	static getParamsValidator(request, response, next) {
 		const { id } = request.params;
