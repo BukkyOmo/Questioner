@@ -3,9 +3,11 @@ import meetupValidator from '../middleware/meetupValidator';
 import userValidator from '../middleware/userValidator';
 import questionValidator from '../middleware/questionValidator';
 import paramsValidator from '../middleware/paramsValidator';
+import Auth from '../middleware/auth';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 import QuestionController from '../dbControllers/QuestionController';
+import CommentController from '../dbControllers/CommentController';
 
 const router = express.Router();
 
@@ -27,6 +29,9 @@ router.route('/questions')
 
 router.route('/questions/:id')
 	.get(paramsValidator.getParamsValidator, QuestionController.getQuestion);
+
+router.route('/questions/:id/comments')
+	.post(Auth.isLogin, CommentController.createComment);
 
 router.route('/questions/:id/upvote')
 	.patch(paramsValidator.getParamsValidator, QuestionController.upvoteQuestion);

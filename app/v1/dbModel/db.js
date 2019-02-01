@@ -39,17 +39,17 @@ const TABLE = [
 	`DROP TABLE IF EXISTS comment;
 		CREATE TABLE comment(
         comment_id SERIAL NOT NULL PRIMARY KEY,
-		user_id INTEGER,
-		question_id INTEGER,
-        body VARCHAR(128) NOT NULL,
+		body VARCHAR(128) NOT NULL,
+		user_id INTEGER REFERENCES users ON DELETE CASCADE,
+		question_id INTEGER REFERENCES questions ON DELETE CASCADE,
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
         modified_date TIMESTAMP
       )`,
 	`DROP TABLE IF EXISTS rsvp;
 		CREATE TABLE rsvp(
         rsvp_id SERIAL NOT NULL PRIMARY KEY,
-		user_id INTEGER,
-		meetup_id INTEGER,
+		user_id INTEGER REFERENCES users ON DELETE CASCADE,
+		meetup_id INTEGER REFERENCES meetup ON DELETE CASCADE,
         response VARCHAR(128) NOT NULL, 
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
         modified_date TIMESTAMP

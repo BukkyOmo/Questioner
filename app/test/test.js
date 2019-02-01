@@ -586,3 +586,21 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 });
+
+describe('TEST COMMENT ENDPOINTS', () => {
+	it('it should not create a comment whose question does not exist', (done) => {
+		const newComment = {
+			body: 'Hello beautiful',
+			token: supertoken
+		};
+		chai.request(app)
+			.post('/api/v1/questions')
+			.send(newComment)
+			.end((err, res) => {
+				console.log(err);
+				expect(res).to.have.status(404);
+				expect(res.body.errors).to.be.equal('Question you wish to comment on does not exist');
+				done();
+			});
+	});
+});
