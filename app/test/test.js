@@ -441,23 +441,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
-	it('it should not create a question that is already in database', (done) => {
-		const newQuestion = {
-			title: 'God saves all',
-			body: 'Niger is part of the present',
-		};
-		chai.request(app)
-			.post('/api/v1/questions')
-			.send(newQuestion)
-			.end((err, res) => {
-				console.log(err);
-				expect(res).to.have.status(409);
-				expect(res.body.status).to.be.equal(409);
-				expect(res.body.error).to.be.equal('Question already exists');
-				done();
-			});
-	});
-
 	it('it should not create a question when the title is not a string', (done) => {
 		const newQuestion = {
 			title: 12345,
@@ -556,6 +539,16 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
+	it('it should downvote a question that is in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/1/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				done();
+			});
+	});
+
 	it('it should not upvote a question that is not in the database', (done) => {
 		chai.request(app)
 			.patch('/api/v1/questions/99/upvote')
@@ -566,11 +559,33 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
+	it('it should not downvote a question that is not in the database', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/99/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.error).to.be.equal('The question you wish to downvote does not exist');
+				done();
+			});
+	});
+
 	it('it should upvote a question that is in the database', (done) => {
 		chai.request(app)
 			.patch('/api/v1/questions/1/upvote')
 			.end((err, res) => {
 				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				done();
+			});
+	});
+
+	it('it should throw an error when the wrong params is passed to be downvoted', (done) => {
+		chai.request(app)
+			.patch('/api/v1/questions/{}/downvote')
+			.end((err, res) => {
+				expect(res).to.have.status(400);
+				expect(res.body.success).to.be.equal(false);
+				expect(res.body.error).to.be.equal('Id must be a number');
 				done();
 			});
 	});

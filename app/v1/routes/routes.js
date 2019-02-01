@@ -33,6 +33,9 @@ router.route('/questions/:id')
 router.route('/questions/:id/comments')
 	.post(Auth.isLogin, CommentController.createComment);
 
+router.route('/questions/:id/downvote')
+	.patch(paramsValidator.getParamsValidator, QuestionController.downvoteQuestion);
+
 router.route('/questions/:id/upvote')
 	.patch(paramsValidator.getParamsValidator, QuestionController.upvoteQuestion);
 
