@@ -16,8 +16,7 @@ class paramsValidator {
 			if (!params.match(validateId)) {
 				return response.status(400).json({
 					status: 400,
-					success: false,
-					error: 'Id must be a number'
+					error: 'Invalid ID. ID must be a number'
 				});
 			}
 			return next();
