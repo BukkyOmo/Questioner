@@ -33,7 +33,8 @@ router.route('/meetups')
 	.get(MeetupController.getUpcomingMeetups);
 
 router.route('/meetups/:id')
-	.get(getParamsValidator, getAMeetup);
+	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup)
+	.delete(paramsValidator.getParamsValidator, MeetupController.deleteMeetup);
 
 router.route('/questions')
 	.post(questionValidator.createQuestionValidator, QuestionController.createQuestion);
