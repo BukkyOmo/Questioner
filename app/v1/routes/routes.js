@@ -20,7 +20,7 @@ router.route('/meetups')
 	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup);
 
 router.route('/meetups/:id')
-	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup);
+	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup)
 	.delete(paramsValidator.getParamsValidator, MeetupController.deleteMeetup);
 
 router.route('/questions')
