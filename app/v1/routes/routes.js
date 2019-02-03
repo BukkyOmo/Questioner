@@ -8,6 +8,8 @@ import VerifyToken from '../middleware/auth';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 import QuestionController from '../dbControllers/QuestionController';
+import RsvpController from '../dbControllers/RsvpController';
+import RsvpValidator from '../middleware/RsvpValidator';
 import CommentController from '../dbControllers/CommentController';
 
 const router = express.Router();
@@ -32,10 +34,12 @@ router.route('/auth/signin')
 
 router.route('/meetups')
 	.get(isLogin, getAllMeetups)
-	.post(isLogin, createMeetupValidator, createMeetup);
+	.post(isLogin, createMeetupValidator, createMeetup)
+	.get(MeetupController.getUpcomingMeetups);
 
 router.route('/meetups/:id')
-	.get(isLogin, getParamsValidator, getAMeetup);
+	.get(isLogin, getParamsValidator, getAMeetup)
+	.delete(paramsValidator.getParamsValidator, MeetupController.deleteMeetup);
 
 router.route('/questions')
 	.post(isLogin, createQuestionValidator, createQuestion);
@@ -48,6 +52,9 @@ router.route('/questions/:id/comments')
 
 router.route('/questions/:id/downvote')
 	.patch(getParamsValidator, QuestionController.downvoteQuestion);
+
+router.route('/meetups/:id/rsvp')
+	.post(paramsValidator.getParamsValidator, RsvpValidator.rsvpValidator, RsvpController.rsvpMeetup);
 
 router.route('/questions/:id/upvote')
 	.patch(getParamsValidator, QuestionController.upvoteQuestion);

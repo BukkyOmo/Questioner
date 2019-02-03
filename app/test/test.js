@@ -1,7 +1,12 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import app from '../app';
 
+<<<<<<< HEAD
 import Auth from '../v1/helpers/auth';
+=======
+dotenv.config();
+>>>>>>> a8a2270e25c08e123444461f03eef617b757022c
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
@@ -71,7 +76,21 @@ describe('TEST ALL USER ENDPOINTS', () => {
 				done();
 			});
 	});
+});
+describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
+	it('it should test for routes that are not specified', (done) => {
+		chai.request(app)
+			.get('/api/v1/blow')
+			.end((err, res) => {
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal(false);
+				expect(res.body.error).to.be.equal('The route you are trying to access does not exist');
+				done();
+			});
+	});
+});
 
+describe('TEST ALL USER ENDPOINTS', () => {
 	it('it should not create a user whose email is not unique', (done) => {
 		const myUser = {
 			firstname: 'bukola',
@@ -272,6 +291,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
+<<<<<<< HEAD
 	it('it should create a meetup that is not already in database', (done) => {
 		const newMeetup = {
 			topic: 'God saves',
@@ -280,9 +300,18 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			tags: 'event',
 			token: superToken
 		};
+=======
+	it('it should create a meetup only if user is an admin', (done) => {
+>>>>>>> a8a2270e25c08e123444461f03eef617b757022c
 		chai.request(app)
 			.post('/api/v1/meetups')
-			.send(newMeetup)
+			.send({
+				token: superToken,
+				topic: 'God saves',
+				location: 'Anambra',
+				happeningOn: '2019-04-02',
+				tags: 'event',
+			})
 			.end((err, res) => {
 				console.log(err);
 				expect(res).to.have.status(201);
@@ -291,8 +320,14 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
+<<<<<<< HEAD
 	it('it should not create a meetup by a user', (done) => {
+=======
+	it('it should throw an error if user is not an admin', (done) => {
+		const notAdminToken = jwt.sign({ id: 1, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
+>>>>>>> a8a2270e25c08e123444461f03eef617b757022c
 		const newMeetup = {
+			token: notAdminToken,
 			topic: 'God saves',
 			location: 'Anambra',
 			happeningOn: '2019-04-02',
@@ -303,10 +338,16 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
+<<<<<<< HEAD
 				console.log(err);
 				expect(res).to.have.status(401);
 				expect(res.body.status).to.be.equal(401);
 				expect(res.body.error).to.be.equal('Only an admin can create meetup');
+=======
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				expect(res.body.error).to.be.equal('Only an admin can create a meetup');
+>>>>>>> a8a2270e25c08e123444461f03eef617b757022c
 				done();
 			});
 	});
@@ -684,6 +725,18 @@ describe('TEST COMMENT ENDPOINTS', () => {
 				console.log(err);
 				expect(res).to.have.status(400);
 				expect(res.body.errors[0]).to.be.equal('Comment body should be a string');
+				done();
+			});
+	});
+});
+
+describe('TEST ALL RSVP ENDPOINTS', () => {
+	it('it should not rsvp a meetup that is not in database', (done) => {
+		chai.request(app)
+			.patch('/api/v1//meetups/99/rsvp')
+			.end((err, res) => {
+				expect(res).to.have.status(409);
+				expect(res.body.error).to.be.equal('The meetup you try to rsvp does not exist');
 				done();
 			});
 	});
