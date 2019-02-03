@@ -8,6 +8,8 @@ import Auth from '../middleware/auth';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 import QuestionController from '../dbControllers/QuestionController';
+import RsvpController from '../dbControllers/RsvpController';
+import RsvpValidator from '../middleware/RsvpValidator';
 import CommentController from '../dbControllers/CommentController';
 
 const router = express.Router();
@@ -44,6 +46,9 @@ router.route('/questions/:id/comments')
 
 router.route('/questions/:id/downvote')
 	.patch(getParamsValidator, QuestionController.downvoteQuestion);
+
+router.route('/meetups/:id/rsvp')
+	.post(paramsValidator.getParamsValidator, RsvpValidator.rsvpValidator, RsvpController.rsvpMeetup);
 
 router.route('/questions/:id/upvote')
 	.patch(getParamsValidator, QuestionController.upvoteQuestion);

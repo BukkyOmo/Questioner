@@ -10,6 +10,7 @@ module.exports = {
         "ecmaVersion": 2015,
         "sourceType": "module"
     },
+	"parser": "babel-eslint",
 	//  "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],   
     "plugins": [
         "import"
