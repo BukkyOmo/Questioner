@@ -10,7 +10,7 @@ const TABLE = [
 		phoneNumber VARCHAR(20),
 		email VARCHAR(128) UNIQUE NOT NULL,
 		password VARCHAR NOT NULL,
-		isAdmin BOOLEAN,
+		isadmin BOOLEAN,
         created_date TIMESTAMP NOT NULL DEFAULT NOW()
       )`,
 	`DROP TABLE IF EXISTS meetup CASCADE;
@@ -20,7 +20,7 @@ const TABLE = [
         topic VARCHAR(128) NOT NULL,
         location VARCHAR(128) NOT NULL,
         happeningOn TIMESTAMP NOT NULL,
-        images BYTEA,
+        images VARCHAR(128),
 		tags VARCHAR(128),
         created_date TIMESTAMP NOT NULL DEFAULT NOW()
       )`,
@@ -30,7 +30,7 @@ const TABLE = [
 		createdBy INTEGER,
 		meetup_id INTEGER,
         title VARCHAR(128) NOT NULL,
-        body VARCHAR(128) UNIQUE NOT NULL,
+        body VARCHAR(128) NOT NULL,
 		upvotes INTEGER DEFAULT 0,
 		downvotes INTEGER DEFAULT 0,
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),

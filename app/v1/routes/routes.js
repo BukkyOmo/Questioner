@@ -4,7 +4,7 @@ import userValidator from '../middleware/userValidator';
 import questionValidator from '../middleware/questionValidator';
 import paramsValidator from '../middleware/paramsValidator';
 import CommentValidator from '../middleware/commentValidator';
-import Auth from '../middleware/auth';
+import VerifyToken from '../middleware/auth';
 import UserController from '../dbControllers/UserController';
 import MeetupController from '../dbControllers/MeetupController';
 import QuestionController from '../dbControllers/QuestionController';
@@ -12,31 +12,36 @@ import CommentController from '../dbControllers/CommentController';
 
 const router = express.Router();
 
+const { signupValidator } = userValidator;
+const { signup, signin } = UserController;
 const { getParamsValidator } = paramsValidator;
 const { createCommentValidator } = CommentValidator;
 const { createComment } = CommentController;
-const { isLogin } = Auth;
-const { getAMeetup } = MeetupController;
+const { isLogin } = VerifyToken;
+const { createMeetup, getAMeetup, getAllMeetups } = MeetupController;
+const { createMeetupValidator } = meetupValidator;
+const { createQuestionValidator } = questionValidator;
+const { createQuestion, getQuestion } = QuestionController;
 
 
 router.route('/auth/signup')
-	.post(userValidator.signupValidator, UserController.signup);
+	.post(signupValidator, signup);
 
 router.route('/auth/signin')
-	.post(UserController.signin);
+	.post(signin);
 
 router.route('/meetups')
-	.get(MeetupController.getAllMeetups)
-	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup);
+	.get(isLogin, getAllMeetups)
+	.post(isLogin, createMeetupValidator, createMeetup);
 
 router.route('/meetups/:id')
-	.get(getParamsValidator, getAMeetup);
+	.get(isLogin, getParamsValidator, getAMeetup);
 
 router.route('/questions')
-	.post(questionValidator.createQuestionValidator, QuestionController.createQuestion);
+	.post(isLogin, createQuestionValidator, createQuestion);
 
 router.route('/questions/:id')
-	.get(getParamsValidator, QuestionController.getQuestion);
+	.get(isLogin, getParamsValidator, getQuestion);
 
 router.route('/questions/:id/comments')
 	.post(isLogin, getParamsValidator, createCommentValidator, createComment);

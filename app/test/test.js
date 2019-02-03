@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import app from '../app';
 
+import Auth from '../v1/helpers/auth';
+
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const chaiHttp = require('chai-http');
@@ -10,35 +12,60 @@ chai.use(chaiAsPromised);
 
 const { expect } = chai;
 
+const { generateToken } = Auth;
+
 describe('TEST FOR WILDCARD ENDPOINT TO CATCH GLOBAL ERRORS', () => {
 	it('it should test for routes that are not specified', (done) => {
 		chai.request(app)
 			.get('/api/v1/blow')
 			.end((err, res) => {
 				expect(res.body.status).to.be.equal(404);
-				expect(res.body.message).to.be.equal(false);
 				expect(res.body.error).to.be.equal('The route you are trying to access does not exist');
 				done();
 			});
 	});
 });
 
+const Admin = {
+	firstname: 'bukola',
+	lastname: 'Odunayo',
+	password: 'Buksy',
+	email: 'odunanne@gmail.com',
+	phoneNumber: '09039136484',
+	username: 'bukkady123'
+};
+
 let superToken;
+let userToken;
+
 describe('TEST ALL USER ENDPOINTS', () => {
+	it('it should create a user that is not already in database', (done) => {
+		chai.request(app)
+			.post('/api/v1/auth/signup')
+			.send(Admin)
+			.end((err, res) => {
+				res.body.data[0].isadmin = true;
+				superToken = generateToken(res.body.data[0].user_id, res.body.data[0].isadmin);
+				expect(res).to.have.status(201);
+				expect(res.body.status).to.be.equal(201);
+				done();
+			});
+	});
+
 	it('it should create a user that is not already in database', (done) => {
 		const newUser = {
 			firstname: 'bukola',
 			lastname: 'Odunayo',
 			password: 'Buksy',
-			email: 'odunanne@gmail.com',
+			email: 'odunseun@gmail.com',
 			phoneNumber: '09039136484',
-			username: 'bukkady123'
+			username: 'bukkadseun'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send(newUser)
 			.end((err, res) => {
-				superToken = jwt.sign({ id: 1, isAdmin: true }, process.env.SECRET, { expiresIn: '24h' });
+				userToken = jwt.sign({ id: 2, isAdmin: false }, process.env.SECRET, { expiresIn: '24h' });
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
 				done();
@@ -237,6 +264,7 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 	it('it should get all meetups when there is no meetup in database', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups')
+			.send({ token: superToken })
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.error).to.be.equal('No meetup was found in the database');
@@ -249,7 +277,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			topic: 'God saves',
 			location: 'Anambra',
 			happeningOn: '2019-04-02',
-			tags: 'event'
+			tags: 'event',
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -262,21 +291,22 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			});
 	});
 
-	it('it should throw an error if meetup is already in database', (done) => {
+	it('it should not create a meetup by a user', (done) => {
 		const newMeetup = {
 			topic: 'God saves',
-			location: 'Niger',
+			location: 'Anambra',
 			happeningOn: '2019-04-02',
-			tags: 'event-center'
+			tags: 'event',
+			token: userToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
 			.send(newMeetup)
 			.end((err, res) => {
 				console.log(err);
-				expect(res).to.have.status(409);
-				expect(res.body.status).to.be.equal(409);
-				expect(res.body.error).to.be.equal('Meetup already exists');
+				expect(res).to.have.status(401);
+				expect(res.body.status).to.be.equal(401);
+				expect(res.body.error).to.be.equal('Only an admin can create meetup');
 				done();
 			});
 	});
@@ -325,7 +355,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			location: 'Abuja',
 			topic: 12345,
 			happeningOn: '15-02-2018',
-			tags: ['flowers', 'love']
+			tags: ['flowers', 'love'],
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -342,7 +373,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			location: 'Abuja',
 			topic: '',
 			happeningOn: '15-02-2018',
-			tags: ['flowers', 'love']
+			tags: ['flowers', 'love'],
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -359,7 +391,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			location: 'Abuja',
 			topic: 125678,
 			happeningOn: '15-02-2018',
-			tags: ['flowers', 'love']
+			tags: ['flowers', 'love'],
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -375,7 +408,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			createdOn: '3-12-2018',
 			topic: 'The influx of gayism in Nigeria',
 			happeningOn: '15-02-2018',
-			tags: ['flowers', 'love']
+			tags: ['flowers', 'love'],
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -392,7 +426,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			topic: 'The influx of gayism in Nigeria',
 			location: 56879,
 			happeningOn: '15-02-2018',
-			tags: ['flowers', 'love']
+			tags: ['flowers', 'love'],
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -408,7 +443,8 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			createdOn: '3-12-2018',
 			topic: 'The influx of gayism in Nigeria',
 			location: 'Lokoja',
-			tags: ['flowers', 'love']
+			tags: ['flowers', 'love'],
+			token: superToken
 		};
 		chai.request(app)
 			.post('/api/v1/meetups')
@@ -430,7 +466,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.post('/api/v1/questions')
 			.send(newQuestion)
 			.end((err, res) => {
-				console.log(res);
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
 				done();
@@ -477,7 +512,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.post('/api/v1/questions')
 			.send(newQuestion)
 			.end((err, res) => {
-				console.log(err);
 				expect(res).to.have.status(400);
 				expect(res.body.errors[0]).to.be.equal('Body must be a string');
 				done();
@@ -609,7 +643,7 @@ describe('TEST COMMENT ENDPOINTS', () => {
 
 	it('it should create a comment', (done) => {
 		const newComment = {
-			body: 'Hello beautiful',
+			body: 'Hello love',
 			token: superToken
 		};
 		chai.request(app)

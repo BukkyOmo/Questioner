@@ -7,19 +7,18 @@ import router from './v1/routes/routes';
 
 const app = express();
 app.use(expressValidator());
-const port = process.env.PORT || 5050;
+const port = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
 
 app.use('/api/v1', router);
 
 app.all('*', (request, response) => {
-	response.json({
+	response.status(404).json({
 		status: 404,
-		message: false,
 		error: 'The route you are trying to access does not exist'
 	});
 });

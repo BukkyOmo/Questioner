@@ -1,12 +1,9 @@
 /* eslint-disable consistent-return */
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import auth from '../middleware/auth';
+import Auth from '../helpers/auth';
 import pool from '../dbModel/connection';
 
-const { verifyToken } = auth;
-
-const secret = process.env.SECRET;
+const { verifyToken } = Auth;
 
 dotenv.config();
 
@@ -17,6 +14,7 @@ class CommentController {
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
 		const createdBy = decodedToken.id;
+
 		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
 
 		pool.query(selectQuery)

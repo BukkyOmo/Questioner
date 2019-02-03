@@ -1,6 +1,9 @@
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
+import Auth from '../helpers/auth';
 import pool from '../dbModel/connection';
+
+const { verifyToken } = Auth;
 
 dotenv.config();
 
@@ -20,33 +23,38 @@ class MeetupController {
 		} = request.body;
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
+		const { isAdmin } = decodedToken;
 		const createdBy = decodedToken.id;
 
-		if (createdBy !== isAdmin) {
+		if (isAdmin === true) {
+			console.log(isAdmin);
 			const insertQuery = {
-					text: 'INSERT into meetup( location, topic, happeningOn, images, tags) VALUES($1, $2, $3, $4, $5) RETURNING *',
-					values: [location, topic, happeningOn, images, tags]
-				};
+				text: 'INSERT into meetup( location, topic, happeningOn, images, tags, user_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING location, topic, happeningOn, images, tags',
+				values: [location, topic, happeningOn, 'https://res.cloudinary.com/dtzflgnar/image/upload/v1549098474/event4.jpg', tags, createdBy]
+			};
 
-				pool.query(insertQuery)
-					.then((meetup) => {
-						if (meetup.rows) {
-							return response.status(201).json({
-								status: 201,
-								data: [{
-									meetup: meetup.rows[0]
-								}],
-							});
-						}
+			return pool.query(insertQuery)
+				.then((meetup) => {
+					if (meetup.rows) {
+						return response.status(201).json({
+							status: 201,
+							data: [{
+								meetup: meetup.rows[0]
+							}],
+						});
+					}
+				})
+				.catch(error => (
+					response.status(500).json({
+						status: 500,
+						error: 'Internal server error'
 					})
-
-					.catch(error => (
-						response.status(500).json({
-							status: 500,
-							error: 'Internal server error'
-						})
-					));
+				));
 		}
+		return response.status(401).json({
+			status: 401,
+			error: 'Only an admin can create meetup'
+		});
 	}
 
 	/**
@@ -59,7 +67,7 @@ class MeetupController {
 	 * @memberof MeetupController
 	 */
 	static getAllMeetups(request, response) {
-		const selectQuery = 'SELECT * FROM meetup';
+		const selectQuery = 'SELECT meetup_id, location, topic, happeningOn, images, tags FROM meetup';
 
 		pool.query(selectQuery)
 			.then((result) => {
