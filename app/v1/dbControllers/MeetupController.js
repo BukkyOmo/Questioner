@@ -96,6 +96,7 @@ class MeetupController {
 	 * returns {object}
 	 * @memberof MeetupController
 	 */
+
 	static getAMeetup(request, response) {
 		const { id } = request.params;
 
@@ -120,7 +121,7 @@ class MeetupController {
 				error: 'Internal server error'
 			}));
 	}
-	
+
 	/**
 	 *@description- An endpoint to get all upcoming meetups
 	 *
@@ -131,7 +132,7 @@ class MeetupController {
 	 * @memberof MeetupController
 	 */
 	static getUpcomingMeetups(request, response) {
-		const selectQuery = 'SELECT * FROM meetup WHERE happeningOn > NOW() RETURNING *'
+		const selectQuery = 'SELECT * FROM meetup WHERE happeningOn > NOW() RETURNING *';
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -144,14 +145,13 @@ class MeetupController {
 				}
 				return response.status(200).json({
 					status: 200,
-					data: meetups
+					data: meetup
 				});
 			})
 			.catch(error => response.status(500).json({
 				status: 500,
 				error: 'Internal server error'
 			}));
-
 	}
 }
 export default MeetupController;
