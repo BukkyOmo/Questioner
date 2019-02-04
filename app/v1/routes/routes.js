@@ -20,10 +20,16 @@ const { getParamsValidator } = paramsValidator;
 const { createCommentValidator } = CommentValidator;
 const { createComment } = CommentController;
 const { isLogin } = VerifyToken;
-const { createMeetup, getAMeetup, getAllMeetups } = MeetupController;
 const { createMeetupValidator } = meetupValidator;
 const { createQuestionValidator } = questionValidator;
-const { createQuestion, getQuestion } = QuestionController;
+const { rsvpValidator } = RsvpValidator;
+const { rsvpMeetup } = RsvpController;
+const {
+	createQuestion, getQuestion, downvoteQuestion, upvoteQuestion
+} = QuestionController;
+const {
+	createMeetup, getAMeetup, getAllMeetups, getUpcomingMeetups, deleteMeetup
+} = MeetupController;
 
 
 router.route('/auth/signup')
@@ -34,12 +40,14 @@ router.route('/auth/signin')
 
 router.route('/meetups')
 	.get(isLogin, getAllMeetups)
-	.post(isLogin, createMeetupValidator, createMeetup)
-	.get(MeetupController.getUpcomingMeetups);
+	.post(isLogin, createMeetupValidator, createMeetup);
+
+router.route('/meetups/upcoming')
+	.get(isLogin, getUpcomingMeetups);
 
 router.route('/meetups/:id')
 	.get(isLogin, getParamsValidator, getAMeetup)
-	.delete(paramsValidator.getParamsValidator, MeetupController.deleteMeetup);
+	.delete(isLogin, getParamsValidator, deleteMeetup);
 
 router.route('/questions')
 	.post(isLogin, createQuestionValidator, createQuestion);
@@ -47,16 +55,16 @@ router.route('/questions')
 router.route('/questions/:id')
 	.get(isLogin, getParamsValidator, getQuestion);
 
-router.route('/questions/:id/comments')
-	.post(isLogin, getParamsValidator, createCommentValidator, createComment);
+router.route('/comments')
+	.post(isLogin, createCommentValidator, createComment);
+
+router.route('/meetups/:id/rsvps')
+	.post(isLogin, getParamsValidator, rsvpValidator, rsvpMeetup);
 
 router.route('/questions/:id/downvote')
-	.patch(getParamsValidator, QuestionController.downvoteQuestion);
-
-router.route('/meetups/:id/rsvp')
-	.post(paramsValidator.getParamsValidator, RsvpValidator.rsvpValidator, RsvpController.rsvpMeetup);
+	.patch(isLogin, getParamsValidator, downvoteQuestion);
 
 router.route('/questions/:id/upvote')
-	.patch(getParamsValidator, QuestionController.upvoteQuestion);
+	.patch(isLogin, getParamsValidator, upvoteQuestion);
 
 export default router;

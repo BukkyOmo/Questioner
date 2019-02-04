@@ -59,7 +59,7 @@ class MeetupController {
 				.catch(error => response.status(500).json({
 					status: 500,
 					error: 'Internal server error'
-				}));
+				}, console.log(error)));
 		}
 		return response.status(409).json({
 			status: 409,
@@ -148,10 +148,9 @@ class MeetupController {
    * @memberof MeetupController
    */
 	static getUpcomingMeetups(request, response) {
-		const selectQuery = 'SELECT * FROM meetup WHERE happeningOn > NOW() RETURNING *';
+		const selectQuery = 'SELECT meetup_id, location, topic, happeningOn, images, tags FROM meetup WHERE happeningOn > NOW()';
 
-		pool
-			.query(selectQuery)
+		pool.query(selectQuery)
 			.then((result) => {
 				const meetup = result.rows;
 				if (meetup.length < 0) {
@@ -168,7 +167,7 @@ class MeetupController {
 			.catch(error => response.status(500).json({
 				status: 500,
 				error: 'Internal server error'
-			}));
+			}, console.log(error)));
 	}
 
 	/**
@@ -192,39 +191,38 @@ class MeetupController {
 			values: [id]
 		};
 
-		pool.query(selectQuery).then((result) => {
-			if (result.rows.length === 0) {
-				return response.status(409).json({
-					status: 409,
-					error: 'Meetup you are trying to delete does not exist'
-				});
-			}
-			if (isAdmin === true) {
-				const deleteQuery = {
-					text: 'DELETE FROM meetup WHERE meetup_id = $1',
-					values: [id]
-				};
+		if (isAdmin === true) {
+			return pool.query(selectQuery)
+				.then((result) => {
+					if (result.rows.length === 0) {
+						return response.status(409).json({
+							status: 409,
+							error: 'Meetup you are trying to delete does not exist'
+						});
+					}
+					const deleteQuery = {
+						text: 'DELETE FROM meetup WHERE meetup_id = $1',
+						values: [id]
+					};
 
-				return pool
-					.query(deleteQuery)
-					.then((meetup) => {
-						if (meetup.rows) {
-							return response.status(201).json({
-								status: 201,
-								message: 'Your registration was successful',
-								data: meetup.rows[0]
-							});
-						}
-					})
-					.catch(error => response.status(500).json({
-						status: 500,
-						error: 'Internal server error'
-					}));
-			}
-			return response.status(409).json({
-				status: 409,
-				error: 'Only an admin can create a meetup'
-			});
+					return pool.query(deleteQuery)
+						.then((meetup) => {
+							if (meetup.rows) {
+								return response.status(201).json({
+									status: 201,
+									message: 'Your have successfully deleted a meetup'
+								});
+							}
+						})
+						.catch(error => response.status(500).json({
+							status: 500,
+							error: 'Internal server error'
+						}, console.log(error)));
+				});
+		}
+		return response.status(409).json({
+			status: 409,
+			error: 'Only an admin can create a meetup'
 		});
 	}
 }

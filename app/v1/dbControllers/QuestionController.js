@@ -60,7 +60,7 @@ class QuestionController {
 						response.status(500).json({
 							status: 500,
 							error: 'Internal server error'
-						}, console.log(error))
+						})
 					));
 			});
 	}

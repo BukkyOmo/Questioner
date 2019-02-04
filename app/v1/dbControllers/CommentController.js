@@ -9,31 +9,42 @@ dotenv.config();
 
 class CommentController {
 	static createComment(request, response) {
-		const { body } = request.body;
-		const { id } = request.params;
+		const {
+			body, id
+		} = request.body;
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
 		const createdBy = decodedToken.id;
 
 		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
-
-		pool.query(selectQuery)
+		return pool.query(selectQuery)
 			.then((result) => {
 				if (result.rows.length === 0) {
 					return response.status(404).json({
 						status: 404,
-						error: 'Question you wish to comment on does not exist'
+						error: 'The question you tried to post a question to cannot be found'
 					});
 				}
-				const insertQuery = `INSERT INTO comment (user_id, question_id, body) VALUES (${createdBy}, ${id}, '${body}') RETURNING *`;
-				pool.query(insertQuery)
+
+				const insertQuery = {
+					text: 'INSERT INTO comment (user_id, question_id, body) VALUES($1, $2, $3) RETURNING user_id, question_id, body',
+					values: [createdBy, id, body]
+				};
+
+				return pool.query(insertQuery)
 					.then((comment) => {
 						if (comment.rows) {
 							return response.status(201).json({
 								status: 201,
-								data: comment.rows[0]
+								data: [{
+									comment: comment.rows[0]
+								}],
 							});
 						}
+						return response.status(204).json({
+							status: 204,
+							error: 'Comment was not created',
+						});
 					})
 					.catch(error => (
 						response.status(500).json({
