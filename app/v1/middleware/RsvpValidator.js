@@ -9,17 +9,16 @@ class RsvpValidator {
 	 * @returns {object}
 	 * @memberof RsvpValidator
 	 */
-	static rsvpValidator(request, response, next) {
-		let { status } = request.body;
-		status = status.toLowerCase();
-		const rsvpStatus = status === 'yes' || status === 'no' || status === 'maybe';
-		if (!rsvpStatus) {
-			return response.status(400).json({
-				status: 400,
-				error: 'Rsvp status should be yes, no or maybe'
-			});
+	static rsvpValidator = (request, response, next) => {
+		const { body } = request.body;
+		const myStatus = body.toLowerCase();
+		if (myStatus === 'yes' || myStatus === 'no' || myStatus === 'maybe') {
+			return next();
 		}
-		return next();
+		return response.status(400).json({
+			status: 400,
+			error: 'Rsvp status should be yes, no or maybe',
+		});
 	}
 }
 export default RsvpValidator;

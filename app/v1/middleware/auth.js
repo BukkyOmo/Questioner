@@ -1,30 +1,30 @@
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-import pool from '../dbModel/connection';
+import Auth from '../helpers/auth';
+
+const { verifyToken } = Auth;
 
 dotenv.config();
-class Auth {
-	static generateToken(id, isAdmin) {
-		const token = jwt.sign({
-			id, isAdmin
-		},
-		process.env.SECRET,
-		{ expiresIn: '24h' });
 
-		return token;
-	}
+class VerifyToken {
+	static isLogin = (req, res, next) => {
+		const token = req.body.token || req.headers.token;
 
-	static isLogin(req, res, next) {
-		const token = req.headers.token || req.body.token;
-		if (!token) {
-			return res.status(409).json({ error: 'Unauthorized' });
+		try {
+			console.log(token)
+			const decodedToken = verifyToken(token);
+			console.log(decodedToken)
+			if (decodedToken.id) {
+				return next();
+			}
+		} catch (err) {
+			return res.status(401).json({
+				status: 401,
+				error: 'Unauthorized User',
+			});
 		}
+
 		return next();
 	}
-
-	static verifyToken(token) {
-		return jwt.verify(token, process.env.SECRET);
-	}
 }
-export default Auth;
+export default VerifyToken;

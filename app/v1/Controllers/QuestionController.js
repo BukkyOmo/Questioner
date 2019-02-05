@@ -1,7 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
-import pool from '../dbModel/connection';
+import Auth from '../helpers/auth';
+import pool from '../Model/connection';
+
+const { verifyToken } = Auth;
 
 dotenv.config();
 
@@ -15,33 +18,47 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static createQuestion(request, response) {
+	static createQuestion = (request, response) => {
 		const {
-			title, body
+			title, body, id
 		} = request.body;
+		const token = request.headers.token || request.body.token;
+		const decodedToken = verifyToken(token);
+		const createdBy = decodedToken.id;
 
-		const insertQuery = {
-			text: 'INSERT INTO questions (title, body) VALUES($1, $2) RETURNING *',
-			values: [title, body]
-		};
-
-		pool.query(insertQuery)
-			.then((question) => {
-				if (question.rows) {
-					return response.status(201).json({
-						status: 201,
-						data: [{
-							question: question.rows[0]
-						}],
+		const selectQuery = { text: 'SELECT * FROM meetup WHERE id = $1', values: [id] };
+		return pool.query(selectQuery)
+			.then((result) => {
+				if (result.rows.length === 0) {
+					return response.status(404).json({
+						status: 404,
+						error: 'The meetup you tried to post a question to cannot be found'
 					});
 				}
+
+				const insertQuery = {
+					text: 'INSERT INTO questions (createdBy, meetup_id, title, body) VALUES($1, $2, $3, $4) RETURNING createdBy, meetup_id, title, body',
+					values: [createdBy, id, title, body]
+				};
+
+				return pool.query(insertQuery)
+					.then((question) => {
+						if (question.rows) {
+							return response.status(201).json({
+								status: 201,
+								data: [{
+									question: question.rows[0]
+								}],
+							});
+						}
+					})
+					.catch(error => (
+						response.status(500).json({
+							status: 500,
+							error: 'Something unexpected happened'
+						})
+					));
 			})
-			.catch(error => (
-				response.status(500).json({
-					status: 500,
-					error: 'Internal server error'
-				})
-			));
 	}
 
 	/**
@@ -53,10 +70,10 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static getQuestion(request, response) {
+	static getQuestion = (request, response) => {
 		const { id } = request.params;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -75,7 +92,7 @@ class QuestionController {
 			.catch((error) => {
 				response.status(500).json({
 					status: 500,
-					error: 'Internal server error'
+					error: 'Something unexpected happened'
 				});
 			});
 	}
@@ -89,11 +106,11 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static downvoteQuestion(request, response) {
+	static downvoteQuestion = (request, response) => {
 		const { id } = request.params;
 
 		const selectQuery = {
-			text: 'SELECT * FROM questions WHERE question_id = $1',
+			text: 'SELECT * FROM questions WHERE id = $1',
 			values: [id]
 		};
 
@@ -109,7 +126,7 @@ class QuestionController {
 				// eslint-disable-next-line no-param-reassign
 				result.rows[0].downvotes += 1;
 				const updateQuery = {
-					text: 'UPDATE questions SET downvotes = $1 WHERE question_id = $2 RETURNING *',
+					text: 'UPDATE questions SET downvotes = $1 WHERE id = $2 RETURNING *',
 					values: [result.rows[0].downvotes, id],
 				};
 				pool.query(updateQuery)
@@ -121,12 +138,12 @@ class QuestionController {
 							});
 						}
 					})
-					.catch((error) => {
-						response.status(500).json({
-							status: 500,
-							error: 'Internal server error'
-						});
-					});
+			})
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					error: 'Something unexpected happened'
+				});
 			});
 	}
 
@@ -142,10 +159,10 @@ class QuestionController {
 	 * returns object
 	 * @memberof QuestionController
 	 */
-	static upvoteQuestion(request, response) {
+	static upvoteQuestion = (request, response) => {
 		const { id } = request.params;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -158,7 +175,7 @@ class QuestionController {
 				// eslint-disable-next-line no-param-reassign
 				result.rows[0].upvotes += 1;
 				const updateQuery = {
-					text: 'UPDATE questions SET upvotes = $1 WHERE question_id = $2 RETURNING *',
+					text: 'UPDATE questions SET upvotes = $1 WHERE id = $2 RETURNING *',
 					values: [result.rows[0].upvotes, id],
 				};
 
@@ -171,12 +188,12 @@ class QuestionController {
 							});
 						}
 					})
-					.catch((error) => {
-						response.status(500).json({
-							status: 500,
-							error: 'Internal server error'
-						});
-					});
+			})
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					error: 'Something unexpected happened'
+				});
 			});
 	}
 }

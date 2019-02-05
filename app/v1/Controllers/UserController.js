@@ -1,7 +1,9 @@
 /* eslint-disable consistent-return */
 import passwordhash from 'password-hash';
-import Auth from '../middleware/auth';
-import pool from '../dbModel/connection';
+import Auth from '../helpers/auth';
+import pool from '../Model/connection';
+
+const { generateToken } = Auth;
 
 
 class UserController {
@@ -14,7 +16,7 @@ class UserController {
 	 * returns {object}
 	 * @memberof UserController
 	 */
-	static signup(request, response) {
+	static signup = (request, response) => {
 		const {
 			firstname, lastname, username, phoneNumber, email, password
 		} = request.body;
@@ -39,11 +41,12 @@ class UserController {
 				pool.query(insertQuery)
 					.then((users) => {
 						if (users.rows) {
-							const token = Auth.generateToken(users.rows[0].user_id, users.rows[0].isadmin);
+							const token = generateToken(users.rows[0].id, users.rows[0].isadmin);
 							return response.status(201).json({
 								status: 201,
 								data: [{
 									token,
+									userId: users.rows[0].id,
 									user: users.rows[0].username
 								}],
 							});
@@ -52,13 +55,13 @@ class UserController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							error: 'Internal server error'
+							error: 'Something went wrong'
 						})
 					));
 			});
 	}
 
-	static signin(request, response) {
+	static signin = (request, response) => {
 		const { email, password } = request.body;
 
 		const selectQuery = { text: 'SELECT * from users WHERE email = $1', values: [email] };
@@ -67,7 +70,7 @@ class UserController {
 			.then((result) => {
 				if (result.rows.length > 0) {
 					if (passwordhash.verify(password, result.rows[0].password)) {
-						const token = Auth.generateToken(result.rows[0].user_id, result.rows[0].isadmin);
+						const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
 						return response.status(200).json({
 							status: 200,
 							data: [{
@@ -90,7 +93,7 @@ class UserController {
 			.catch(err => (
 				response.status(500).json({
 					status: 500,
-					error: 'Internal server error'
+					error: 'Something went wrong'
 				})
 			));
 	}

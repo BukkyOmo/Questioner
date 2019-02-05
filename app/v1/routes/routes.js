@@ -4,54 +4,67 @@ import userValidator from '../middleware/userValidator';
 import questionValidator from '../middleware/questionValidator';
 import paramsValidator from '../middleware/paramsValidator';
 import CommentValidator from '../middleware/commentValidator';
-import Auth from '../middleware/auth';
-import UserController from '../dbControllers/UserController';
-import MeetupController from '../dbControllers/MeetupController';
-import QuestionController from '../dbControllers/QuestionController';
-import RsvpController from '../dbControllers/RsvpController';
+import VerifyToken from '../middleware/auth';
+import UserController from '../Controllers/UserController';
+import MeetupController from '../Controllers/MeetupController';
+import QuestionController from '../Controllers/QuestionController';
+import RsvpController from '../Controllers/RsvpController';
 import RsvpValidator from '../middleware/RsvpValidator';
-import CommentController from '../dbControllers/CommentController';
+import CommentController from '../Controllers/CommentController';
 
 const router = express.Router();
 
+const { signupValidator } = userValidator;
+const { signup, signin } = UserController;
 const { getParamsValidator } = paramsValidator;
 const { createCommentValidator } = CommentValidator;
 const { createComment } = CommentController;
-const { isLogin } = Auth;
-const { getAMeetup } = MeetupController;
+const { isLogin } = VerifyToken;
+const { createMeetupValidator } = meetupValidator;
+const { createQuestionValidator } = questionValidator;
+const { rsvpValidator } = RsvpValidator;
+const { rsvpMeetup } = RsvpController;
+const {
+	createQuestion, getQuestion, downvoteQuestion, upvoteQuestion
+} = QuestionController;
+const {
+	createMeetup, getAMeetup, getAllMeetups, getUpcomingMeetups, deleteMeetup
+} = MeetupController;
 
 
 router.route('/auth/signup')
-	.post(userValidator.signupValidator, UserController.signup);
+	.post(signupValidator, signup);
 
 router.route('/auth/signin')
-	.post(UserController.signin);
+	.post(signin);
 
 router.route('/meetups')
-	.get(MeetupController.getAllMeetups)
-	.post(meetupValidator.createMeetupValidator, MeetupController.createMeetup)
-	.get(MeetupController.getUpcomingMeetups);
+	.get(isLogin, getAllMeetups)
+	.post(isLogin, createMeetupValidator, createMeetup);
+
+router.route('/meetups/upcoming')
+	.get(isLogin, getUpcomingMeetups);
 
 router.route('/meetups/:id')
-	.get(paramsValidator.getParamsValidator, MeetupController.getAMeetup)
-	.delete(paramsValidator.getParamsValidator, MeetupController.deleteMeetup);
+	.get(isLogin, getParamsValidator, getAMeetup)
+	.delete(isLogin, getParamsValidator, deleteMeetup);
 
 router.route('/questions')
-	.post(questionValidator.createQuestionValidator, QuestionController.createQuestion);
+	.post(isLogin, createQuestionValidator, createQuestion);
 
 router.route('/questions/:id')
-	.get(getParamsValidator, QuestionController.getQuestion);
+	.get(isLogin, getParamsValidator, getQuestion);
 
-router.route('/questions/:id/comments')
-	.post(isLogin, getParamsValidator, createCommentValidator, createComment);
+router.route('/comments')
+	.post(isLogin, createCommentValidator, createComment);
+
+router.route('/meetups/:id/rsvps')
+	.post(isLogin, getParamsValidator, rsvpValidator, rsvpMeetup);
 
 router.route('/questions/:id/downvote')
-	.patch(getParamsValidator, QuestionController.downvoteQuestion);
-
-router.route('/meetups/:id/rsvp')
-	.post(paramsValidator.getParamsValidator, RsvpValidator.rsvpValidator, RsvpController.rsvpMeetup);
+	.patch(isLogin, getParamsValidator, downvoteQuestion);
 
 router.route('/questions/:id/upvote')
-	.patch(getParamsValidator, QuestionController.upvoteQuestion);
+	.patch(isLogin, getParamsValidator, upvoteQuestion);
 
 export default router;
