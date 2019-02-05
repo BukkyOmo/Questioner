@@ -537,7 +537,7 @@ describe('TEST COMMENT ENDPOINTS', () => {
 			.send(CommentQuestionNotExist)
 			.end((err, res) => {
 				expect(res).to.have.status(404);
-				expect(res.body.error).to.be.equal('The question you tried to post a question to cannot be found');
+				expect(res.body.error).to.be.equal('The question you tried to post a comment to cannot be found');
 				done();
 			});
 	});
