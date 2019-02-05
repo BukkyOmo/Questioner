@@ -17,7 +17,7 @@ class RsvpController {
 		const myStatus = body.toLowerCase();
 
 		const selectQuery = {
-			text: 'SELECT * FROM meetup WHERE meetup_id = $1',
+			text: 'SELECT * FROM meetup WHERE id = $1',
 			values: [id],
 		};
 		pool.query(selectQuery)

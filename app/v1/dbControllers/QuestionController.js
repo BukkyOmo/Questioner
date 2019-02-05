@@ -26,7 +26,7 @@ class QuestionController {
 		const decodedToken = verifyToken(token);
 		const createdBy = decodedToken.id;
 
-		const selectQuery = { text: 'SELECT * FROM meetup WHERE meetup_id = $1', values: [id] };
+		const selectQuery = { text: 'SELECT * FROM meetup WHERE id = $1', values: [id] };
 		return pool.query(selectQuery)
 			.then((result) => {
 				if (result.rows.length === 0) {
@@ -77,7 +77,7 @@ class QuestionController {
 	static getQuestion(request, response) {
 		const { id } = request.params;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -114,7 +114,7 @@ class QuestionController {
 		const { id } = request.params;
 
 		const selectQuery = {
-			text: 'SELECT * FROM questions WHERE question_id = $1',
+			text: 'SELECT * FROM questions WHERE id = $1',
 			values: [id]
 		};
 
@@ -130,7 +130,7 @@ class QuestionController {
 				// eslint-disable-next-line no-param-reassign
 				result.rows[0].downvotes += 1;
 				const updateQuery = {
-					text: 'UPDATE questions SET downvotes = $1 WHERE question_id = $2 RETURNING *',
+					text: 'UPDATE questions SET downvotes = $1 WHERE id = $2 RETURNING *',
 					values: [result.rows[0].downvotes, id],
 				};
 				pool.query(updateQuery)
@@ -166,7 +166,7 @@ class QuestionController {
 	static upvoteQuestion(request, response) {
 		const { id } = request.params;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -179,7 +179,7 @@ class QuestionController {
 				// eslint-disable-next-line no-param-reassign
 				result.rows[0].upvotes += 1;
 				const updateQuery = {
-					text: 'UPDATE questions SET upvotes = $1 WHERE question_id = $2 RETURNING *',
+					text: 'UPDATE questions SET upvotes = $1 WHERE id = $2 RETURNING *',
 					values: [result.rows[0].upvotes, id],
 				};
 

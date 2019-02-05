@@ -15,7 +15,7 @@ app.use(bodyparser.json());
 
 app.use('/api/v1', router);
 
-app.all('*', (request, response) => {
+app.get('*', (request, response) => {
 	response.status(404).json({
 		status: 404,
 		error: 'The route you are trying to access does not exist'

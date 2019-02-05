@@ -6,11 +6,9 @@ dotenv.config();
 
 class Auth {
 	static generateToken(id, isAdmin) {
-		const token = jwt.sign({
-			id, isAdmin
-		},
-		process.env.SECRET,
-		{ expiresIn: '24h' });
+		const token = jwt.sign({ id, isAdmin },
+			process.env.SECRET,
+			{ expiresIn: '24h' });
 
 		return token;
 	}

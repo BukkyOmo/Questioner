@@ -16,7 +16,7 @@ class CommentController {
 		const decodedToken = verifyToken(token);
 		const createdBy = decodedToken.id;
 
-		const selectQuery = { text: 'SELECT * FROM questions WHERE question_id = $1', values: [id] };
+		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
 		return pool.query(selectQuery)
 			.then((result) => {
 				if (result.rows.length === 0) {
@@ -41,10 +41,6 @@ class CommentController {
 								}],
 							});
 						}
-						return response.status(204).json({
-							status: 204,
-							error: 'Comment was not created',
-						});
 					})
 					.catch(error => (
 						response.status(500).json({

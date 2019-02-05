@@ -1,97 +1,108 @@
 
 const UserTest = {
-	User: {
-		email: 'bukkyO@gmail.com',
-		password: 'seun'
-	},
+  User: {
+    firstname: "Odunayo",
+    lastname: "Omosefunmi",
+    username: "buks",
+    phoneNumber: "09039136484",
+    email: "bukkyadeola@gmail.com",
+    password: "seunolat"
+  },
 
-	SuperUser: {
-		email: 'bukkyo@gmail.com',
-		password: 'bukola'
-	},
+  SuperUserLogin: {
+    email: "testing@gmail.com",
+    password: "testing"
+  },
 
-	NoUniqueEmail: {
-		firstname: 'bukola',
-		lastname: 'Odunayo',
-		password: 'BukkyO',
-		email: 'bukkyO@gmail.com',
-		phoneNumber: '09039136484',
-		username: 'bukkadeye'
-	},
+  LogInUser: {
+    email: "bukkyadeola@gmail.com",
+    password: "seunolat"
+  },
 
-	EmptyEmail: {
-		firstname: 'bukola',
-		lastname: 'Odunayo',
-		password: 'Bukola',
-		email: '',
-		phoneNumber: '09039136484',
-		username: 'bukkadeye'
-	},
+  NoUniqueEmail: {
+    firstname: "bukola",
+    lastname: "Odunayo",
+    password: "BukkyO",
+    email: "testing@gmail.com",
+    phoneNumber: "09039136484",
+    username: "bukkadeye"
+  },
 
-	InvalidEmail: {
-		firstname: 'bukola',
-		lastname: 'Odunayo',
-		password: 'Bukola',
-		email: 'bukola',
-		phoneNumber: '09039136484',
-		username: 'bukkadeye'
-	},
+  EmptyEmail: {
+    firstname: "bukola",
+    lastname: "Odunayo",
+    password: "Bukola",
+    email: "",
+    phoneNumber: "09039136484",
+    username: "bukkadeye"
+  },
 
-	NotUniqueUsername: {
-		firstname: 'bukola',
-		lastname: 'Odunayo',
-		password: 'BuksYTT',
-		email: 'odunbukola1@gmail.com',
-		phoneNumber: '09039136484',
-		username: 'bukkady123'
-	},
+  InvalidEmail: {
+    firstname: "bukola",
+    lastname: "Odunayo",
+    password: "Bukola",
+    email: "bukola",
+    phoneNumber: "09039136484",
+    username: "bukkadeye"
+  },
 
-	EmptyUsername: {
-		firstname: 'bukola',
-		lastname: 'Odunayo',
-		password: 'BuksYTT',
-		email: 'odunbukola1@gmail.com',
-		phoneNumber: '09039136484',
-		username: ''
-	},
+  NotUniqueUsername: {
+    firstname: "bukola",
+    lastname: "Odunayo",
+    password: "BuksYTT",
+    email: "odunbukola1@gmail.com",
+    phoneNumber: "09039136484",
+    username: "testing1"
+  },
 
-	UsernameNotString: {
-		firstname: 'bukola',
-		lastname: 'Odunayo',
-		password: 'BuksYTT',
-		email: 'odunbukola1@gmail.com',
-		phoneNumber: '09039136484',
-		username: []
-	},
+  EmptyUsername: {
+    firstname: "bukola",
+    lastname: "Odunayo",
+    password: "BuksYTT",
+    email: "odunbukola1@gmail.com",
+    phoneNumber: "09039136484",
+    username: ""
+  },
 
-	RegisteredUser: {
-		email: 'bukkyO@gmail.com',
-		password: 'seun'
-	},
+  UsernameNotString: {
+    firstname: "bukola",
+    lastname: "Odunayo",
+    password: "BuksYTT",
+    email: "odunbukola1@gmail.com",
+    phoneNumber: "09039136484",
+    username: []
+  },
 
-	UserNotInDatabase: {
-		email: 'odmreferral@gmail.com',
-		password: '34567'
-	},
+  UserNotInDatabase: {
+    email: "odmreferral@gmail.com",
+    password: "34567"
+  },
 
-	NotLogIncorrectEmail: {
-		email: 'odunbabey11@gmail.com',
-		password: 'flexy'
-	},
+  NotLogIncorrectEmail: {
+    email: "odunbabey11@gmail.com",
+    password: "seunodun"
+  },
 
-	NotLogIncorrectUsername: {
-		password: 'bukola',
-		email: 'seunzone@gmail.com'
-	},
+  NotLogIncorrectPassword: {
+    email: "testing@gmail.com",
+    password: "playgirl"
+  }
 };
 
 
 const MeetupTest = {
 	AdminCreateMeetup: {
 		topic: 'Web Accessibility',
-		happeningOn: '2019-12-12',
-		location: 'Uyo, Akwa Ibom State',
+		happeningOn: '12-05-2019',
+		location: 'Uyo, Akwa Ibom State'
 	},
+
+	AdminCreateanotherMeetup: {
+		topic: 'Facebook for developers',
+		happeningOn: '10-07-2019',
+		location: 'Yaba, Lagos State'
+	},
+
 
 	MeetupTopicNotString: {
 		createdOn: '3-12-2018',
@@ -152,8 +163,8 @@ const MeetupTest = {
 
 const QuestionTest = {
 	newQuestion: {
-		meetupId: 1,
-		userId: 1,
+		id: 1,
+		createdBy: 1,
 		title: 'God saves everyone my dear',
 		body: 'Niger is part of the world',
 	},
@@ -169,7 +180,7 @@ const QuestionTest = {
 
 	QuestionBodyNotString: {
 		title: 'The reward of labour',
-		body: {},
+		body: 123456,
 	},
 
 	QuestionBodyEmpty: {
@@ -193,36 +204,49 @@ const QuestionTest = {
 };
 
 const CommentTest = {
-	CommentQuestionNotExist: {
-		body: 'Hello beautiful',
-	},
+  CommentQuestionNotExist: {
+    createdBy: 1,
+    id: 5,
+    body: "Hello beautiful"
+  },
 
-	CreateComment: {
-		body: 'Hello love',
-	},
+  CreateComment: {
+    createdBy: 1,
+    id: 1,
+    body: "Hello love"
+  },
 
-	CommentBodyEmpty: {
-		body: '',
-	},
+  CommentBodyEmpty: {
+	createdBy: 1,
+	id: 1,
+    body: ""
+  },
 
-	CommentBodyNotString: {
-		body: 1234,
-	},
-
+  CommentBodyNotString: {
+	createdBy: 1,
+	id: 1,
+    body: 1234
+  }
 };
 
 const RSVPTest = {
 	validRsvp: {
-		status: 'yes',
+		body: "yes",
 	},
 
 	invalidRsvp: {
-		status: 'great',
+		body: "great",
 	},
 };
+
+const DeleteMeetup = {
+	meetupNotExist: {
+
+	}
+}
 
 
 export {
 	MeetupTest, QuestionTest, RSVPTest, CommentTest,
-	UserTest,
+	UserTest
 };

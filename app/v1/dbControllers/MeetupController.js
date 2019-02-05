@@ -30,7 +30,7 @@ class MeetupController {
 			console.log(isAdmin);
 			const insertQuery = {
 				text:
-          'INSERT into meetup( location, topic, happeningOn, images, tags, user_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING location, topic, happeningOn, images, tags',
+          'INSERT into meetup( location, topic, happeningOn, images, tags, users_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING location, topic, happeningOn, images, tags',
 				values: [
 					location,
 					topic,
@@ -77,7 +77,7 @@ class MeetupController {
    * @memberof MeetupController
    */
 	static getAllMeetups(request, response) {
-		const selectQuery = 'SELECT meetup_id, location, topic, happeningOn, images, tags FROM meetup';
+		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup';
 
 		pool
 			.query(selectQuery)
@@ -113,7 +113,7 @@ class MeetupController {
 		const { id } = request.params;
 
 		const selectQuery = {
-			text: 'SELECT * FROM meetup WHERE meetup_id = $1',
+			text: 'SELECT * FROM meetup WHERE id = $1',
 			values: [id]
 		};
 
@@ -148,7 +148,7 @@ class MeetupController {
    * @memberof MeetupController
    */
 	static getUpcomingMeetups(request, response) {
-		const selectQuery = 'SELECT meetup_id, location, topic, happeningOn, images, tags FROM meetup WHERE happeningOn > NOW()';
+		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup WHERE happeningOn > NOW()';
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -187,7 +187,7 @@ class MeetupController {
 		const createdBy = decodedToken.id;
 
 		const selectQuery = {
-			text: 'SELECT * FROM meetup WHERE meetup_id = $1',
+			text: 'SELECT * FROM meetup WHERE id = $1',
 			values: [id]
 		};
 
@@ -201,7 +201,7 @@ class MeetupController {
 						});
 					}
 					const deleteQuery = {
-						text: 'DELETE FROM meetup WHERE meetup_id = $1',
+						text: 'DELETE FROM meetup WHERE id = $1',
 						values: [id]
 					};
 

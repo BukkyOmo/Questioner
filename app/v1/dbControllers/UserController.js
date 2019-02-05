@@ -41,12 +41,12 @@ class UserController {
 				pool.query(insertQuery)
 					.then((users) => {
 						if (users.rows) {
-							const token = generateToken(users.rows[0].user_id, users.rows[0].isadmin);
+							const token = generateToken(users.rows[0].id, users.rows[0].isadmin);
 							return response.status(201).json({
 								status: 201,
 								data: [{
 									token,
-									userId: users.rows[0].user_id,
+									userId: users.rows[0].id,
 									user: users.rows[0].username
 								}],
 							});
@@ -70,7 +70,7 @@ class UserController {
 			.then((result) => {
 				if (result.rows.length > 0) {
 					if (passwordhash.verify(password, result.rows[0].password)) {
-						const token = generateToken(result.rows[0].user_id, result.rows[0].isadmin);
+						const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
 						return response.status(200).json({
 							status: 200,
 							data: [{
