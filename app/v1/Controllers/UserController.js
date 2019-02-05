@@ -55,7 +55,7 @@ class UserController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							error: 'Internal server error'
+							error: 'Something went wrong'
 						})
 					));
 			});
@@ -93,7 +93,7 @@ class UserController {
 			.catch(err => (
 				response.status(500).json({
 					status: 500,
-					error: 'Internal server error'
+					error: 'Something went wrong'
 				})
 			));
 	}

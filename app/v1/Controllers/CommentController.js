@@ -22,7 +22,7 @@ class CommentController {
 				if (result.rows.length === 0) {
 					return response.status(404).json({
 						status: 404,
-						error: 'The question you tried to post a question to cannot be found'
+						error: 'The question you tried to post a comment to cannot be found'
 					});
 				}
 
@@ -45,7 +45,7 @@ class CommentController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							error: 'Internal server error'
+							error: 'Something went wrong'
 						})
 					));
 			});
