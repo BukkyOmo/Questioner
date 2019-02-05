@@ -1,14 +1,14 @@
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
 import Auth from '../helpers/auth';
-import pool from '../dbModel/connection';
+import pool from '../Model/connection';
 
 dotenv.config();
 
 const { verifyToken } = Auth;
 
 class RsvpController {
-	static rsvpMeetup(request, response) {
+	static rsvpMeetup = (request, response) => {
 		const { body } = request.body;
 		const { id } = request.params;
 		const token = request.headers.token || request.body.token;
@@ -59,9 +59,8 @@ class RsvpController {
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							message: false,
-							error: 'Internal server error'
-						}, console.log(error))
+							error: 'Something went wrong'
+						})
 					));
 			});
 	}

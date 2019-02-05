@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 class Auth {
-	static generateToken(id, isAdmin) {
+	static generateToken = (id, isAdmin) => {
 		const token = jwt.sign({ id, isAdmin },
 			process.env.SECRET,
 			{ expiresIn: '24h' });
@@ -13,7 +13,7 @@ class Auth {
 		return token;
 	}
 
-	static verifyToken(token) {
+	static verifyToken = (token) => {
 		return jwt.verify(token, process.env.SECRET);
 	}
 }

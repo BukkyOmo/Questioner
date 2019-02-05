@@ -7,7 +7,7 @@
     "start": "babel-node app/app.js",
     "serve": "nodemon app/app.js --exec babel-node",
     "build": "babel app --out-dir build",
-   "seed": "babel-node ./app/v1/dbModel/seeder.js", 
+    "seed": "babel-node ./app/v1/Model/seeder.js",
     "pretest": "cross-env NODE_ENV=test npm run migration",
     "test": "cross-env NODE_ENV=test npm run seed && cross-env NODE_ENV=test nyc mocha --exit --compilers js:babel-core/register --timeout 30000 ./app/test/**/*.js",
     "lint": "eslint app/app.js",
@@ -17,7 +17,7 @@
     "coverage": "nyc --reporter=lcov --reporter=text-lcov --require babel-core/register  _mocha --exit test/*.js",
     "report-coverage": "nyc report --reporter=text-lcov | coveralls",
     "codeclimate-report": "codeclimate-test-reporter < ./coverage/lcov.info",
-    "migration": "babel-node ./app/v1/dbModel/db"
+    "migration": "babel-node ./app/v1/Model/db"
   },
   "repository": {
     "type": "git",
@@ -55,6 +55,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.2.1",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",

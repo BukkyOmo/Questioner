@@ -4,11 +4,9 @@ import {
 } from './mocks';
 
 const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
-chai.use(chaiAsPromised);
 
 const { expect } = chai;
 
@@ -48,7 +46,6 @@ describe("TEST ALL USER ENDPOINTS", () => {
       .end((err, res) => {
         const { body } = res;
         authTokenAdmin = body.data[0].token;
-        console.log(authTokenAdmin);
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
         done();
@@ -225,7 +222,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 				.set("token", authTokenAdmin)
 				.send(AdminCreateMeetup)
 				.end((err, res) => {
-					console.log(err);
 					expect(res).to.have.status(201);
 					expect(res.body.status).to.be.equal(201);
 					done();
@@ -239,7 +235,6 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.set("Accept", "application/json")
 			.send(AdminCreateMeetup)
 			.end((err, res) => {
-				console.log(err);
 				expect(res).to.have.status(401);
 				expect(res.body.error).to.be.equal('Unauthorized User');
 				done();
@@ -416,7 +411,6 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.set("token", authTokenAdmin)
 			.send(QuestionBodyEmpty)
 			.end((err, res) => {
-				console.log(err);
 				expect(res).to.have.status(400);
 				expect(res.body.errors[0]).to.be.equal("Body is required");
 				done();
@@ -566,7 +560,6 @@ describe('TEST COMMENT ENDPOINTS', () => {
 			.set('token', authTokenAdmin)
 			.send(CommentBodyEmpty)
 			.end((err, res) => {
-				console.log(err);
 				expect(res).to.have.status(400);
 				expect(res.body.errors[0]).to.be.equal('Comment body is required');
 				done();
@@ -611,7 +604,6 @@ describe('TEST ALL RSVP ENDPOINTS', () => {
 				.set("token", authTokenAdmin)
 				.send(validRsvp)
 				.end((err, res) => {
-					console.log(err);
 					expect(res).to.have.status(200);
 					expect(res.body.status).to.be.equal(200);
 					done();

@@ -5,12 +5,12 @@ import questionValidator from '../middleware/questionValidator';
 import paramsValidator from '../middleware/paramsValidator';
 import CommentValidator from '../middleware/commentValidator';
 import VerifyToken from '../middleware/auth';
-import UserController from '../dbControllers/UserController';
-import MeetupController from '../dbControllers/MeetupController';
-import QuestionController from '../dbControllers/QuestionController';
-import RsvpController from '../dbControllers/RsvpController';
+import UserController from '../Controllers/UserController';
+import MeetupController from '../Controllers/MeetupController';
+import QuestionController from '../Controllers/QuestionController';
+import RsvpController from '../Controllers/RsvpController';
 import RsvpValidator from '../middleware/RsvpValidator';
-import CommentController from '../dbControllers/CommentController';
+import CommentController from '../Controllers/CommentController';
 
 const router = express.Router();
 

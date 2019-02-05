@@ -7,11 +7,13 @@ const { verifyToken } = Auth;
 dotenv.config();
 
 class VerifyToken {
-	static isLogin(req, res, next) {
+	static isLogin = (req, res, next) => {
 		const token = req.body.token || req.headers.token;
 
 		try {
+			console.log(token)
 			const decodedToken = verifyToken(token);
+			console.log(decodedToken)
 			if (decodedToken.id) {
 				return next();
 			}

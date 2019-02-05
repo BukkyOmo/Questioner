@@ -1,14 +1,14 @@
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
 import Auth from '../helpers/auth';
-import pool from '../dbModel/connection';
+import pool from '../Model/connection';
 
 const { verifyToken } = Auth;
 
 dotenv.config();
 
 class CommentController {
-	static createComment(request, response) {
+	static createComment = (request, response) => {
 		const {
 			body, id
 		} = request.body;
@@ -46,7 +46,7 @@ class CommentController {
 						response.status(500).json({
 							status: 500,
 							error: 'Internal server error'
-						}, console.log(error))
+						})
 					));
 			});
 	}

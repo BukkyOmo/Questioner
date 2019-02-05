@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
 import Auth from '../helpers/auth';
-import pool from '../dbModel/connection';
+import pool from '../Model/connection';
 
 const { verifyToken } = Auth;
 
@@ -18,7 +18,7 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static createQuestion(request, response) {
+	static createQuestion = (request, response) => {
 		const {
 			title, body, id
 		} = request.body;
@@ -51,18 +51,14 @@ class QuestionController {
 								}],
 							});
 						}
-						return response.status(204).json({
-							status: 204,
-							error: 'Question was not created',
-						});
 					})
 					.catch(error => (
 						response.status(500).json({
 							status: 500,
-							error: 'Internal server error'
+							error: 'Something unexpected happened'
 						})
 					));
-			});
+			})
 	}
 
 	/**
@@ -74,7 +70,7 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static getQuestion(request, response) {
+	static getQuestion = (request, response) => {
 		const { id } = request.params;
 
 		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
@@ -96,7 +92,7 @@ class QuestionController {
 			.catch((error) => {
 				response.status(500).json({
 					status: 500,
-					error: 'Internal server error'
+					error: 'Something unexpected happened'
 				});
 			});
 	}
@@ -110,7 +106,7 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static downvoteQuestion(request, response) {
+	static downvoteQuestion = (request, response) => {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -142,12 +138,12 @@ class QuestionController {
 							});
 						}
 					})
-					.catch((error) => {
-						response.status(500).json({
-							status: 500,
-							error: 'Internal server error'
-						});
-					});
+			})
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					error: 'Something unexpected happened'
+				});
 			});
 	}
 
@@ -163,7 +159,7 @@ class QuestionController {
 	 * returns object
 	 * @memberof QuestionController
 	 */
-	static upvoteQuestion(request, response) {
+	static upvoteQuestion = (request, response) => {
 		const { id } = request.params;
 
 		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
@@ -192,12 +188,12 @@ class QuestionController {
 							});
 						}
 					})
-					.catch((error) => {
-						response.status(500).json({
-							status: 500,
-							error: 'Internal server error'
-						});
-					});
+			})
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					error: 'Something unexpected happened'
+				});
 			});
 	}
 }

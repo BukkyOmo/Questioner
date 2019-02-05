@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import passwordhash from 'password-hash';
 import Auth from '../helpers/auth';
-import pool from '../dbModel/connection';
+import pool from '../Model/connection';
 
 const { generateToken } = Auth;
 
@@ -16,7 +16,7 @@ class UserController {
 	 * returns {object}
 	 * @memberof UserController
 	 */
-	static signup(request, response) {
+	static signup = (request, response) => {
 		const {
 			firstname, lastname, username, phoneNumber, email, password
 		} = request.body;
@@ -61,7 +61,7 @@ class UserController {
 			});
 	}
 
-	static signin(request, response) {
+	static signin = (request, response) => {
 		const { email, password } = request.body;
 
 		const selectQuery = { text: 'SELECT * from users WHERE email = $1', values: [email] };

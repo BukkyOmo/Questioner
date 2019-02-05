@@ -9,7 +9,7 @@ class userValidator {
 	 * @returns {object}- status code and error message or next()
 	 * @memberof signupValidator
 	 */
-	static signupValidator(request, response, next) {
+	static signupValidator = (request, response, next) => {
 		request.check('firstname', 'firstname is required').notEmpty();
 		request.check('firstname', 'firstname must be a string').isString();
 		request.check('lastname', 'lastname is required').notEmpty();

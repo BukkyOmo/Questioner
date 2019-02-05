@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv';
 import Auth from '../helpers/auth';
-import pool from '../dbModel/connection';
+import pool from '../Model/connection';
 
 const { verifyToken } = Auth;
 
@@ -17,7 +17,7 @@ class MeetupController {
    * @returns {object}
    * @memberof MeetupController
    */
-	static createMeetup(request, response) {
+	static createMeetup = (request, response) => {
 		const {
 			topic, location, happeningOn, tags, images
 		} = request.body;
@@ -27,7 +27,6 @@ class MeetupController {
 		const createdBy = decodedToken.id;
 
 		if (isAdmin === true) {
-			console.log(isAdmin);
 			const insertQuery = {
 				text:
           'INSERT into meetup( location, topic, happeningOn, images, tags, users_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING location, topic, happeningOn, images, tags',
@@ -58,8 +57,8 @@ class MeetupController {
 				})
 				.catch(error => response.status(500).json({
 					status: 500,
-					error: 'Internal server error'
-				}, console.log(error)));
+					error: 'Something went wrong'
+				}));
 		}
 		return response.status(409).json({
 			status: 409,
@@ -76,7 +75,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static getAllMeetups(request, response) {
+	static getAllMeetups = (request, response) => {
 		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup';
 
 		pool
@@ -96,7 +95,7 @@ class MeetupController {
 			})
 			.catch(error => response.status(500).json({
 				status: 500,
-				error: 'Internal server error'
+				error: 'Something went wrong'
 			}));
 	}
 
@@ -109,7 +108,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static getAMeetup(request, response) {
+	static getAMeetup = (request, response) => {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -134,7 +133,7 @@ class MeetupController {
 			})
 			.catch(error => response.status(500).json({
 				status: 500,
-				error: 'Internal server error'
+				error: 'Something went wrong'
 			}));
 	}
 
@@ -147,7 +146,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static getUpcomingMeetups(request, response) {
+	static getUpcomingMeetups = (request, response) => {
 		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup WHERE happeningOn > NOW()';
 
 		pool.query(selectQuery)
@@ -166,8 +165,8 @@ class MeetupController {
 			})
 			.catch(error => response.status(500).json({
 				status: 500,
-				error: 'Internal server error'
-			}, console.log(error)));
+				error: 'Something went wrong'
+			}));
 	}
 
 	/**
@@ -179,7 +178,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static deleteMeetup(request, response) {
+	static deleteMeetup = (request, response) => {
 		const { id } = request.params;
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
@@ -216,8 +215,8 @@ class MeetupController {
 						})
 						.catch(error => response.status(500).json({
 							status: 500,
-							error: 'Internal server error'
-						}, console.log(error)));
+							error: 'Something went wrong'
+						}));
 				});
 		}
 		return response.status(409).json({
