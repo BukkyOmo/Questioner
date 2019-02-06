@@ -411,14 +411,13 @@ hr {
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: relative; /* Stay in place */
+  display: none;
+  position: relative;
   z-index: 1;
   margin: auto;
-  /* left: 500px; */
   top: 0;
-  width: 50%; /* Full width */
-  height: 50%; /* Full height */
+  width: 50%; 
+  height: 50%;
 }
 
 /* Modal Content */
