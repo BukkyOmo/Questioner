@@ -1,4 +1,4 @@
-const url = "https://bukkyomo-questioner.herokuapp.com/api/v1/meetups/upcoming";
+const url = "https://bukkyomo-questioner.herokuapp.com/api/v1/meetups";
 const token = localStorage.getItem("token");
 const meetupContainer = document.getElementsByClassName("main")[0];
 fetchData = {
