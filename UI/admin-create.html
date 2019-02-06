@@ -32,7 +32,7 @@
 
     <main>
 
-            <form action="" class="flex_admincreate" enctype="multipart/form-data" >
+            <form action="POST" class="flex_admincreate">
     
                 <div class="items">
     
@@ -43,41 +43,27 @@
 				<div class="items">
 					<label for="meetup_topic">Topic</label>
     
-                    <input type="text" name="meetup_topic" id="meetup_topic" placeholder="topic" class="admin">
+                    <input type="text" name="topic" id="topic" placeholder="topic" class="admin" required>
     
                 </div>
     
                 <div class="items">
 					<label for="meetup_location">Location</label>
 
-                    <input type="text" name="meetup_location" id="meetup_location" placeholder="location" class="admin-input">
+                    <input type="text" name="location" id="location" placeholder="location" class="admin-input" required>
     
                 </div>
     
                 <div class="items">
 					<label for="meetup_date">Date</label>
     
-                    <input type="date" name="meetup_date" id="meetup_date" placeholder="date" class="admin-input">
-    
-                </div>
-
-				 <div class="items">
-					<label for="meetup_tag">Tags</label>
-    
-                    <input type="text" name="meetup_tag" id="meetup_tag" placeholder="Add tags" class="admin-input">
-    
-                </div>
-
-				 <div class="items">
-					<label for="meetup_date">Image</label>
-    
-                    <input type="file" name="meetup_image" id="meetup_image" placeholder="image" class="admin-input">
+                    <input type="date" name="date" id="date" placeholder="date" class="admin-input" required>
     
                 </div>
 
 				 <div class="items">
 
-                    <button class="button" type="submit"><a href="#">Add Meetup</a></button>
+                    <button class="button" type="submit" id="create-meetup"><a href="">Add Meetup</a></button>
     
             </div>
     
@@ -94,7 +80,7 @@
     </footer>
 
 	</div>
-
+<script src="js/admin-create.js"></script>
 </body>
 
 </html>
