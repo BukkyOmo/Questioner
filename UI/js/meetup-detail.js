@@ -5,7 +5,7 @@ if (!id) {
     window.location.href = 'meetups.html';
 }
 
-const url = `https://bukkyomo-questioner.herokuapp.com/api/v1/meetups/${id}`;
+let url = `https://bukkyomo-questioner.herokuapp.com/api/v1/meetups/${id}`;
 
 const fetchData = {
     method: 'GET',
@@ -48,3 +48,27 @@ fetch(url, fetchData)
         }
     })
 
+const title = document.getElementById("question-title");
+const body = document.getElementById("ask_questions");
+console.log(parseInt(id, 10));
+document.getElementById("submit-question").addEventListener("click", (e) => {
+  e.preventDefault();
+  const newQuestion = {
+      id,
+      title: 'title',
+      body: 'body'
+  };
+  const fetchData = {
+    method: "POST",
+      body: JSON.stringify(newQuestion),
+      headers: { "Content-Type": "application/json", token }
+  };
+    fetch('https://bukkyomo-questioner.herokuapp.com/api/v1/questions', fetchData)
+    .then(res => res.json())
+    .then(resp => {
+      const { data } = resp;
+      if (data) {
+        console.log(data);
+      }
+    });
+});
