@@ -16,6 +16,12 @@ body
     box-sizing: border-box;
 }
 
+.popup{
+    border: 1px solid green;
+    background-color: green;
+    padding: 10px;
+}
+
 .container
 {
     height: 100vh;
