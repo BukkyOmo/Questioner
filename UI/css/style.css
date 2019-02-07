@@ -319,6 +319,13 @@ textarea {
   box-shadow: 5px 5px 5px #e4e6e8;
 }
 
+#question-title{
+  outline: none;
+  border: #fff;
+  width: 44vw;
+  height: 5vh;
+}
+
 hr {
   color: #e4e6e8;
   height: 1px;

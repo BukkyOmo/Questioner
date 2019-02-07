@@ -6,7 +6,7 @@ const lastname = document.getElementById("lastname");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
 
-document.getElementById("signup").addEventListener("click", e => {
+document.getElementById("signup").addEventListener("click", (e) => {
   e.preventDefault();
     const newUser = {
         firstname: firstname.value,
