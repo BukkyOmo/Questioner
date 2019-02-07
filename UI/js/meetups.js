@@ -12,15 +12,26 @@ fetch(url, fetchData)
         if (data) {
             data.forEach(meetup => {
                 const meetupCard = `<div class="flex3">
-            <a href="single-meetup.html"><img src="${meetup.images}" alt="eventimage"></a>
+            <a class="meetup-id" id="${meetup.id}" href=""><img src="${meetup.images}" alt="eventimage"></a>
             <div class="flex-item">
             <h3>${meetup.topic}</h3>
             <p>${new Date(meetup.happeningon).toDateString()}</p>
             <p>${meetup.location}</p>
-            <p class="flex-item2"><a href="single-meetup.html">View Details</a></p>
+            <p id="${meetup.id}" class="flex-item2 meetup-id"><a href="">View Details</a></p>
             </div>
             </div>`;
                 meetupContainer.insertAdjacentHTML('afterbegin', meetupCard)
             });
+        }
+        const meetupId = document.getElementsByClassName('meetup-id');
+        for (let i = 0; i < meetupId.length; i += 1) {
+            if(meetupId[i].id) {
+                meetupId[i].addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const Id = sessionStorage.setItem('meetupId', meetupId[i].id);
+                    window.location.href =
+                      "single-meetup.html";
+                })
+            }
         }
     })
