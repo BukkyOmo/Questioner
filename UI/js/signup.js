@@ -1,74 +1,86 @@
 const username = document.getElementById("username");
 const password = document.getElementById("password");
 const confirmpassword = document.getElementById("cpassword");
-const firstname = document.getElementById("firstname");
-const lastname = document.getElementById("lastname");
 const email = document.getElementById("email");
-const phone = document.getElementById("phone");
 const token = localStorage.getItem("token");
 const isAdmin = localStorage.getItem("isAdmin");
-const error = document.getElementsByClassName("error")[0];
-const popup = document.getElementsByClassName("popup")[0];
+const regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-document.getElementById("signup").addEventListener("click", e => {
+const error = document.getElementsByClassName("error");
+
+document.getElementById("signup").addEventListener("click", (e) => {
   e.preventDefault();
-
-    if(firstname.value === '') {
-    popup.style.display = 'block';
-    error.innerHTML = 'firstname is required';
-    return;
-    }  if (lastname.value === '') {
-    popup.style.display = 'block';
-    error.innerHTML = 'lastname is required';
-    return;
-    } if (password.value === '') {
-    popup.style.display = 'block';
-    error.innerHTML = 'Password is required';
-    return;
+  const errorArray = [];
+    if (password.value === '') {
+    document.getElementById('error-password').style.display = 'block';
+    passwordError = "Please enter your password";
+    document.getElementById('error-password').innerHTML = passwordError;
+    errorArray.push(passwordError)
     }
-    if (password.value.length < 11) {
-    popup.style.display = 'block';
-    error.innerHTML = 'Password must be longer than 11 characters';
-    return;
+    if (password.value.length < 6) {
+    document.getElementById('error-password').style.display = 'block';
+    passwordlenError = "Password must be longer than 11 characters";
+    document.getElementById('error-password').innerHTML = passwordlenError;
+        errorArray.push(passwordlenError);
     }
     if (confirmpassword.value !== password.value) {
-    popup.style.display = "block";
-    error.innerHTML = "Passwords don't match";
-    return;
+    document.getElementById('error-cpassword').style.display = 'block';
+    passwordmatchError = "Password don't match";
+    document.getElementById('error-cpassword').innerHTML = passwordmatchError;
+    errorArray.push(passwordmatchError)
     }
     if (username.value === '') {
-    popup.style.display = 'block';
-    error.innerHTML = 'Username is required';
-    return;
+    document.getElementById('error-username').style.display = 'block';
+    usernameError = "Username is required";
+    document.getElementById('error-username').innerHTML = usernameError;
+    errorArray.push(usernameError)
+    
     }
     if (email.value === "") {
-    popup.style.display = "block";
-    error.innerHTML = "Email is required";
-    return;
+    document.getElementById('error-email').style.display = "block";
+    document.getElementById('error-email').innerHTML = "Email is required";
+        errorArray.push('Email is required');
     }
-    const newUser = {
-        firstname: firstname.value,
-        lastname: lastname.value,
-        email: email.value,
-        username: username.value,
-        password: password.value,
-        confirmpassword: cpassword.value,
-        phoneNumber: phone.value,
-    };
-    const url = "https://bukkyomo-questioner.herokuapp.com/api/v1/auth/signup";
+    if(!regex.test(email.value)) {
+    document.getElementById('error-email').style.display = "block";
+    document.getElementById('error-email').innerHTML = "Email is invalid";
+        errorArray.push('Email is invalid');
+    }
+    console.log(errorArray);
+    if (errorArray.length === 0) {
+        const newUser = {
+            email: email.value,
+            username: username.value,
+            password: password.value,
+            confirmpassword: cpassword.value
+        };
+        const url = "https://bukkyomo-questioner.herokuapp.com/api/v1/auth/signup";
 
-    const fetchData = {
-        method: "POST",
-        body: JSON.stringify(newUser),
-        headers: { "Content-Type": "application/json" }
-    };
-  fetch(url, fetchData)
-    .then(res => res.json())
-    .then(resp => {
-        const { data } = resp;
-        if (data) {
-            localStorage.setItem("token", data[0].token);
-            window.location.href = 'userprofile.html';
-        }
-      });
+        const fetchData = {
+            method: "POST",
+            body: JSON.stringify(newUser),
+            headers: { "Content-Type": "application/json" }
+        };
+        fetch(url, fetchData)
+            .then(res => res.json())
+            .then(resp => {
+                const { data } = resp;
+                if (data) {
+                   const mymsg = document.getElementById('msg');
+                   mymsg.innerHTML = 'Registration successful';
+                    localStorage.setItem("token", data[0].token);
+                    window.location.href = 'userprofile.html';
+                }
+            })
+    }
     });
+
+
+function removeWarning() {
+    document.getElementById('error-' + this.id).innerHTML = "";
+}
+
+document.getElementById("password").onkeydown = removeWarning;
+document.getElementById("username").onkeydown = removeWarning;
+document.getElementById("email").onkeydown = removeWarning;
+document.getElementById('cpassword').onkeydown = removeWarning;

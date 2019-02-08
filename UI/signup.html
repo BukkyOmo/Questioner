@@ -27,60 +27,51 @@
         </ul>
       </nav>
 
+      <!-- <div class="popup">
+      
+        <span class="message"></span>
+      
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      
+      </div> -->
+
       <main>
         <form method="POST" class="flex">
+
           <div class="items">
+
             <h1>Sign Up</h1>
+
           </div>
+          <div id="msg"></div>
 
-          <div class="popup">
-            <span class="error"></span>
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          </div>
-
-          <div class="items">
-            <input type="text" id="firstname" placeholder="First Name" />
-
-            <input type="text" id="lastname" placeholder="Last Name" />
-          </div>
-
-          <div class="items">
-            <input
-              type="text"
-              name="othername"
-              id="othername"
-              placeholder="Other Name"
-            />
-
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="User Name"
-            />
-          </div>
-
-          <div class="items">
-            <input type="text" id="phone" placeholder="Phone Number" />
+          <div>
 
             <input type="email" id="email" placeholder="Email" />
-          </div>
 
-          <div class="items">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-            />
-
-            <input
-              type="password"
-              name="cpassword"
-              id="cpassword"
-              placeholder="Confirm Password"
-            />
           </div>
+          <span class="error" id="error-email"></span>
+
+          <div>
+
+            <input type="text" name="username" id="username" placeholder="User Name" />
+  
+          </div>
+            <span class="error" id="error-username"></span>
+
+          <div>
+
+            <input type="password" name="password" id="password" placeholder="Password" />
+
+            </div>
+              <span class="error" id="error-password"></span>
+
+            <div>
+
+            <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" />
+
+          </div>
+            <span class="error" id="error-cpassword"></span>
 
           <div class="items">
             <button class="button" id="signup" type="submit">

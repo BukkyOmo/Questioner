@@ -11,7 +11,7 @@ body
     flex-direction: column;
     justify-content: space-around;
     min-width: 30%;
-    height: 420px;
+    height: 455px;
     box-shadow: 2px 2px 2px #e4e6e8;
     padding: 10px;
     background-color: #fff;
@@ -19,6 +19,16 @@ body
 	position: absolute; 
 	top: 50%;
 	left: 50%;
+}
+
+.error{
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+
+#msg{  
+    color: green;
 }
 
 .align
@@ -44,7 +54,7 @@ body
     height: 44px;
     outline: none;
     line-height: 20px;
-    width: 46%;
+    width: 96%;
 } 
 
 .items input[type=button]
