@@ -18,7 +18,7 @@ class UserController {
 	 */
 	static signup = (request, response) => {
 		const {
-			firstname, lastname, username, phoneNumber, email, password
+			username, email, password
 		} = request.body;
 		const hash = passwordhash.generate(password);
 
@@ -34,8 +34,8 @@ class UserController {
 				}
 
 				const insertQuery = {
-					text: 'INSERT INTO users (firstname, lastname, username, phoneNumber, email, password, isadmin) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-					values: [firstname, lastname, username, phoneNumber, email, hash, false]
+					text: 'INSERT INTO users (username, email, password, isadmin) VALUES($1, $2, $3, $4) RETURNING *',
+					values: [username, email, hash, false]
 				};
 
 				pool.query(insertQuery)

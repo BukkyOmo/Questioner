@@ -15,6 +15,7 @@ import CommentController from '../Controllers/CommentController';
 const router = express.Router();
 
 const { signupValidator } = userValidator;
+const { signinValidator } = userValidator;
 const { signup, signin } = UserController;
 const { getParamsValidator } = paramsValidator;
 const { createCommentValidator } = CommentValidator;
@@ -36,7 +37,7 @@ router.route('/auth/signup')
 	.post(signupValidator, signup);
 
 router.route('/auth/signin')
-	.post(signin);
+	.post(signinValidator, signin);
 
 router.route('/meetups')
 	.get(isLogin, getAllMeetups)
