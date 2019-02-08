@@ -3,8 +3,8 @@ import pool from './connection';
 pool.query(`DROP TABLE IF EXISTS users CASCADE;
 		CREATE TABLE users(
         id SERIAL NOT NULL PRIMARY KEY,
-        firstname VARCHAR(128) NOT NULL,
-        lastname VARCHAR(128) NOT NULL,
+        firstname VARCHAR(128),
+        lastname VARCHAR(128),
         username VARCHAR(128) UNIQUE NOT NULL,
 		phoneNumber VARCHAR(20),
 		email VARCHAR(128) UNIQUE NOT NULL,

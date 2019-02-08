@@ -17,7 +17,7 @@ const {
 } = UserTest;
 
 const {
-	AdminCreateMeetup, AdminCreateanotherMeetup, MeetupTopicNotString, MeetupTopicEmpty,
+	AdminCreateMeetup, MeetupTopicNotString, MeetupTopicEmpty,
 	MeetupLocationEmpty, MeetupLocationNotString, MeetuphappeningDateEmpty
 } = MeetupTest;
 
@@ -44,7 +44,7 @@ describe("TEST ALL USER ENDPOINTS", () => {
       .set("Accept", "application/json")
       .send(SuperUserLogin)
       .end((err, res) => {
-        const { body } = res;
+		const { body } = res;
         authTokenAdmin = body.data[0].token;
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
@@ -149,11 +149,9 @@ describe("TEST ALL USER ENDPOINTS", () => {
       .set("Accept", "application/json")
       .send()
       .end((err, res) => {
-        expect(res.body.errors[0]).to.be.equal("firstname is required");
-        expect(res.body.errors[2]).to.be.equal("lastname is required");
-        expect(res.body.errors[5]).to.be.equal("email is required");
-        expect(res.body.errors[8]).to.be.equal("password is required");
-        expect(res.body.errors[11]).to.be.equal("username is required");
+        expect(res.body.errors[1]).to.be.equal("email is required");
+        expect(res.body.errors[2]).to.be.equal("password is required");
+        expect(res.body.errors[5]).to.be.equal("username is required");
         done();
       });
   });

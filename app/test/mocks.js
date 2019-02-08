@@ -1,10 +1,7 @@
 
 const UserTest = {
   User: {
-    firstname: "Odunayo",
-    lastname: "Omosefunmi",
     username: "buks",
-    phoneNumber: "09039136484",
     email: "bukkyadeola@gmail.com",
     password: "seunolat"
   },
@@ -20,62 +17,44 @@ const UserTest = {
   },
 
   NoUniqueEmail: {
-    firstname: "bukola",
-    lastname: "Odunayo",
     password: "BukkyO",
     email: "testing@gmail.com",
-    phoneNumber: "09039136484",
     username: "bukkadeye"
   },
 
   EmptyEmail: {
-    firstname: "bukola",
-    lastname: "Odunayo",
     password: "Bukola",
     email: "",
-    phoneNumber: "09039136484",
     username: "bukkadeye"
   },
 
   InvalidEmail: {
-    firstname: "bukola",
-    lastname: "Odunayo",
     password: "Bukola",
     email: "bukola",
-    phoneNumber: "09039136484",
     username: "bukkadeye"
   },
 
   NotUniqueUsername: {
-    firstname: "bukola",
-    lastname: "Odunayo",
-    password: "BuksYTT",
-    email: "odunbukola1@gmail.com",
-    phoneNumber: "09039136484",
-    username: "testing1"
+    password: "testing",
+		email: "testing@gmail.com",
+		username: "testing1"
   },
 
   EmptyUsername: {
-    firstname: "bukola",
-    lastname: "Odunayo",
     password: "BuksYTT",
     email: "odunbukola1@gmail.com",
-    phoneNumber: "09039136484",
     username: ""
   },
 
   UsernameNotString: {
-    firstname: "bukola",
-    lastname: "Odunayo",
     password: "BuksYTT",
     email: "odunbukola1@gmail.com",
-    phoneNumber: "09039136484",
     username: []
   },
 
   UserNotInDatabase: {
     email: "odmreferral@gmail.com",
-    password: "34567"
+    password: "hellogirl"
   },
 
   NotLogIncorrectEmail: {
