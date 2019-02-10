@@ -1,10 +1,16 @@
 
 const UserTest = {
-  User: {
+  User1: {
     username: "buks",
     email: "bukkyadeola@gmail.com",
     password: "seunolat"
-  },
+	},
+	
+	User2: {
+		username: "bukkyO",
+		email: "bukkyadeolaOO@gmail.com",
+		password: "seunolat"
+	},
 
   SuperUserLogin: {
     email: "testing@gmail.com",
