@@ -15,7 +15,8 @@ Questioner is an application that crowd-sources questions for meetups. It allows
 
 The main application is hosted here <a href="https://bukkyomo-questioner.herokuapp.com/api/v1">Questioner</a><br>
 
-<h3>Getting Stated</h3><hr>
+<h3>Getting Stated</h3>
+<hr>
 
 The tools to get started are
 
