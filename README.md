@@ -4,7 +4,7 @@ Questioner is an app that crowd-sources questions for meetups.
 [![Build Status](https://travis-ci.org/BukkyOmo/Questioner.svg?branch=develop)](https://travis-ci.org/BukkyOmo/Questioner)
 [![Coverage Status](https://coveralls.io/repos/github/BukkyOmo/Questioner/badge.svg?branch=develop)](https://coveralls.io/github/BukkyOmo/Questioner?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/908298e713ba426ef975/maintainability)](https://codeclimate.com/github/BukkyOmo/Questioner/maintainability)
-
+[![Test Coverage](https://api.codeclimate.com/v1/badges/908298e713ba426ef975/test_coverage)](https://codeclimate.com/github/BukkyOmo/Questioner/test_coverage)
 
 <h3>The UI Template</h3> 
 
@@ -35,6 +35,9 @@ npm run test
 
 <h3>Pivotal Tracker Link</h3>
 The Pivotal Tracker Story link can be found here<a href="https://www.pivotaltracker.com/n/projects/2232154">PT stories</a><br>
+
+<h3>API Documentation</h3>
+The documentation to this API can be found here<a href="https://app.swaggerhub.com/apis/Bukstech/Questioner/1.0.0-oas3">API Documentation</a><br>
 
 <h3>Number of API Endpoints</h3>
 The API currently has 15 endpoints which is bound to increase.<br>

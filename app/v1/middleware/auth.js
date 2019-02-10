@@ -23,7 +23,6 @@ class VerifyToken {
 				error: 'Unauthorized User',
 			});
 		}
-
 		return next();
 	}
 }

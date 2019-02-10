@@ -141,45 +141,52 @@ const MeetupTest = {
 
 
 const QuestionTest = {
-	newQuestion: {
-		id: 1,
-		createdBy: 1,
-		title: 'God saves everyone my dear',
-		body: 'Niger is part of the world',
-	},
+  newQuestion: {
+    id: 1,
+    createdBy: 1,
+    title: "God saves everyone my dear",
+    body: "Niger is part of the world"
+  },
 
-	QuestionTitleNotString: {
-		title: 12345,
-		body: 'Niger is part of the present',
-	},
+  newQuestion2: {
+    id: 15,
+    createdBy: 1,
+    title: "God saves everyone my dear",
+    body: "Niger is part of the world"
+  },
 
-	QuestionTitleEmpty: {
-		body: 'Niger is part of the present',
-	},
+  QuestionTitleNotString: {
+    title: 12345,
+    body: "Niger is part of the present"
+  },
 
-	QuestionBodyNotString: {
-		title: 'The reward of labour',
-		body: 123456,
-	},
+  QuestionTitleEmpty: {
+    body: "Niger is part of the present"
+  },
 
-	QuestionBodyEmpty: {
-		title: 'The reward of labour',
-		body: '',
-	},
+  QuestionBodyNotString: {
+    title: "The reward of labour",
+    body: 123456
+  },
 
-	invalidUserQuestion: {
-		userId: 10,
-		meetupId: 1,
-		title: 'GFW orking?',
-		body: 'why is GFW not working when I insert TYF in the config file?',
-	},
+  QuestionBodyEmpty: {
+    title: "The reward of labour",
+    body: ""
+  },
 
-	invalidMeetupQuestion: {
-		userId: 1,
-		meetupId: 200,
-		title: 'GFW not working?',
-		body: 'why is GFW nYF in the config file?',
-	},
+  invalidUserQuestion: {
+    userId: 10,
+    meetupId: 1,
+    title: "GFW orking?",
+    body: "why is GFW not working when I insert TYF in the config file?"
+  },
+
+  invalidMeetupQuestion: {
+    userId: 1,
+    meetupId: 200,
+    title: "GFW not working?",
+    body: "why is GFW nYF in the config file?"
+  }
 };
 
 const CommentTest = {
