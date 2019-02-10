@@ -22,7 +22,7 @@ const {
 } = MeetupTest;
 
 const {
-	newQuestion, QuestionTitleNotString, QuestionTitleEmpty,
+	newQuestion, newQuestion2, QuestionTitleNotString, QuestionTitleEmpty,
 	QuestionBodyNotString, QuestionBodyEmpty
 } = QuestionTest;
 
@@ -35,6 +35,7 @@ const {
 } = RSVPTest;
 
 let authTokenAdmin;
+let authTokenUser;
 
 describe("TEST ALL USER ENDPOINTS", () => {
   it("it should login a user that is already in database", done => {
@@ -64,6 +65,21 @@ describe("TEST ALL USER ENDPOINTS", () => {
 				done();
 			});
 	});
+
+	it("it should sign in the user created", done => {
+		chai
+			.request(app)
+			.post("/api/v1/auth/signin")
+			.set("Accept", "application/json")
+			.send(User)
+			.end((err, res) => {
+				const { body } = res;
+				authTokenUser = body.data[0].token;
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				done();
+			})
+	})
 
 
   it("it should not create a user whose email is not unique", done => {
@@ -226,6 +242,20 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			}); 
 				});
 
+	it('it should create a meetup only if user is not an admin but has a token', (done) => {
+		chai
+			.request(app)
+			.post("/api/v1/meetups")
+			.set("Accept", "application/json")
+			.set("token", authTokenUser)
+			.send(AdminCreateMeetup)
+			.end((err, res) => {
+				expect(res).to.have.status(409);
+				expect(res.body.status).to.be.equal(409);
+				done();
+			});
+	});
+
 	it('it should throw unauthorized user if user trying to create a meetup only if token is not provided', (done) => {
 		chai
 			.request(app)
@@ -360,6 +390,19 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
+				done();
+			});
+	});
+
+	it('it should not create a question if meetup is not in database', (done) => {
+		chai.request(app)
+			.post('/api/v1/questions')
+			.set('token', authTokenAdmin)
+			.send(newQuestion2)
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.error).to.be.equal('The meetup you tried to post a question to cannot be found');
 				done();
 			});
 	});
@@ -599,7 +642,7 @@ describe('TEST ALL RSVP ENDPOINTS', () => {
 				.request(app)
 				.post("/api/v1/meetups/1/rsvps")
 				.set("Accept", "application/json")
-				.set("token", authTokenAdmin)
+				.set("token", authTokenUser)
 				.send(validRsvp)
 				.end((err, res) => {
 					expect(res).to.have.status(200);
@@ -621,7 +664,23 @@ describe('TEST ALL RSVP ENDPOINTS', () => {
 				expect(res.body.error).to.be.equal('Rsvp status should be yes, no or maybe');
 				done();
 			});
-			});
+	});
+
+
+it('it should not rsvp a meetup if user has responded once', (done) => {
+	chai
+		.request(app)
+		.post("/api/v1/meetups/1/rsvps")
+		.set("Accept", "application/json")
+		.set("token", authTokenUser)
+		.send(validRsvp)
+		.end((err, res) => {
+			expect(res).to.have.status(409);
+			expect(res.body.status).to.be.equal(409);
+			expect(res.body.error).to.be.equal('You have already given a response once');
+			done();
+		});
+});
 });
 
 describe('TEST ALL BAD ROUTES', () => {

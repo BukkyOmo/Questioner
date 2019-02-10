@@ -35,13 +35,19 @@ class RsvpController {
 				};
 				pool.query(userQuery)
 					.then((user) => {
-						if (user.rows.length === 1) {
+						if (user.rows.length > 0) {
 							return response.status(409).json({
 								status: 409,
-								error: 'You have already given a response'
+								error: 'You have already given a response once'
 							});
 						}
-					});
+					})
+					.catch(error => (
+						response.status(500).json({
+							status: 500,
+							error: 'Something went wrong'
+						})
+					));
 
 				const insertQuery = {
 					text: 'INSERT INTO rsvp(response, meetup_id, user_id) VALUES($1, $2, $3) RETURNING *',
@@ -61,8 +67,14 @@ class RsvpController {
 							status: 500,
 							error: 'Something went wrong'
 						})
-					));
-			});
+					))
+			})
+			.catch(error => (
+				response.status(500).json({
+					status: 500,
+					error: 'Something went wrong'
+				})
+			));
 	}
 }
 export default RsvpController;
