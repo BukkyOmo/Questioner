@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyparser from 'body-parser';
 import expressValidator from 'express-validator';
-import morgan from 'morgan';
 import router from './v1/routes/routes';
 import cors from 'cors';
 
@@ -11,7 +10,6 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(expressValidator());
 
-app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
