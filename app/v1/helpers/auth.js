@@ -13,8 +13,6 @@ class Auth {
 		return token;
 	}
 
-	static verifyToken = (token) => {
-		return jwt.verify(token, process.env.SECRET);
-	}
+	static verifyToken = token => jwt.verify(token, process.env.SECRET)
 }
 export default Auth;

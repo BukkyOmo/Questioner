@@ -53,5 +53,4 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
         created_date TIMESTAMP NOT NULL DEFAULT NOW(),
         modified_date TIMESTAMP
       );
-      `
-    );
+      `);
