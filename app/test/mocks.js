@@ -1,77 +1,77 @@
 
 const UserTest = {
-  User1: {
-    username: "buks",
-    email: "bukkyadeola@gmail.com",
-    password: "seunolat"
+	User1: {
+		username: 'buks',
+		email: 'bukkyadeola@gmail.com',
+		password: 'seunolat'
 	},
-	
+
 	User2: {
-		username: "bukkyO",
-		email: "bukkyadeolaOO@gmail.com",
-		password: "seunolat"
+		username: 'bukkyO',
+		email: 'bukkyadeolaOO@gmail.com',
+		password: 'seunolat'
 	},
 
-  SuperUserLogin: {
-    email: "testing@gmail.com",
-    password: "testing"
-  },
+	SuperUserLogin: {
+		email: 'testing@gmail.com',
+		password: 'testing'
+	},
 
-  LogInUser: {
-    email: "bukkyadeola@gmail.com",
-    password: "seunolat"
-  },
+	LogInUser: {
+		email: 'bukkyadeola@gmail.com',
+		password: 'seunolat'
+	},
 
-  NoUniqueEmail: {
-    password: "BukkyO",
-    email: "testing@gmail.com",
-    username: "bukkadeye"
-  },
+	NoUniqueEmail: {
+		password: 'BukkyO',
+		email: 'testing@gmail.com',
+		username: 'bukkadeye'
+	},
 
-  EmptyEmail: {
-    password: "Bukola",
-    email: "",
-    username: "bukkadeye"
-  },
+	EmptyEmail: {
+		password: 'Bukola',
+		email: '',
+		username: 'bukkadeye'
+	},
 
-  InvalidEmail: {
-    password: "Bukola",
-    email: "bukola",
-    username: "bukkadeye"
-  },
+	InvalidEmail: {
+		password: 'Bukola',
+		email: 'bukola',
+		username: 'bukkadeye'
+	},
 
-  NotUniqueUsername: {
-    password: "testing",
-		email: "testing@gmail.com",
-		username: "testing1"
-  },
+	NotUniqueUsername: {
+		password: 'testing',
+		email: 'testing@gmail.com',
+		username: 'testing1'
+	},
 
-  EmptyUsername: {
-    password: "BuksYTT",
-    email: "odunbukola1@gmail.com",
-    username: ""
-  },
+	EmptyUsername: {
+		password: 'BuksYTT',
+		email: 'odunbukola1@gmail.com',
+		username: ''
+	},
 
-  UsernameNotString: {
-    password: "BuksYTT",
-    email: "odunbukola1@gmail.com",
-    username: []
-  },
+	UsernameNotString: {
+		password: 'BuksYTT',
+		email: 'odunbukola1@gmail.com',
+		username: []
+	},
 
-  UserNotInDatabase: {
-    email: "odmreferral@gmail.com",
-    password: "hellogirl"
-  },
+	UserNotInDatabase: {
+		email: 'odmreferral@gmail.com',
+		password: 'hellogirl'
+	},
 
-  NotLogIncorrectEmail: {
-    email: "odunbabey11@gmail.com",
-    password: "seunodun"
-  },
+	NotLogIncorrectEmail: {
+		email: 'odunbabey11@gmail.com',
+		password: 'seunodun'
+	},
 
-  NotLogIncorrectPassword: {
-    email: "testing@gmail.com",
-    password: "playgirl"
-  }
+	NotLogIncorrectPassword: {
+		email: 'testing@gmail.com',
+		password: 'playgirl'
+	}
 };
 
 
@@ -147,87 +147,87 @@ const MeetupTest = {
 
 
 const QuestionTest = {
-  newQuestion: {
-    id: 1,
-    createdBy: 1,
-    title: "God saves everyone my dear",
-    body: "Niger is part of the world"
-  },
+	newQuestion: {
+		id: 1,
+		createdBy: 1,
+		title: 'God saves everyone my dear',
+		body: 'Niger is part of the world'
+	},
 
-  newQuestion2: {
-    id: 15,
-    createdBy: 1,
-    title: "God saves everyone my dear",
-    body: "Niger is part of the world"
-  },
+	newQuestion2: {
+		id: 15,
+		createdBy: 1,
+		title: 'God saves everyone my dear',
+		body: 'Niger is part of the world'
+	},
 
-  QuestionTitleNotString: {
-    title: 12345,
-    body: "Niger is part of the present"
-  },
+	QuestionTitleNotString: {
+		title: 12345,
+		body: 'Niger is part of the present'
+	},
 
-  QuestionTitleEmpty: {
-    body: "Niger is part of the present"
-  },
+	QuestionTitleEmpty: {
+		body: 'Niger is part of the present'
+	},
 
-  QuestionBodyNotString: {
-    title: "The reward of labour",
-    body: 123456
-  },
+	QuestionBodyNotString: {
+		title: 'The reward of labour',
+		body: 123456
+	},
 
-  QuestionBodyEmpty: {
-    title: "The reward of labour",
-    body: ""
-  },
+	QuestionBodyEmpty: {
+		title: 'The reward of labour',
+		body: ''
+	},
 
-  invalidUserQuestion: {
-    userId: 10,
-    meetupId: 1,
-    title: "GFW orking?",
-    body: "why is GFW not working when I insert TYF in the config file?"
-  },
+	invalidUserQuestion: {
+		userId: 10,
+		meetupId: 1,
+		title: 'GFW orking?',
+		body: 'why is GFW not working when I insert TYF in the config file?'
+	},
 
-  invalidMeetupQuestion: {
-    userId: 1,
-    meetupId: 200,
-    title: "GFW not working?",
-    body: "why is GFW nYF in the config file?"
-  }
+	invalidMeetupQuestion: {
+		userId: 1,
+		meetupId: 200,
+		title: 'GFW not working?',
+		body: 'why is GFW nYF in the config file?'
+	}
 };
 
 const CommentTest = {
-  CommentQuestionNotExist: {
-    createdBy: 1,
-    id: 5,
-    body: "Hello beautiful"
-  },
+	CommentQuestionNotExist: {
+		createdBy: 1,
+		id: 5,
+		body: 'Hello beautiful'
+	},
 
-  CreateComment: {
-    createdBy: 1,
-    id: 1,
-    body: "Hello love"
-  },
+	CreateComment: {
+		createdBy: 1,
+		id: 1,
+		body: 'Hello love'
+	},
 
-  CommentBodyEmpty: {
-	createdBy: 1,
-	id: 1,
-    body: ""
-  },
+	CommentBodyEmpty: {
+		createdBy: 1,
+		id: 1,
+		body: ''
+	},
 
-  CommentBodyNotString: {
-	createdBy: 1,
-	id: 1,
-    body: 1234
-  }
+	CommentBodyNotString: {
+		createdBy: 1,
+		id: 1,
+		body: 1234
+	}
 };
 
 const RSVPTest = {
 	validRsvp: {
-		body: "yes",
+		body: 'yes',
 	},
 
 	invalidRsvp: {
-		body: "great",
+		body: 'great',
 	},
 };
 
@@ -235,7 +235,7 @@ const DeleteMeetup = {
 	meetupNotExist: {
 
 	}
-}
+};
 
 
 export {

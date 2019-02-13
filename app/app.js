@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyparser from 'body-parser';
 import expressValidator from 'express-validator';
-import router from './v1/routes/routes';
 import cors from 'cors';
+import router from './v1/routes/routes';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5500;
 
 app.use(cors());
 app.use(expressValidator());
