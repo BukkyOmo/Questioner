@@ -11,9 +11,7 @@ class VerifyToken {
 		const token = req.body.token || req.headers.token;
 
 		try {
-			console.log(token)
 			const decodedToken = verifyToken(token);
-			console.log(decodedToken)
 			if (decodedToken.id) {
 				return next();
 			}

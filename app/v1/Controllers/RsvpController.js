@@ -67,7 +67,7 @@ class RsvpController {
 							status: 500,
 							error: 'Something went wrong'
 						})
-					))
+					));
 			})
 			.catch(error => (
 				response.status(500).json({
