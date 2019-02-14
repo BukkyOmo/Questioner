@@ -58,7 +58,7 @@ class QuestionController {
 							error: 'Something unexpected happened'
 						})
 					));
-			})
+			});
 	}
 
 	/**
@@ -137,7 +137,7 @@ class QuestionController {
 								data: downvote.rows
 							});
 						}
-					})
+					});
 			})
 			.catch((error) => {
 				response.status(500).json({
@@ -187,7 +187,7 @@ class QuestionController {
 								data: upvote.rows
 							});
 						}
-					})
+					});
 			})
 			.catch((error) => {
 				response.status(500).json({
