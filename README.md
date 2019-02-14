@@ -35,10 +35,10 @@ npm run test
 
 
 <h3>Pivotal Tracker Link</h3>
-The Pivotal Tracker Story link can be found here<a href="https://www.pivotaltracker.com/n/projects/2232154">PT stories</a><br>
+The Pivotal Tracker Story link can be found here <a href="https://www.pivotaltracker.com/n/projects/2232154">PT stories</a><br>
 
 <h3>API Documentation</h3>
-The documentation to this API can be found here<a href="https://app.swaggerhub.com/apis/Bukstech/Questioner/1.0.0-oas3">API Documentation</a><br>
+The documentation to this API can be found here <a href="https://app.swaggerhub.com/apis/BukkyO/Questioner/1.0.0">API Documentation</a><br>
 
 <h3>Number of API Endpoints</h3>
 The API currently has 15 endpoints which is bound to increase.<br>
