@@ -78,8 +78,7 @@ class MeetupController {
 	static getAllMeetups = (request, response) => {
 		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup';
 
-		pool
-			.query(selectQuery)
+		pool.query(selectQuery)
 			.then((result) => {
 				const meetups = result.rows;
 				if (meetups.length < 1) {
@@ -183,7 +182,6 @@ class MeetupController {
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
 		const { isAdmin } = decodedToken;
-		const createdBy = decodedToken.id;
 
 		const selectQuery = {
 			text: 'SELECT * FROM meetup WHERE id = $1',
@@ -224,6 +222,53 @@ class MeetupController {
 			error: 'Only an admin can create a meetup'
 		});
 	}
-}
 
+	/**
+   *@description- An endpoint to add tags a specific meetup
+   *
+   * @static
+   * @param {object} request
+   * @param {object} response
+   * returns {object}
+   * @memberof MeetupController
+   */
+	static addTagsToMeetup = (request, response) => {
+		const { id } = request.params;
+		const { tags, topic } = request.body;
+		const token = request.headers.token || request.body.token;
+		const decodedToken = verifyToken(token);
+		const { isAdmin } = decodedToken;
+
+		const insertQuery = {
+			text:
+          'INSERT into meetup(tags, topic) VALUES($1, $2) RETURNING id, topic, tags',
+			values: [id, topic, tags]
+		};
+
+		if (isAdmin === true) {
+			return pool.query(insertQuery)
+				.then((tag) => {
+					if (tag.rows) {
+						return response.status(201).json({
+							status: 201,
+							message: 'Tag has been added successfully',
+							data: {
+								meetup: id,
+								topic,
+								tags
+							}
+						});
+					}
+				})
+				.catch(error => response.status(500).json({
+					status: 500,
+					error: 'Something went wrong'
+				}));
+		}
+		return response.status(409).json({
+			status: 409,
+			error: 'Only an admin can add a tag'
+		});
+	}
+}
 export default MeetupController;
