@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Pathway+Gothic+One");
 html,
 body {
-  padding: 0;
+  /* padding: 0; */
   margin: 0;
   height: 100%;
   background-color: #f2f2f2;
@@ -120,6 +120,7 @@ li:nth-child(1) {
   flex-flow: row wrap;
   justify-content: space-around;
   margin-top: 40px;
+  padding: 0 40px 0 40px;
 }
 
 .main1 {
@@ -534,7 +535,7 @@ hr {
   img {
     width: 300px;
     height: 300px;
-    border-radius: 7px;
+    border-radius: 3px;
   }
 
   .flex3 {
@@ -544,9 +545,9 @@ hr {
     height: auto;
     border: 1px solid #e4e6e8;
     background: #fff;
-    box-shadow: 2px 2px 2px #e4e6e8;
-    border-radius: 5px;
-    margin-bottom: 45px;
+    box-shadow: 4px 4px 4px #e4e6e8;
+    border-radius: 3px;
+    margin-bottom: 40px;
   }
   .flex-item {
     font-size: 14px;
@@ -631,9 +632,9 @@ hr {
 }
 @media only screen and (max-width: 1500px) and (min-width: 700px) {
   img {
-    width: 400px;
-    height: 300px;
-    border-radius: 7px;
+    width: 320px;
+    height: 200px;
+    border-radius: 3px;
   }
 
   .flex3 {
@@ -643,9 +644,9 @@ hr {
     height: auto;
     border: 1px solid #e4e6e8;
     background: #fff;
-    box-shadow: 2px 2px 2px #e4e6e8;
-    border-radius: 5px;
-    margin-bottom: 45px;
+    box-shadow: 4px 4px 4px #e4e6e8;
+    border-radius: 3px;
+    margin-bottom: 40px;
   }
   .flex-item {
     font-size: 16px;
@@ -690,9 +691,9 @@ hr {
 
 @media only screen and (max-width: 2000px) and (min-width: 1500px) {
   img {
-    width: 600px;
+    width: 450px;
     height: 300px;
-    border-radius: 7px;
+    border-radius: 3px;
   }
 
   .flex3 {
@@ -700,13 +701,13 @@ hr {
     flex-direction: column;
     justify-content: space-between;
     flex-flow: wrap;
-    max-width: 620px;
+    max-width: 400px;
     height: auto;
     border: 1px solid #e4e6e8;
     background: #fff;
-    box-shadow: 2px 2px 2px #e4e6e8;
-    border-radius: 5px;
-    margin-bottom: 45px;
+    box-shadow: 4px 4px 4px #e4e6e8;
+    border-radius: 3px;
+    margin-bottom: 40px;
   }
   .profile-card {
     display: flex;
