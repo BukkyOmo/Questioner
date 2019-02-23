@@ -44,14 +44,10 @@ class MeetupController {
 				.query(insertQuery)
 				.then((meetup) => {
 					if (meetup.rows) {
-						return response.status(201).json({
+						 return response.status(201).json({
 							status: 201,
 							message: 'Your registration was successful',
-							data: [
-								{
-									meetup: meetup.rows[0]
-								}
-							]
+							data: [meetup.rows[0]]
 						});
 					}
 				})

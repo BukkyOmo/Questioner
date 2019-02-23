@@ -71,7 +71,7 @@ class UserController {
 			if(result.rows.length === 0) {
 				return response.status(404).json({
 					status: 404,
-					error: 'Incorrect password or email'
+					error: 'Incorrect email or password'
 				});
 			}
 				if (passwordhash.verify(password, result.rows[0].password)) {

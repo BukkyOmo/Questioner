@@ -108,6 +108,16 @@ describe('TEST ALL MEETUP ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(201);
 				expect(res.body.status).to.be.equal(201);
+				expect(res.body.message).to.be.equal('Your registration was successful');
+				expect(res.body.data[0]).to.eql(
+					{
+							"location": "Uyo,AkwaIbomState",
+							"topic": "Web Accessibility",
+							"happeningon": "2019-12-04T23:00:00.000Z",
+							"images": "https://res.cloudinary.com/dtzflgnar/image/upload/v1549098474/event4.jpg",
+							"tags": null
+					}
+				);
 				done();
 			});
 	});

@@ -162,6 +162,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
+				expect(res.body.error).to.be.equal('Incorrect email or password');
 				done();
 			});
 	});
@@ -175,6 +176,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(404);
 				expect(res.body.status).to.be.equal(404);
+				expect(res.body.error).to.be.equal('Incorrect email or password');
 				done();
 			});
 	});
@@ -188,6 +190,7 @@ describe('TEST ALL USER ENDPOINTS', () => {
 			.end((err, res) => {
 				expect(res).to.have.status(409);
 				expect(res.body.status).to.be.equal(409);
+				expect(res.body.error).to.be.equal('Incorrect email or password');
 				done();
 			});
 	});
