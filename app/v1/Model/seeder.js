@@ -2,8 +2,8 @@ import passwordHash from 'password-hash';
 import pool from './connection';
 
 const password = passwordHash.generate('testing');
-const email = 'testing@gmail.com';
-const username = 'testing1';
+const email = 'testing1@gmail.com';
+const username = 'testing';
 
 const user = `INSERT INTO users(email, username, password, isadmin) values('${email}', '${username}', '${password}', ${true})`;
 
