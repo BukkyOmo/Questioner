@@ -12,6 +12,7 @@ class VerifyToken {
 
 		try {
 			const decodedToken = verifyToken(token);
+			/*istanbul ignore next*/ 
 			if (decodedToken.id) {
 				return next();
 			}
@@ -21,6 +22,7 @@ class VerifyToken {
 				error: 'Unauthorized User',
 			});
 		}
+		/*istanbul ignore next*/ 
 		return next();
 	}
 }

@@ -1,18 +1,18 @@
 language: node_js
 node_js:
- - "8.11.4"
+  - "11.10.0"
 install:
  npm install
 before_script:
- - npm run migration
- - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
- - chmod +x ./cc-test-reporter
- - ./cc-test-reporter before-build
+  - npm run migration
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
-  - npm test
+    - npm test
 after_success:
-  - npm run coverage
-  - npm run coveralls
-  - npm run report-coverage
-  - npm run codeclimate-report
-  - ./node_modules/.bin/mocha ./app/test/**/*.js -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
+    - npm run coverage
+    - npm run coveralls
+    - npm run report-coverage
+    - npm run codeclimate-report
+    - ./node_modules/.bin/mocha ./app/test/**/*.js -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js

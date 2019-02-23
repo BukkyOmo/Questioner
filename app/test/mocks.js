@@ -13,7 +13,7 @@ const UserTest = {
 	},
 
 	SuperUserLogin: {
-		email: 'testing@gmail.com',
+		email: 'testing1@gmail.com',
 		password: 'testing'
 	},
 
@@ -24,7 +24,7 @@ const UserTest = {
 
 	NoUniqueEmail: {
 		password: 'BukkyO',
-		email: 'testing@gmail.com',
+		email: 'testing1@gmail.com',
 		username: 'bukkadeye'
 	},
 
@@ -42,8 +42,8 @@ const UserTest = {
 
 	NotUniqueUsername: {
 		password: 'testing',
-		email: 'testing@gmail.com',
-		username: 'testing1'
+		email: 'testing1@gmail.com',
+		username: 'testing'
 	},
 
 	EmptyUsername: {
@@ -69,7 +69,7 @@ const UserTest = {
 	},
 
 	NotLogIncorrectPassword: {
-		email: 'testing@gmail.com',
+		email: 'testing1@gmail.com',
 		password: 'playgirl'
 	}
 };

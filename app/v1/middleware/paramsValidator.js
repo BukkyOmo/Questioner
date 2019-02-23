@@ -21,6 +21,7 @@ class paramsValidator {
 			}
 			return next();
 		};
+		  /*istanbul ignore next*/ 
 		if (id) {
 			validateParams(id);
 		}
