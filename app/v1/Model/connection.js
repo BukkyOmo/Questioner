@@ -8,7 +8,7 @@ const config = {
 	test: process.env.TEST_DATABASE_URL,
 	production: process.env.PRODUCTION_URL,
 };
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV;
 
 const pool = new Pool({
 	connectionString: config[env]

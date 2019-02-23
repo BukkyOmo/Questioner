@@ -20,7 +20,7 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
         location VARCHAR(128) NOT NULL,
         happeningOn TIMESTAMP NOT NULL,
         images VARCHAR(128),
-		tags TEXT[],
+		tags VARCHAR(128),
         created_date TIMESTAMP NOT NULL DEFAULT NOW()
       );
       DROP TABLE IF EXISTS questions CASCADE;
