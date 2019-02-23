@@ -67,10 +67,15 @@ class UserController {
 		const selectQuery = { text: 'SELECT * from users WHERE email = $1', values: [email] };
 
 		pool.query(selectQuery)
-			.then((result) => {
-				if (result.rows.length > 0) {
-					if (passwordhash.verify(password, result.rows[0].password)) {
-						const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
+		.then((result) => {
+			if(result.rows.length === 0) {
+				return response.status(404).json({
+					status: 404,
+					error: 'Incorrect password or email'
+				});
+			}
+				if (passwordhash.verify(password, result.rows[0].password)) {
+					const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
 						return response.status(200).json({
 							status: 200,
 							data: [{
@@ -81,14 +86,8 @@ class UserController {
 					}
 					return response.status(409).json({
 						status: 409,
-						error: 'Invalid credentials'
+						error: 'Incorrect email or password'
 					});
-				}
-
-				return response.status(404).json({
-					status: 404,
-					error: 'No user found'
-				});
 			})
 			.catch(err => (
 				response.status(500).json({

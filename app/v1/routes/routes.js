@@ -29,7 +29,8 @@ const {
 	createQuestion, getQuestion, downvoteQuestion, upvoteQuestion
 } = QuestionController;
 const {
-	createMeetup, getAMeetup, getAllMeetups, getUpcomingMeetups, deleteMeetup
+	createMeetup, getAMeetup, getAllMeetups, getUpcomingMeetups,
+	deleteMeetup, addTagsToMeetup
 } = MeetupController;
 
 
@@ -67,5 +68,8 @@ router.route('/questions/:id/downvote')
 
 router.route('/questions/:id/upvote')
 	.patch(isLogin, getParamsValidator, upvoteQuestion);
+
+router.route('/meetups/:id/tags')
+	.post(isLogin, getParamsValidator, addTagsToMeetup);
 
 export default router;
