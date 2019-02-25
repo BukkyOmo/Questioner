@@ -1,6 +1,7 @@
 const id = sessionStorage.getItem("meetupId");
 const token = localStorage.getItem("token");
 const meetupContainer = document.getElementsByClassName("meetup-flex")[0];
+
 if (!id) {
     window.location.href = 'meetups.html';
 }
@@ -44,20 +45,22 @@ fetch(url, fetchData)
                     </div>
 
                 </div>`;
-            meetupContainer.insertAdjacentHTML('afterbegin', meetupCard)
+            meetupContainer.insertAdjacentHTML('afterbegin', meetupCard);
         }
     })
 
 const title = document.getElementById("question-title");
 const body = document.getElementById("ask_questions");
+const questionContainer = document.getElementsByClassName("question-flex")[0];
 console.log(parseInt(id, 10));
 document.getElementById("submit-question").addEventListener("click", (e) => {
   e.preventDefault();
   const newQuestion = {
       id,
-      title: 'title',
-      body: 'body'
+      title: title.value,
+      body: body.value,
   };
+
   const fetchData = {
     method: "POST",
       body: JSON.stringify(newQuestion),
@@ -69,6 +72,30 @@ document.getElementById("submit-question").addEventListener("click", (e) => {
       const { data } = resp;
       if (data) {
         console.log(data);
+        const questionCard = `
+  
+				<h4>Title: ${data[0].question.title}</h4>
+
+				<h4 id="question">Question: </h4><a href="question.html" class="question-link">${data[0].question.body}</a>
+				
+				<h6>posted by Bukola</h6><hr>
+				
+				<div class="icons">
+					<div>
+						<button class="btn-bg"><i class="fas fa-caret-up fa-2x bg-blue"></i></button>
+						<span class="upvote-amount">15</span>
+					</div>
+					<div>
+						<button class="btn-bg"><i class="fas fa-caret-down fa-2x bg-red"></i></button>
+						<span class="downvote-amount">10</span>
+					</div>
+					<div>
+						<button class="btn-bg"><i class="fas fa-comment fa"></i></button>
+						<span class="comment-amount">5</span>
+					</div>
+				</div>
+        `;
+        questionContainer.insertAdjacentHTML('afterbegin', questionCard);
       }
     });
 });
