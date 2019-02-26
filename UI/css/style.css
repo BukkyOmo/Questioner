@@ -282,7 +282,7 @@ main {
   padding: 10px;
   border: 1px solid #fff;
   background-color: #fff;
-  box-shadow: 5px 5px 5px #e4e6e8;
+  box-shadow: 4px 4px 4px #e4e6e8;
 }
 
 .question-flex {
@@ -293,6 +293,11 @@ main {
   border: 1px solid #fff;
   background-color: #fff;
   box-shadow: 5px 5px 5px #e4e6e8;
+  margin-bottom: 50px;
+}
+
+#question{
+  display: inline;
 }
 
 .btn-bg {

@@ -39,12 +39,12 @@ document.getElementById("signup").addEventListener("click", (e) => {
     if (email.value === "") {
     document.getElementById('error-email').style.display = "block";
     document.getElementById('error-email').innerHTML = "Email is required";
-        errorArray.push('Email is required');
+    errorArray.push('Email is required');
     }
     if(!regex.test(email.value)) {
     document.getElementById('error-email').style.display = "block";
     document.getElementById('error-email').innerHTML = "Email is invalid";
-        errorArray.push('Email is invalid');
+    errorArray.push('Email is invalid');
     }
     console.log(errorArray);
     if (errorArray.length === 0) {
@@ -66,8 +66,8 @@ document.getElementById("signup").addEventListener("click", (e) => {
             .then(resp => {
                 const { data } = resp;
                 if (data) {
-                   const mymsg = document.getElementById('msg');
-                   mymsg.innerHTML = 'Registration successful';
+                    const mymsg = document.getElementById('msg');
+                    mymsg.innerHTML = 'Registration successful';
                     localStorage.setItem("token", data[0].token);
                     window.location.href = 'userprofile.html';
                 }
