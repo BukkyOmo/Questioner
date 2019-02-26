@@ -1,7 +1,6 @@
 const id = sessionStorage.getItem("meetupId");
 const token = localStorage.getItem("token");
 const meetupContainer = document.getElementsByClassName("meetup-flex")[0];
-
 if (!id) {
     window.location.href = 'meetups.html';
 }
