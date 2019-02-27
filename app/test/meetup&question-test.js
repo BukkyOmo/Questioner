@@ -362,6 +362,29 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
+	it('it should get all questions under a meetup', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups/1/questions')
+			.set('token', authTokenAdmin)
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				done();
+			});
+	});
+
+	it('it should throw an error when there in questions under a meetup', (done) => {
+		chai.request(app)
+			.get('/api/v1/meetups/76/questions')
+			.set('token', authTokenAdmin)
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.error).to.be.equal('There are either no questions under this meetup yet or the meetup doesn\'t exist');
+				done();
+			});
+	});
+
 	it('it should upvote a question that is in the database', (done) => {
 		chai
 			.request(app)
