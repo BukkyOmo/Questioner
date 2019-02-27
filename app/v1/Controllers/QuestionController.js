@@ -97,6 +97,46 @@ class QuestionController {
 			});
 	}
 
+	
+	 /**
+	  * description- An endpoint that gets all questions asked on a meetup
+	  *
+	  * @static
+	  * @param {object} request
+	  * @param {object} response
+	  * returns {object}
+	  * @memberof QuestionController
+	  */
+	 static getQuestionByMeetup = (request, response) => {
+		const { id } = request.params;
+
+		const selectQuery = {
+			text: 'SELECT * FROM questions WHERE meetup_id = $1',
+			values: [id]
+		};
+
+		pool.query(selectQuery)
+			.then((result) => {
+				const { rows } = result;
+				if (rows.length > 0) {
+					return response.status(200).json({
+						status: 200,
+						data: rows
+					});
+				}
+				return response.status(404).json({
+					status: 404,
+					error: 'There are either no questions under this meetup yet or the meetup doesn\'t exist'
+				});
+			})
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					error: 'Something unexpected happened'
+				});
+			});
+	 }
+
 	/**
 	 *@description- An endpoint to downvote a question
 	 *

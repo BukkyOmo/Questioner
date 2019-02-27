@@ -26,11 +26,12 @@ const { createQuestionValidator } = questionValidator;
 const { rsvpValidator } = RsvpValidator;
 const { rsvpMeetup } = RsvpController;
 const {
-	createQuestion, getQuestion, downvoteQuestion, upvoteQuestion
+	createQuestion, getQuestion, getQuestionByMeetup,
+	downvoteQuestion, upvoteQuestion
 } = QuestionController;
 const {
 	createMeetup, getAMeetup, getAllMeetups, getUpcomingMeetups,
-	deleteMeetup, addTagsToMeetup
+	deleteMeetup
 } = MeetupController;
 
 
@@ -57,6 +58,9 @@ router.route('/questions')
 router.route('/questions/:id')
 	.get(isLogin, getParamsValidator, getQuestion);
 
+router.route('/meetups/:id/questions')
+	.get(isLogin, getParamsValidator, getQuestionByMeetup);
+
 router.route('/comments')
 	.post(isLogin, createCommentValidator, createComment);
 
@@ -68,8 +72,5 @@ router.route('/questions/:id/downvote')
 
 router.route('/questions/:id/upvote')
 	.patch(isLogin, getParamsValidator, upvoteQuestion);
-
-router.route('/meetups/:id/tags')
-	.post(isLogin, getParamsValidator, addTagsToMeetup);
 
 export default router;

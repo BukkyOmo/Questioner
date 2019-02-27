@@ -16,8 +16,6 @@ class questionValidator {
 			.withMessage('Title is required')
 			.isString()
 			.withMessage('Title must be a string')
-			.isLength({ min: 10 })
-			.withMessage('Title should have a minimum of ten characters')
 			.not()
 			.isNumeric()
 			.withMessage('Title should not be a number');
@@ -27,8 +25,6 @@ class questionValidator {
 			.withMessage('Body is required')
 			.isString()
 			.withMessage('Body must be a string')
-			.isLength({ min: 10 })
-			.withMessage('Body should have a minimum of ten characters')
 			.not()
 			.isNumeric()
 			.withMessage('Body should not be a number');
