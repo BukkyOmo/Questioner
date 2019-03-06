@@ -1,14 +1,13 @@
 # Questioner
-Questioner is an app that crowd-sources questions for meetups.
+Questioner is an app that crowd-sources questions for meetups. It allows meetup organizers to prioritize the questions to be answered. Users of this platform can upvote or downvote a question. The questions however, are ranked according to their votes.
 
 [![Build Status](https://travis-ci.org/BukkyOmo/Questioner.svg?branch=develop)](https://travis-ci.org/BukkyOmo/Questioner)
 [![Coverage Status](https://coveralls.io/repos/github/BukkyOmo/Questioner/badge.svg?branch=develop)](https://coveralls.io/github/BukkyOmo/Questioner?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/908298e713ba426ef975/maintainability)](https://codeclimate.com/github/BukkyOmo/Questioner/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/908298e713ba426ef975/test_coverage)](https://codeclimate.com/github/BukkyOmo/Questioner/test_coverage)
 
 <h3>The UI Template</h3> 
 
-The template for the front end application can be found here <a href="https://bukkyomo.github.io/Questioner/UI/indexpage.html">UI Template</a><br>
+The template for the front end application can be found here <a href="https://bukkyomo.github.io/Questioner/UI/index.html">UI Template</a><br>
 
 <h3>The Application</h3>
 Questioner is an application that crowd-sources questions for meetups. It allows meetup organizers to prioritize the questions to be answered. And users of this platform can upvote or downvote a question. The questions however, are ranked according to their votes.
@@ -31,7 +30,7 @@ npm install
 npm start
 
 <h3>To run tests</h3>
-npm run test
+npm run test or npm test
 
 
 <h3>Pivotal Tracker Link</h3>
@@ -45,7 +44,7 @@ The API currently has 15 endpoints which is bound to increase.<br>
 
 <h3>User Roles</h3><hr>
 <h4>Register a User</h4>
-A user can register so as to access to certain pages of the application by providing their firstname, lastname, username, email, phone Number...<br>The endpoint used here is POST api/v1/auth/signup<br>
+A user can register so as to access to certain pages of the application by providing their username, email, and password while also confirming the provided password<br>The endpoint used here is POST api/v1/auth/signup<br>
 
 
 
@@ -60,15 +59,18 @@ An existing user can view all available meetups on the Questioner application.<b
 
 
 <h4>View a specific meetup</h4>
-A user can view all information about a particular endpoint.<br>The endpoint used here is api/v1/meetups/:meetupId<br>
+A user can view all information about a particular endpoint.<br>The endpoint used here is api/v1/meetups/:id<br>
 
 
 <h4>Post a question</h4>
-An existing user should be able to ask questions about an upcoming meetup. The endpoint used here is api/v1/meetups/:meetupId/questions<br>
+An existing user should be able to ask questions about an upcoming meetup. The endpoint used here is api/v1/questions<br>
 
 
 <h4>View a question</h4>
-An existing user can view a particular question that has been posted by either them or another user. The endpoint used here is api/v1/meetups/:meetupId/questions/:questionId<br>
+An existing user can view a particular question that has been posted by either them or another user. The endpoint used here is api/v1/questions/:id<br>
+
+<h4>View all questions that have been asked under a specific meetup</h4>
+An existing user can view all questions that users have asked concerning a specific meetup. The endpoint here is api/v1/meetups/:id/questions<br>
 
 
 <h4>Upvote a specific question</h4>
@@ -123,4 +125,6 @@ An admin can add tags to a meetup record. The endpoint used here is api/v1/meetu
 	<li>Mocha: simple, flexible, fun test framework</li>
 	<li>Istanbul: Yet another JS code coverage tool that computes statement, line, function and branch coverage with module loader hooks to transparently add coverage when running tests. Supports all JS coverage use cases including unit tests, server side functional tests</li>
 	<li>nyc: the Istanbul command line interface</li>
-</ul>
+</ul><br>
+
+<h3>Author : Bukola Omosefunmi</h3>
