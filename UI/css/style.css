@@ -55,7 +55,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   font-size: 1.2em;
 }
 
@@ -118,9 +118,32 @@ li:nth-child(1) {
 .main {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  margin-top: 40px;
+  justify-content: start;
+  margin-top: 50px;
+  margin: auto;
   padding: 0 40px 0 40px;
+}
+
+.svg{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  margin-bottom: 3em; 
+}
+
+.svg-item{
+  margin: auto;
+}
+.justify-center{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.svg-item img{
+  width: 80px;
+  height: 100px;
+  margin: auto;
 }
 
 .main1 {
@@ -137,15 +160,14 @@ img {
 }
 
 .flex3 {
-  display: flex;
-  flex-direction: row;
-  max-width: 400px;
+  max-width: 350px;
   height: auto;
   border: 1px solid #e4e6e8;
   background: #fff;
   box-shadow: 2px 2px 2px #e4e6e8;
   border-radius: 5px;
   margin-bottom: 45px;
+  margin-left: 15px;
 }
 
 .flex4 {
@@ -180,7 +202,7 @@ img {
 
 .section {
   text-align: center;
-  margin-bottom: 5em;
+  margin: 5em 0 5em 0;
 }
 
 .section a {
@@ -234,7 +256,7 @@ main {
 }
 
 .meetups-header {
-  margin: 30px;
+  margin: 2em 0 2em 0;
   text-align: center;
   text-decoration: underline;
   text-decoration-color: #ff690c;
@@ -243,10 +265,12 @@ main {
 
 .center {
   text-align: center;
+  margin: 5em 0 5em 0;
 }
 
 .pagination {
   display: inline-block;
+  margin-bottom: 2em;
 }
 
 .pagination a {
