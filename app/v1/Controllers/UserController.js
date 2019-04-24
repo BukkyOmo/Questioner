@@ -22,7 +22,9 @@ class UserController {
 		} = request.body;
 		const hash = passwordhash.generate(password);
 
-		const selectQuery = { text: 'SELECT * FROM users WHERE email = $1 OR username = $2', values: [email, username] };
+		const selectQuery = {
+			text: 'SELECT * FROM users WHERE email = $1 OR username = $2', values: [email, username]
+		};
 
 		pool.query(selectQuery)
 			.then((result) => {
