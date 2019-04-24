@@ -16,5 +16,3 @@ pool.query(user)
 	.catch((error) => {
 		console.log(error);
 	});
-	
-	

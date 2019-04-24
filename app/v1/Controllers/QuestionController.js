@@ -97,8 +97,8 @@ class QuestionController {
 			});
 	}
 
-	
-	 /**
+
+	/**
 	  * description- An endpoint that gets all questions asked on a meetup
 	  *
 	  * @static
@@ -107,7 +107,7 @@ class QuestionController {
 	  * returns {object}
 	  * @memberof QuestionController
 	  */
-	 static getQuestionByMeetup = (request, response) => {
+	static getQuestionByMeetup = (request, response) => {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -135,7 +135,7 @@ class QuestionController {
 					error: 'Something unexpected happened'
 				});
 			});
-	 }
+	}
 
 	/**
 	 *@description- An endpoint to downvote a question

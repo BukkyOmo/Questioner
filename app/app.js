@@ -1,4 +1,4 @@
-	/*istanbul ignore next*/ 
+/* istanbul ignore next */
 import express from 'express';
 import bodyparser from 'body-parser';
 import expressValidator from 'express-validator';
@@ -23,7 +23,7 @@ app.get('*', (request, response) => {
 		error: 'The route you are trying to access does not exist'
 	});
 });
-/*istanbul ignore next*/ 
+/* istanbul ignore next */
 if (!module.parent) {
 	app.listen(port, () => {
 		console.log('Questioner app listening on port', port);
