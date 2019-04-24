@@ -67,27 +67,27 @@ class UserController {
 		const selectQuery = { text: 'SELECT * from users WHERE email = $1', values: [email] };
 
 		pool.query(selectQuery)
-		.then((result) => {
-			if(result.rows.length === 0) {
-				return response.status(404).json({
-					status: 404,
-					error: 'Incorrect email or password'
-				});
-			}
-				if (passwordhash.verify(password, result.rows[0].password)) {
-					const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
-						return response.status(200).json({
-							status: 200,
-							data: [{
-								token,
-								user: result.rows[0].username
-							}],
-						});
-					}
-					return response.status(409).json({
-						status: 409,
+			.then((result) => {
+				if (result.rows.length === 0) {
+					return response.status(404).json({
+						status: 404,
 						error: 'Incorrect email or password'
 					});
+				}
+				if (passwordhash.verify(password, result.rows[0].password)) {
+					const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
+					return response.status(200).json({
+						status: 200,
+						data: [{
+							token,
+							user: result.rows[0].username
+						}],
+					});
+				}
+				return response.status(409).json({
+					status: 409,
+					error: 'Incorrect email or password'
+				});
 			})
 			.catch(err => (
 				response.status(500).json({
