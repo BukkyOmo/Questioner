@@ -46,10 +46,12 @@ class UserController {
 							const token = generateToken(users.rows[0].id, users.rows[0].isadmin);
 							return response.status(201).json({
 								status: 201,
+								message: 'You have been successfully registered',
 								data: [{
 									token,
-									userId: users.rows[0].id,
-									user: users.rows[0].username
+									email: users.rows[0].email,
+									username: users.rows[0].username,
+									userid: users.rows[0].id,
 								}],
 							});
 						}

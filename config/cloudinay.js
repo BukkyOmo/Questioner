@@ -36,7 +36,7 @@ const upload = multer({
 	storage,
 	imageFilter,
 	limits: {
-		fileSize: 500000,
+		fileSize: 1000000,
 		files: 1,
 	}
 }).single('image');
