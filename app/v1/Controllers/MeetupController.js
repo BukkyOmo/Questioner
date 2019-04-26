@@ -18,8 +18,11 @@ class MeetupController {
    * @memberof MeetupController
    */
 	static createMeetup = (request, response) => {
+		if (request.file) {
+			request.body.image = request.file.secure_url;
+		}
 		const {
-			topic, location, happeningOn, tags, images
+			topic, location, happeningOn, tags, image
 		} = request.body;
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
@@ -29,12 +32,12 @@ class MeetupController {
 		if (isAdmin === true) {
 			const insertQuery = {
 				text:
-          'INSERT into meetup( location, topic, happeningOn, images, tags, users_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING location, topic, happeningOn, images, tags',
+          'INSERT into meetup( location, topic, happeningOn, image, tags, users_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING location, topic, happeningOn, image, tags',
 				values: [
 					location,
 					topic,
 					happeningOn,
-					'https://res.cloudinary.com/dtzflgnar/image/upload/v1549098474/event4.jpg',
+					image,
 					tags,
 					createdBy
 				]
@@ -72,7 +75,7 @@ class MeetupController {
    * @memberof MeetupController
    */
 	static getAllMeetups = (request, response) => {
-		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup';
+		const selectQuery = 'SELECT id, location, topic, happeningOn, image, tags FROM meetup';
 
 		pool.query(selectQuery)
 			.then((result) => {
@@ -142,7 +145,7 @@ class MeetupController {
    * @memberof MeetupController
    */
 	static getUpcomingMeetups = (request, response) => {
-		const selectQuery = 'SELECT id, location, topic, happeningOn, images, tags FROM meetup WHERE happeningOn > NOW()';
+		const selectQuery = 'SELECT id, location, topic, happeningOn, image, tags FROM meetup WHERE happeningOn > NOW()';
 
 		pool.query(selectQuery)
 			.then((result) => {

@@ -11,13 +11,13 @@ const port = process.env.PORT || 5500;
 app.use(cors());
 app.use(expressValidator());
 
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 
 app.use('/api/v1', router);
 
-app.get('*', (request, response) => {
+app.all('*', (request, response) => {
 	response.status(404).json({
 		status: 404,
 		error: 'The route you are trying to access does not exist'
