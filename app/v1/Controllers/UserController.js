@@ -46,10 +46,12 @@ class UserController {
 							const token = generateToken(users.rows[0].id, users.rows[0].isadmin);
 							return response.status(201).json({
 								status: 201,
+								message: 'You have been successfully registered',
 								data: [{
 									token,
-									userId: users.rows[0].id,
-									user: users.rows[0].username
+									email: users.rows[0].email,
+									username: users.rows[0].username,
+									userid: users.rows[0].id,
 								}],
 							});
 						}
@@ -73,13 +75,14 @@ class UserController {
 				if (result.rows.length === 0) {
 					return response.status(404).json({
 						status: 404,
-						error: 'Incorrect email or password'
+						error: 'User does not exist'
 					});
 				}
 				if (passwordhash.verify(password, result.rows[0].password)) {
 					const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
 					return response.status(200).json({
 						status: 200,
+						message: 'You have successfully signed in',
 						data: [{
 							token,
 							user: result.rows[0].username
