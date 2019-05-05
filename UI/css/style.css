@@ -166,6 +166,7 @@ img {
   background: #fff;
   box-shadow: 2px 2px 2px #e4e6e8;
   border-radius: 5px;
+  /* margin: auto; */
   margin-bottom: 45px;
   margin-left: 15px;
 }
@@ -265,7 +266,7 @@ main {
 
 .center {
   text-align: center;
-  margin: 5em 0 5em 0;
+  margin: 3em 0 3em 0;
 }
 
 .pagination {
@@ -565,6 +566,7 @@ hr {
     width: 300px;
     height: 300px;
     border-radius: 3px;
+    /* padding: 20px; */
   }
 
   .flex3 {
@@ -576,7 +578,9 @@ hr {
     background: #fff;
     box-shadow: 4px 4px 4px #e4e6e8;
     border-radius: 3px;
+    margin: auto;
     margin-bottom: 40px;
+    /* padding: 20px; */
   }
   .flex-item {
     font-size: 14px;
@@ -658,10 +662,18 @@ hr {
     animation-name: slideIn;
     animation-duration: 0.1s;
   }
+
+  .svg{
+  display: block;
+  flex-flow: row;
+  justify-content: space-around;
+  margin-bottom: 5em; 
+  text-align: center;
+}
 }
 @media only screen and (max-width: 1500px) and (min-width: 700px) {
   img {
-    width: 320px;
+    width: 400px;
     height: 200px;
     border-radius: 3px;
   }
@@ -675,6 +687,7 @@ hr {
     background: #fff;
     box-shadow: 4px 4px 4px #e4e6e8;
     border-radius: 3px;
+    margin: auto;
     margin-bottom: 40px;
   }
   .flex-item {
