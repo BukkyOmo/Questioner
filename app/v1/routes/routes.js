@@ -11,6 +11,7 @@ import QuestionController from '../Controllers/QuestionController';
 import RsvpController from '../Controllers/RsvpController';
 import RsvpValidator from '../middleware/RsvpValidator';
 import CommentController from '../Controllers/CommentController';
+import imageUpload from '../../../config/cloudinay';
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ router.route('/auth/signin')
 
 router.route('/meetups')
 	.get(isLogin, getAllMeetups)
-	.post(isLogin, createMeetupValidator, createMeetup);
+	.post(isLogin, imageUpload, createMeetupValidator, createMeetup);
 
 router.route('/meetups/upcoming')
 	.get(isLogin, getUpcomingMeetups);
