@@ -75,13 +75,14 @@ class UserController {
 				if (result.rows.length === 0) {
 					return response.status(404).json({
 						status: 404,
-						error: 'Incorrect email or password'
+						error: 'User does not exist'
 					});
 				}
 				if (passwordhash.verify(password, result.rows[0].password)) {
 					const token = generateToken(result.rows[0].id, result.rows[0].isadmin);
 					return response.status(200).json({
 						status: 200,
+						message: 'You have successfully signed in',
 						data: [{
 							token,
 							user: result.rows[0].username
