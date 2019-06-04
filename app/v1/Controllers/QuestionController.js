@@ -37,7 +37,7 @@ class QuestionController {
 				}
 
 				const insertQuery = {
-					text: 'INSERT INTO questions (createdBy, meetup_id, title, body) VALUES($1, $2, $3, $4) RETURNING createdBy, meetup_id, title, body',
+					text: 'INSERT INTO questions (createdBy, meetup_id, title, body) VALUES($1, $2, $3, $4) RETURNING *',
 					values: [createdBy, id, title, body]
 				};
 
