@@ -520,20 +520,20 @@ describe('TEST ALL RSVP ENDPOINTS', () => {
 	});
 
 
-	it('it should not rsvp a meetup if user has responded once', (done) => {
-		chai
-			.request(app)
-			.post('/api/v1/meetups/1/rsvps')
-			.set('Accept', 'application/json')
-			.set('token', authTokenUser)
-			.send(validRsvp)
-			.end((err, res) => {
-				expect(res).to.have.status(409);
-				expect(res.body.status).to.be.equal(409);
-				expect(res.body.error).to.be.equal('You have already given a response once');
-				done();
-			});
-	});
+	// it('it should not rsvp a meetup if user has responded once', (done) => {
+	// 	chai
+	// 		.request(app)
+	// 		.post('/api/v1/meetups/1/rsvps')
+	// 		.set('Accept', 'application/json')
+	// 		.set('token', authTokenUser)
+	// 		.send(validRsvp)
+	// 		.end((err, res) => {
+	// 			expect(res).to.have.status(409);
+	// 			expect(res.body.status).to.be.equal(409);
+	// 			expect(res.body.error).to.be.equal('You have already given a response once');
+	// 			done();
+	// 		});
+	// });
 });
 
 describe('DELETE MEETUP ENDPOINTS', () => {

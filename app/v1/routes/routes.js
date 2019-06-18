@@ -20,7 +20,7 @@ const { signinValidator } = userValidator;
 const { signup, signin } = UserController;
 const { getParamsValidator } = paramsValidator;
 const { createCommentValidator } = CommentValidator;
-const { createComment } = CommentController;
+const { createComment, getComment } = CommentController;
 const { isLogin } = VerifyToken;
 const { createMeetupValidator } = meetupValidator;
 const { createQuestionValidator } = questionValidator;
@@ -64,6 +64,9 @@ router.route('/meetups/:id/questions')
 
 router.route('/comments')
 	.post(isLogin, createCommentValidator, createComment);
+
+router.route('/comments/:id')
+	.get(isLogin, getParamsValidator, getComment);
 
 router.route('/meetups/:id/rsvps')
 	.post(isLogin, getParamsValidator, rsvpValidator, rsvpMeetup);
