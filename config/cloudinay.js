@@ -26,6 +26,7 @@ const storage = cloudinaryStorage({
  * @param {object} next - The next middleware
  * @returns Status code and error message or the next function if file is not in a specific format
  */
+/* istanbul ignore next */
 const imageFilter = (req, file, cb) => {
 	if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
 		return cb(new Error('Only image files are allowed!'), false);
@@ -33,6 +34,7 @@ const imageFilter = (req, file, cb) => {
 	return cb(null, true);
 };
 
+/* istanbul ignore next */
 const upload = multer({
 	storage,
 	imageFilter,
@@ -49,6 +51,7 @@ const upload = multer({
  * @param {object} next - The next middleware
  * @returns Status code and error message or the next function
  */
+/* istanbul ignore next */
 const imageUpload = (req, res, next) => {
 	upload(req, res, (err) => {
 		if (err) {
