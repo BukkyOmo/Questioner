@@ -1,0 +1,117 @@
+swagger: "2.0"
+info:
+  description: "Questioner is a light-weight application that crowd-sources questions for upcoming events.  You can find out more about Questioner at [http://questioner.io](http://questioner.io)."
+  version: "1.0.0"
+  title: "Questioner"
+  contact:
+    email: "questioner@gmail.com"
+  license:
+    name: "MIT"
+host: "questioner.io"
+basePath: "/v1"
+tags:
+- name: "Authentication"
+  description: "Registers users, Signin users,Forgot user password, Reset user password."
+- name: "Meetups"
+  description: "Operations about meetups"
+- name: "Questions"
+  description: "Operations about questions"
+- name: "Comments"
+  description: "Operations about comments"
+schemes:
+- "https"
+- "http"
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - "Authentication"
+      summary: "Registers a new user to the application"
+      description: "User can register"
+      operationId: "auth/signup"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the application"
+        required: true
+        schema:
+          $ref: "#/definitions/Authentication"
+      responses:
+        409:
+          description: "user already exists"
+        500: 
+          description: "Something went wrong"
+        201:
+          description: "You have been successfully registered"
+      security:
+      - user_auth:
+        - "write:users"
+        - "read:users"
+
+  /auth/signin:
+    post:
+      tags:
+      - "Authentication"
+      summary: "Signs in an existing user"
+      description: " Already registered user can access their account"
+      operationId: "auth/signin"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be signed into their account"
+        required: true
+        schema:
+          $ref: "#/definitions/Authentication"
+      responses:
+        409:
+          description: "Incorrect email or password'"
+        404:
+          description: "User does not exist"
+        500:
+          description: "Something went wrong"
+        200: 
+          description: "You have successfully signed in"
+      security:
+      - petstore_auth:
+        - "write:users"
+        - "read:users"
+
+definitions:
+  Authentication:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      isAdmin:
+        type: "string"
+        description: "User Status"
+    xml:
+      name: "Authentication"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Questioner"
+  url: "http://questioner.io"
