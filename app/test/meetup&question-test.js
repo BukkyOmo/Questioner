@@ -373,7 +373,7 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 			});
 	});
 
-	it('it should throw an error when there in questions under a meetup', (done) => {
+	it('it should throw an error when there is no questions under a meetup', (done) => {
 		chai.request(app)
 			.get('/api/v1/meetups/76/questions')
 			.set('token', authTokenAdmin)
@@ -474,6 +474,52 @@ describe('TEST ALL QUESTION ENDPOINTS', () => {
 				done();
 			});
 	});
+
+	it('it should get a comment in database', (done) => {
+		chai.request(app)
+			.get('/api/v1/comments/1')
+			.set('token', authTokenAdmin)
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				done();
+			});
+	});
+
+	it('it should throw an error when there is no such comment', (done) => {
+		chai.request(app)
+			.get('/api/v1/comments/100')
+			.set('token', authTokenAdmin)
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.error).to.be.equal('Comment cannot be found');
+				done();
+			});
+	});
+
+	it('it should get all comments under a question', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/1/comments')
+			.set('token', authTokenAdmin)
+			.end((err, res) => {
+				expect(res).to.have.status(200);
+				expect(res.body.status).to.be.equal(200);
+				done();
+			});
+	});
+
+	it('it should throw an error when there is no such comment', (done) => {
+		chai.request(app)
+			.get('/api/v1/questions/100/comments')
+			.set('token', authTokenAdmin)
+			.end((err, res) => {
+				expect(res).to.have.status(404);
+				expect(res.body.status).to.be.equal(404);
+				expect(res.body.error).to.be.equal('There is no comment available');
+				done();
+			});
+	});
 });
 
 describe('TEST ALL RSVP ENDPOINTS', () => {
@@ -518,22 +564,6 @@ describe('TEST ALL RSVP ENDPOINTS', () => {
 				done();
 			});
 	});
-
-
-	// it('it should not rsvp a meetup if user has responded once', (done) => {
-	// 	chai
-	// 		.request(app)
-	// 		.post('/api/v1/meetups/1/rsvps')
-	// 		.set('Accept', 'application/json')
-	// 		.set('token', authTokenUser)
-	// 		.send(validRsvp)
-	// 		.end((err, res) => {
-	// 			expect(res).to.have.status(409);
-	// 			expect(res.body.status).to.be.equal(409);
-	// 			expect(res.body.error).to.be.equal('You have already given a response once');
-	// 			done();
-	// 		});
-	// });
 });
 
 describe('DELETE MEETUP ENDPOINTS', () => {

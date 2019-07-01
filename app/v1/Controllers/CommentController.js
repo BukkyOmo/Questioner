@@ -46,6 +46,7 @@ class CommentController {
 						});
 					}
 				})
+				/* istanbul ignore next */
 				.catch(error => response.status(500).json({
 					status: 500,
 					error: 'Something went wrong'
@@ -77,10 +78,46 @@ class CommentController {
 					error: 'Comment cannot be found'
 				});
 			})
+			/* istanbul ignore next */
 			.catch((error) => {
 				response.status(500).json({
 					status: 500,
 					error: 'Something unexpected happened'
+				});
+			});
+	};
+
+	// get all comments
+	static getCommentsByQuestion = (request, response) => {
+		// anyone signed in can get all comments
+		// that means we need just the isLogin middleware
+		const { id } = request.params;
+
+		const selectQuery = {
+			text: 'SELECT * FROM comment where question_id = $1',
+			values: [id]
+		};
+
+		pool
+			.query(selectQuery)
+			.then((result) => {
+				const comments = result.rows;
+				if (comments.length > 0) {
+					return response.status(200).json({
+						status: 200,
+						data: comments
+					});
+				}
+				return response.status(404).json({
+					status: 404,
+					error: 'There is no comment available'
+				});
+			})
+			/* istanbul ignore next */
+			.catch((error) => {
+				response.status(500).json({
+					status: 500,
+					error: 'Something unexpected happened',
 				});
 			});
 	};

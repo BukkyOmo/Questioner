@@ -9,7 +9,9 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 const {
-	CommentQuestionNotExist, CreateComment, CommentBodyEmpty, CommentBodyNotString
+	CommentQuestionNotExist,
+	CommentBodyNotString,
+	CommentBodyEmpty,
 } = CommentTest;
 
 const { SuperUserLogin } = UserTest;
