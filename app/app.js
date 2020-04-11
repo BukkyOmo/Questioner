@@ -5,6 +5,7 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import router from './v1/routes/routes';
+// import router2 from './v2/routes/routes';
 
 const app = express();
 const swaggerDocument = YAML.load('./swagger.yaml');
@@ -19,6 +20,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.use('/api/v1', router);
+// app.use('/api/v2', router2);
 
 app.all('*', (request, response) => {
 	response.status(404).json({
