@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Questioner is an app that crowd-sources questions for meetups/events.",
   "main": "index.js",
+  "engines": {
+    "node": "10.13.x"
+  },
   "scripts": {
     "start": "gulp serve",
     "clean": "gulp clean",
