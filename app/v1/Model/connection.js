@@ -6,7 +6,7 @@ const config = {
 	production: process.env.PRODUCTION_URL,
 };
 const env = process.env.NODE_ENV;
-
+console.log(config[env])
 const pool = new Pool({
 	connectionString: config[env]
 });
