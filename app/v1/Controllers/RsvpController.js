@@ -1,9 +1,6 @@
 /* eslint-disable consistent-return */
-import dotenv from 'dotenv';
 import Auth from '../helpers/auth';
-import pool from '../Model/connection';
-
-dotenv.config();
+import pool from '../../../config/database';
 
 const { verifyToken } = Auth;
 

@@ -1,4 +1,4 @@
-import app from '../app';
+import app from '../../index';
 import {
 	UserTest,
 	MeetupTest,
@@ -596,11 +596,8 @@ describe('TEST ALL BAD ROUTES', () => {
 			.request(app)
 			.get('/api/v1/belch')
 			.end((err, res) => {
-				expect(res).to.have.status(404);
-				expect(res.body.status).to.be.equal(404);
-				expect(res.body.error).to.be.equal(
-					'The route you are trying to access does not exist'
-				);
+				expect(res.body.error.status).to.be.equal(404);
+				expect(res.body.message).to.be.equal('Not Found');
 				done();
 			});
 	});
