@@ -1,18 +1,16 @@
 /* eslint-disable consistent-return */
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-
-dotenv.config();
+import config from '../../../config';
 
 class Auth {
 	static generateToken = (id, isAdmin) => {
 		const token = jwt.sign({ id, isAdmin },
-			process.env.SECRET,
+			config.SECRET,
 			{ expiresIn: '24h' });
 
 		return token;
 	}
 
-	static verifyToken = token => jwt.verify(token, process.env.SECRET)
+	static verifyToken = token => jwt.verify(token, config.SECRET)
 }
 export default Auth;

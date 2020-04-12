@@ -7,7 +7,6 @@ const config = {
 };
 
 const env = process.env.NODE_ENV;
-console.log(env, 'env');
 
 const pool = new Pool({
     connectionString: config[env]

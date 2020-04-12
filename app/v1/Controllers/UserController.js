@@ -1,10 +1,9 @@
 /* eslint-disable consistent-return */
 import passwordhash from 'password-hash';
 import Auth from '../helpers/auth';
-import pool from '../Model/connection';
+import pool from '../../../config/database';
 
 const { generateToken } = Auth;
-
 
 class UserController {
 	/**

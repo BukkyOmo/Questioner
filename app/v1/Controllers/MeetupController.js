@@ -1,11 +1,9 @@
 /* eslint-disable consistent-return */
-import dotenv from 'dotenv';
 import Auth from '../helpers/auth';
-import pool from '../Model/connection';
+import pool from '../../../config/database';
 
 const { verifyToken } = Auth;
 
-dotenv.config();
 
 class MeetupController {
 	/**

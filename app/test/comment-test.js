@@ -1,4 +1,4 @@
-import app from '../app';
+import app from '../../index';
 import { UserTest, CommentTest } from './mocks';
 
 const chai = require('chai');

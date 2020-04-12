@@ -4,3 +4,5 @@ dist/
 .nyc_output/
 .coveralls.yml
 .env
+log/
+coverage/
