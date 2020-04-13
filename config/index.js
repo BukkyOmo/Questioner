@@ -12,5 +12,5 @@ const environment = {
     test: Object.assign(test, defaults),
     production: Object(production, defaults)
 }[process.env.NODE_ENV || 'development'];
-console.log(environment, 'env')
+
 export default environment;
