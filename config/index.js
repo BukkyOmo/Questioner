@@ -7,7 +7,6 @@ import production from './env/production';
 const defaults = {
     root: path.normalize(`${__dirname}/..`)
 }
-
 const environment = {
     development: Object.assign(development, defaults),
     test: Object.assign(test, defaults),
