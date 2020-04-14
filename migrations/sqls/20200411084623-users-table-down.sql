@@ -1,1 +1,2 @@
-/* Replace with your SQL commands */
+DROP TYPE IF EXISTS privileges;
+DROP TABLE IF EXISTS users;
