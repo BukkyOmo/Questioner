@@ -5,7 +5,7 @@ import pool from '../../../config/database';
 const { verifyToken } = Auth;
 
 class CommentController {
-	static createComment = (request, response) => {
+	static createComment (request, response) {
 		const { body, id } = request.body;
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);
@@ -52,7 +52,7 @@ class CommentController {
 	};
 
 	// get a comment
-	static getComment = (request, response) => {
+	static getComment (request, response) {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -85,7 +85,7 @@ class CommentController {
 	};
 
 	// get all comments
-	static getCommentsByQuestion = (request, response) => {
+	static getCommentsByQuestion (request, response) {
 		// anyone signed in can get all comments
 		// that means we need just the isLogin middleware
 		const { id } = request.params;

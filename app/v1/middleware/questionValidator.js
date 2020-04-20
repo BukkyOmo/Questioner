@@ -9,7 +9,7 @@ class questionValidator {
 	 * @returns {object}- status code and error message or next()
 	 * @memberof createQuestionValidator
 	 */
-	static createQuestionValidator = (request, response, next) => {
+	static createQuestionValidator (request, response, next) {
 		request.check('title', 'Title is required')
 			.trim()
 			.notEmpty()

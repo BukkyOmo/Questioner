@@ -1,6 +1,6 @@
 import express from 'express';
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8282;
 const app = express();
 
 // Bootstrap express

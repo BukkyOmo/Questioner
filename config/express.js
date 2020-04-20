@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import FileStreamRotator from 'file-stream-rotator';
 import expressValidator from 'express-validator';
-// import apiVersion1 from "./versioning/v1";
+import apiVersion2 from "./versioning/v2";
 import routes from '../app/v1/routes/routes';
 
 const logDirectory = './log';
@@ -38,7 +38,7 @@ const expressConfig = (app) => {
     app.use(helmet());
     app.disable('x-powered-by');
     app.use(cors())
-    // app.use("/api/v1", apiVersion1);
+    app.use("/api/v2", apiVersion2);
 
     app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');

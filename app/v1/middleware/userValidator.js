@@ -9,7 +9,7 @@ class userValidator {
 	 * @returns {object}- status code and error message or next()
 	 * @memberof signupValidator
 	 */
-	static signupValidator = (request, response, next) => {
+	static signupValidator (request, response, next) {
 		request.check('email', 'email must be a valid email').isEmail();
 		request.check('email', 'email is required').notEmpty();
 		request.check('password', 'password is required').notEmpty();
@@ -44,7 +44,7 @@ class userValidator {
  * @returns {object}- status code and error message or next()
  * @memberof signupValidator
  */
-	static signinValidator = (request, response, next) => {
+	static signinValidator (request, response, next) {
 		request.check('email', 'email must be a valid email').isEmail();
 		request.check('email', 'email is required').notEmpty();
 		request.check('password', 'password is required').notEmpty();
