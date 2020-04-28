@@ -9,7 +9,7 @@ class paramsValidator {
 	 * @returns {object}
 	 * @memberof getParamsValidator
 	 */
-	static getParamsValidator = (request, response, next) => {
+	static getParamsValidator (request, response, next) {
 		const { id } = request.params;
 		const validateId = /^[0-9]+$/;
 		const validateParams = (params) => {

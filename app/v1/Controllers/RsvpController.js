@@ -5,7 +5,7 @@ import pool from '../../../config/database';
 const { verifyToken } = Auth;
 
 class RsvpController {
-	static rsvpMeetup = (request, response) => {
+	static rsvpMeetup (request, response) {
 		const { body } = request.body;
 		const { id } = request.params;
 		const token = request.headers.token || request.body.token;

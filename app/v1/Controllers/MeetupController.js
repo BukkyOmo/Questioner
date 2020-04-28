@@ -15,7 +15,7 @@ class MeetupController {
    * @returns {object}
    * @memberof MeetupController
    */
-	static createMeetup = (request, response) => {
+	static createMeetup (request, response) {
 		if (request.file) {
 			request.body.image = request.file.secure_url;
 		}
@@ -72,7 +72,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static getAllMeetups = (request, response) => {
+	static getAllMeetups (request, response) {
 		const selectQuery = 'SELECT id, location, topic, happeningOn, image, tags FROM meetup';
 
 		pool.query(selectQuery)
@@ -104,7 +104,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static getAMeetup = (request, response) => {
+	static getAMeetup (request, response) {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -142,7 +142,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static getUpcomingMeetups = (request, response) => {
+	static getUpcomingMeetups (request, response) {
 		const selectQuery = 'SELECT id, location, topic, happeningOn, image, tags FROM meetup WHERE happeningOn > NOW()';
 
 		pool.query(selectQuery)
@@ -174,7 +174,7 @@ class MeetupController {
    * returns {object}
    * @memberof MeetupController
    */
-	static deleteMeetup = (request, response) => {
+	static deleteMeetup (request, response) {
 		const { id } = request.params;
 		const token = request.headers.token || request.body.token;
 		const decodedToken = verifyToken(token);

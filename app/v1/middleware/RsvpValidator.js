@@ -9,7 +9,7 @@ class RsvpValidator {
 	 * @returns {object}
 	 * @memberof RsvpValidator
 	 */
-	static rsvpValidator = (request, response, next) => {
+	static rsvpValidator (request, response, next) {
 		const { body } = request.body;
 		const myStatus = body.toLowerCase();
 		if (myStatus === 'yes' || myStatus === 'no' || myStatus === 'maybe') {
