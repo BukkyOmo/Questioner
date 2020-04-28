@@ -1,19 +1,13 @@
+import AuthService from '../Services/authentication.services';
+
 class Authentication {
     static async userSignUp(req, res) {
-        return res.send({})
-        // FLOW //
-        // user sends in input body which contains his/her details
-        // details should include firstname, lastname, email, password
-        // first off validate the inputs before checing against the db
-        // if validation check met
-        // check the user email against db to ensure does not already exist in db
-        // if yes, throw an error response 
-        // else proceed
-        // hash user password and salt the hash
-        // next is to encode user details in a jwt token
-        // then save data in db 
-        // return success response along with data and token
-        // end
+        try {
+            const result = await AuthService.userSignUp(req.body);
+            return res.status(201).json(result);  
+        } catch (error) {
+            return res.status(400).json(error); 
+        }
     }
 
     static async userSignIn(req, res) {

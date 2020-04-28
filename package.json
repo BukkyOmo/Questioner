@@ -16,8 +16,8 @@
     "migration": "babel-node ./app/v1/Model/db",
     "migrations:up": "db-migrate up",
     "migrations:down": "db-migrate down -c 50",
-    "migrate:up": "db-migrate up --config config/database.json -e test",
-    "migrate:down": "db-migrate down -c 50 --config config/database.json -e test"
+    "migrate:up": "db-migrate up --config database.json -e test",
+    "migrate:down": "db-migrate down -c 50 --config database.json -e test"
   },
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "babel-watch": "^7.0.0",
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
@@ -80,6 +81,7 @@
     "gulp-task-listing": "^1.0.1",
     "gulp-util": "^3.0.8",
     "helmet": "^3.22.0",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.23.0",
     "morgan": "^1.9.1",
