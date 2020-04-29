@@ -18,8 +18,8 @@ class Authentication {
     * @param {string} (password, hashedpassword)
     * @returns {string} password
     */
-	static async comparePassword(password, hashedPassword) {
-		return bcrypt.compare(password, hashedPassword);
+	static comparePassword(password, hashedPassword) {
+		return bcrypt.compareSync(password, hashedPassword);
 	}
 
 	static async encodeToken(payload) {

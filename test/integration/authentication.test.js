@@ -191,4 +191,102 @@ describe('Authentication Tests', () => {
 				});
 		});
 	});
+
+	describe('User Signup tests', () => {
+		it('should return error if no input is provided', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/signin')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Please fill all fields');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should return error if email is not provided', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/signin')
+				.set('Accept', 'application/json')
+				.send({
+					password: 'Kingdomhall'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'email is required');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should return error if password is not provided', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/signin')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'Kingjnr@gmail.com',
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'password is required');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should return error if password is incorrect', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/signin')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'matty@gmail.com',
+					password: 'passwordcoder'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Invalid email or password');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should return error if user does not exist in database', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/signin')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'Kingjnr@gmail.com',
+					password: 'Kingdomhall'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'User does not exist in database');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should successfully sign in a user with valid details', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/signin')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'matty@gmail.com',
+					password: 'password'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'User signed in successfully');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });

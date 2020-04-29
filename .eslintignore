@@ -8,7 +8,6 @@
 /tests/performance/**
 /tmp/**
 /tools/internal-rules/node_modules/**
-/test
 !.eslintrc.js
 /dist
 /migrations
