@@ -15,7 +15,7 @@ class UserController {
 	 * returns {object}
 	 * @memberof UserController
 	 */
-	static signup (request, response) {
+	static signup(request, response) {
 		const {
 			username, email, password
 		} = request.body;
@@ -64,7 +64,7 @@ class UserController {
 			});
 	}
 
-	static signin (request, response) {
+	static signin(request, response) {
 		const { email, password } = request.body;
 
 		const selectQuery = { text: 'SELECT * from users WHERE email = $1', values: [email] };

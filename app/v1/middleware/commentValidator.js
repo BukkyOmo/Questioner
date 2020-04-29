@@ -9,7 +9,7 @@ class CommentValidator {
 	 * @returns {object}- status code and error message or next()
 	 * @memberof createCommentValidator
 	 */
-	static createCommentValidator (request, response, next) {
+	static createCommentValidator(request, response, next) {
 		request.check('body', 'Comment body is required').notEmpty();
 		request.check('body', 'Comment body should be a string').isString();
 		const errors = request.validationErrors();

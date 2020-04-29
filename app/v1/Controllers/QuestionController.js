@@ -15,7 +15,7 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static createQuestion (request, response) {
+	static createQuestion(request, response) {
 		const {
 			title, body, id
 		} = request.body;
@@ -67,7 +67,7 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static getQuestion (request, response) {
+	static getQuestion(request, response) {
 		const { id } = request.params;
 
 		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };
@@ -104,7 +104,7 @@ class QuestionController {
 	  * returns {object}
 	  * @memberof QuestionController
 	  */
-	static getQuestionByMeetup (request, response) {
+	static getQuestionByMeetup(request, response) {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -143,7 +143,7 @@ class QuestionController {
 	 * returns {object}
 	 * @memberof QuestionController
 	 */
-	static downvoteQuestion (request, response) {
+	static downvoteQuestion(request, response) {
 		const { id } = request.params;
 
 		const selectQuery = {
@@ -196,7 +196,7 @@ class QuestionController {
 	 * returns object
 	 * @memberof QuestionController
 	 */
-	static upvoteQuestion (request, response) {
+	static upvoteQuestion(request, response) {
 		const { id } = request.params;
 
 		const selectQuery = { text: 'SELECT * FROM questions WHERE id = $1', values: [id] };

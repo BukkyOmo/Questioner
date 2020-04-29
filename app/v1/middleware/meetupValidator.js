@@ -10,7 +10,7 @@ class meetupValidator {
 	 * @returns {object}- status code and error message or next()
 	 * @memberof createMeetupValidator
 	 */
-	static createMeetupValidator (request, response, next) {
+	static createMeetupValidator(request, response, next) {
 		request.check('topic', 'Topic is required').notEmpty();
 		request.check('topic', 'Topic must be a string').isString();
 		request.check('location', 'Location is required').notEmpty();
