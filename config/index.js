@@ -5,12 +5,12 @@ import test from './env/test';
 import production from './env/production';
 
 const defaults = {
-    root: path.normalize(`${__dirname}/..`)
-}
+	root: path.normalize(`${__dirname}/..`)
+};
 const environment = {
-    development: Object.assign(development, defaults),
-    test: Object.assign(test, defaults),
-    production: Object(production, defaults)
+	development: Object.assign(development, defaults),
+	test: Object.assign(test, defaults),
+	production: Object(production, defaults)
 }[process.env.NODE_ENV || 'development'];
 
 export default environment;
