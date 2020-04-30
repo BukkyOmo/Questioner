@@ -2,6 +2,7 @@ import db from '../../../config/database';
 import authQuery from '../Queries/Authentication.queries';
 import AuthUtils from '../Utils/Authentication.utils';
 import ResponseFormat from '../Utils/responseFormat.utils';
+import sendWelcomeMail from '../Helpers/mail.helpers';
 
 const { successResponseFormat, failureResponseFormat } = ResponseFormat;
 
@@ -36,6 +37,7 @@ class AuthService {
 			const token = await encodeToken({
 				id, first_name, role, email
 			});
+			await sendWelcomeMail.sendEmail(first_name, email);
 			return successResponseFormat('User successfully saved to database', 201, 'Success', token);
 		} catch (error) {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
