@@ -3,8 +3,8 @@ import config from '../../../config';
 
 sgMail.setApiKey(config.SENDGRID_API_KEY);
 
-class sendWelcomeMail {
-	static async sendEmail(firstname, email) {
+class MailNotification {
+	static async signUpEmail(firstname, email) {
 		const message = {
 			to: `${email}`,
 			from: config.EMAIL,
@@ -18,7 +18,23 @@ class sendWelcomeMail {
 		};
 		await sgMail.send(message);
 	}
+
+	static async passwordResetEmail(token, email, firstname) {
+		const message = {
+			to: `${email}`,
+			from: config.EMAIL,
+			subject: 'REQUEST TO RESET PASSWORD',
+			html: `
+            <p>Hi ${firstname}</p>
+            <p>We received your request to reset your password. Please follow the link below to perform this action.</p>
+            <p><a href=https://localhost:5000/reset/password/${token}>reset password link</a></p>
+            <p>Please note that this link expires in 1 hour.</p>
+            <br>
+            <p>Regards</p>
+            <p>The team at Questioner</p>`,
+		};
+		await sgMail.send(message);
+	}
 }
 
-
-export default sendWelcomeMail;
+export default MailNotification;
