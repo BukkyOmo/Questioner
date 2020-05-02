@@ -289,4 +289,67 @@ describe('Authentication Tests', () => {
 				});
 		});
 	});
+
+	describe('Forgot password tests', () => {
+		it('should return error if email input is empty', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/forgotpassword')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Please fill all fields');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should return error if email is not valid', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/forgotpassword')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'matty'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'email must be a valid email');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should return error if email does not exist in database', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/forgotpassword')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'mathewlex@gmail.com'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'User does not exist in database');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+
+		it('should successfully send save reset password token in database and send a token reset email', (done) => {
+			chai
+				.request(app)
+				.post('/api/v2/auth/forgotpassword')
+				.set('Accept', 'application/json')
+				.send({
+					email: 'matty@gmail.com'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Reset password mail sent successfully');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });
