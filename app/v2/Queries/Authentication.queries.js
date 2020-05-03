@@ -2,11 +2,12 @@ const authQuery = {
 	checkUserExist: 'SELECT * FROM users WHERE email=$1',
 	saveUser: `
         INSERT INTO users(
+            id,
             first_name,
             last_name,
             email,
             password
-        ) values($1, $2, $3, $4)
+        ) values($1, $2, $3, $4, $5)
         RETURNING id, first_name, last_name, email, role
     `,
 	forgotPassword: 'UPDATE users SET password_reset_token=$1 WHERE email=$2'

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import db from '../../../config/database';
 import authQuery from '../Queries/Authentication.queries';
 import AuthUtils from '../Utils/Authentication.utils';
@@ -7,8 +8,10 @@ import MailNotification from '../Helpers/mail.helpers';
 const { successResponseFormat, failureResponseFormat } = ResponseFormat;
 const { hashPassword, comparePassword, encodeToken } = AuthUtils;
 const { signUpEmail, passwordResetEmail } = MailNotification;
+
 class AuthService {
 	static async userSignUp(body) {
+		const id = uuidv4();
 		const {
 			firstname, lastname, email, password
 		} = body;
@@ -17,22 +20,22 @@ class AuthService {
 			text: authQuery.checkUserExist,
 			values: [email]
 		};
+		const queryObj1 = {
+			text: authQuery.saveUser,
+			values: [id, firstname, lastname, email, hashPassword(password)]
+		};
 		try {
 			const result = await db.query(queryObj);
 
 			if (result.rowCount !== 0) {
 				return failureResponseFormat('User already exists in database', 400, 'Failure');
 			}
-			const queryObj1 = {
-				text: authQuery.saveUser,
-				values: [firstname, lastname, email, hashPassword(password)]
-			};
 			const { rows, rowCount } = await db.query(queryObj1);
 			if (rowCount === 0) {
 				return failureResponseFormat('User failed to save in database', 400, 'Failure');
 			}
 			const {
-				id, first_name, role
+				first_name, role
 			} = rows[0];
 			const token = await encodeToken({
 				id, first_name, role, email
