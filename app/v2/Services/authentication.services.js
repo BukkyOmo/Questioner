@@ -6,15 +6,17 @@ import ResponseFormat from '../Utils/responseFormat.utils';
 import MailNotification from '../Helpers/mail.helpers';
 
 const { successResponseFormat, failureResponseFormat } = ResponseFormat;
-const { hashPassword, comparePassword, encodeToken } = AuthUtils;
+const {
+	hashPassword, comparePassword, encodeToken, decodeToken
+} = AuthUtils;
 const { signUpEmail, passwordResetEmail } = MailNotification;
 
 class AuthService {
-	static async userSignUp(body) {
+	static async userSignUp(userData) {
 		const id = uuidv4();
 		const {
 			firstname, lastname, email, password
-		} = body;
+		} = userData;
 
 		const queryObj = {
 			text: authQuery.checkUserExist,
@@ -47,8 +49,8 @@ class AuthService {
 		}
 	}
 
-	static async userSignIn(body) {
-		const { email, password } = body;
+	static async userSignIn(userData) {
+		const { email, password } = userData;
 		const queryObj = {
 			text: authQuery.checkUserExist,
 			values: [email]
@@ -72,9 +74,8 @@ class AuthService {
 		}
 	}
 
-
-	static async forgotPassword(body) {
-		const { email } = body;
+	static async forgotPassword(userData) {
+		const { email } = userData;
 		const queryObj = {
 			text: authQuery.checkUserExist,
 			values: [email]
@@ -95,6 +96,29 @@ class AuthService {
 			await db.query(queryObj1);
 			await passwordResetEmail(token, email, first_name);
 			return successResponseFormat('Reset password mail sent successfully', 200, 'Success');
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
+
+	static async resetPassword(userData, userPayload) {
+		const { password } = userData;
+		const { token } = userPayload;
+		const decoded = await decodeToken(token);
+		try {
+			if (decoded.message === 'jwt expired') {
+				return failureResponseFormat('Token expired', 400, 'Failure');
+			}
+			if (decoded.name === 'JsonWebTokenError') {
+				return failureResponseFormat('Token invalid', 400, 'Failure');
+			}
+			const { email } = decoded;
+			const queryObj1 = {
+				text: authQuery.resetPassword,
+				values: [null, hashPassword(password), token, email]
+			};
+			await db.query(queryObj1);
+			return successResponseFormat('Password reset successful', 200, 'Success');
 		} catch (error) {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}

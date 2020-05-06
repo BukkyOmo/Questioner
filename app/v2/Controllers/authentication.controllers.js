@@ -27,6 +27,15 @@ class Authentication {
 			return res.status(400).json(error);
 		}
 	}
+
+	static async resetPassword(req, res) {
+		try {
+			const result = await AuthService.resetPassword(req.body, req.params);
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(400).json(error);
+		}
+	}
 }
 
 export default Authentication;

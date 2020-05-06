@@ -2,8 +2,13 @@ import assert from 'assert';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../index';
+import config from '../../config';
 
 chai.use(chaiHttp);
+const userToken = config.USER_TOKEN;
+const adminToken = config.ADMIN_TOKEN;
+const expiredToken = config.EXPIRED_TOKEN;
+const invalidToken = config.INVALID_TOKEN;
 
 describe('Authentication Tests', () => {
 	describe('User Signup tests', () => {
@@ -346,6 +351,66 @@ describe('Authentication Tests', () => {
 				})
 				.end((err, res) => {
 					assert.equal(res.body.message, 'Reset password mail sent successfully');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
+
+	describe('Reset password tests', () => {
+		it('should return error if password is not provided', (done) => {
+			chai
+				.request(app)
+				.post(`/api/v2/auth/resetpassword/${userToken}`)
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Please fill all fields');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if reset token sent is invalid', (done) => {
+			chai
+				.request(app)
+				.post(`/api/v2/auth/resetpassword/${invalidToken}`)
+				.set('Accept', 'application/json')
+				.send({
+					password: 'newpassword'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Token invalid');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if token is expired', (done) => {
+			chai
+				.request(app)
+				.post(`/api/v2/auth/resetpassword/${expiredToken}`)
+				.set('Accept', 'application/json')
+				.send({
+					password: 'newpassword'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Token expired');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should successfully save new password', (done) => {
+			chai
+				.request(app)
+				.post(`/api/v2/auth/resetpassword/${userToken}`)
+				.set('Accept', 'application/json')
+				.send({
+					password: 'newpassword'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Password reset successful');
 					assert.equal(res.body.statusCode, 200);
 					assert.equal(res.body.status, 'Success');
 					done();

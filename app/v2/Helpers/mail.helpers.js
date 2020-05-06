@@ -27,7 +27,7 @@ class MailNotification {
 			html: `
             <p>Hi ${firstname}</p>
             <p>We received your request to reset your password. Please follow the link below to perform this action.</p>
-            <p><a href=https://localhost:5000/reset/password/${token}>reset password link</a></p>
+            <p><a href=http://localhost:8280/api/v2/auth/resetpassword/${token}>reset password link</a></p>
             <p>Please note that this link expires in 1 hour.</p>
             <br>
             <p>Regards</p>
