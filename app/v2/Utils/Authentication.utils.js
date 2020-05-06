@@ -28,7 +28,7 @@ class Authentication {
 	* @returns {string} password
 	*/
 	static async encodeToken(payload) {
-		return jwt.sign(payload, config.SECRET);
+		return jwt.sign(payload, config.SECRET, { expiresIn: 60 * 60 });
 	}
 
 	/**
