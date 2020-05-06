@@ -22,8 +22,31 @@ class Authentication {
 		return bcrypt.compareSync(password, hashedPassword);
 	}
 
+	/**
+	* Encode jwt token
+	* @param {string} (password, hashedpassword)
+	* @returns {string} password
+	*/
 	static async encodeToken(payload) {
-		return jwt.sign(payload, config.SECRET, { expiresIn: '1 day' });
+		return jwt.sign(payload, config.SECRET, { expiresIn: 60 * 60 });
+	}
+
+	/**
+	* Decode jwt token
+	* @param {string} (password, hashedpassword)
+	* @returns {string} password
+	*/
+	static async decodeToken(payload) {
+		try {
+			return jwt.verify(payload, config.SECRET, (err, decode) => {
+				if (err) {
+					return err;
+				}
+				return decode;
+			});
+		} catch (error) {
+			return error;
+		}
 	}
 }
 
