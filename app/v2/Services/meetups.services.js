@@ -34,6 +34,31 @@ class MeetupService {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}
 	}
+
+	static async editMeetup(meetupData, meetupPayload) {
+		try {
+			const { id } = meetupPayload;
+			const {
+				topic, description, location, date, time, image_url
+			} = meetupData;
+			const convertDate = new Date(date);
+			const todayDate = new Date();
+			const queryObj = {
+				text: meetupQueries.updateMeetup,
+				values: [topic, description, location, date, time, image_url, id]
+			};
+			if (convertDate < todayDate) {
+				return failureResponseFormat('Meetup date cannot be in the past.', 400, 'Failure');
+			}
+			const { rows, rowCount } = await db.query(queryObj);
+			if (rowCount === 0) {
+				return failureResponseFormat('Meetup failed to update', 400, 'Failure');
+			}
+			return successResponseFormat('Meetup edited successfully.', 200, 'Success', rows[0]);
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
 }
 
 export default MeetupService;

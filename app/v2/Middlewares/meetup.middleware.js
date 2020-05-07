@@ -10,7 +10,7 @@ const createMeetupSchema = Joi.object().keys({
 });
 
 class MeetupMiddleware {
-	static async createMeetup(req, res, next) {
+	static async createEditMeetup(req, res, next) {
 		if (Object.keys(req.body).length === 0) {
 			return res.status(400).json({
 				message: 'Please fill all fields',
