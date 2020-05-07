@@ -2,6 +2,13 @@ import jwt from 'jsonwebtoken';
 import config from '../../../config';
 
 class Authorization {
+	/**
+    * Validate user
+    * @param {object} req
+    * @param {object} res
+    * @param {object} next
+    * @returns {object|void} response object
+    */
 	static async isLoggedIn(req, res, next) {
 		const token = req.headers['x-access-token'] || req.headers.authorization;
 		if (!token) {
@@ -24,6 +31,13 @@ class Authorization {
 		}
 	}
 
+	/**
+    * Check Admin
+    * @param {object} req
+    * @param {object} res
+    * @param {object} next
+    * @returns {object|void} response object
+    */
 	static async isAdmin(req, res, next) {
 		if (req.user && req.user.role !== 'admin') {
 			return res.status(401).json({
