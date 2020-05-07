@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import authentication from '../../app/v2/Routes/authentication.routes';
+import meetup from '../../app/v2/Routes/meetup.routes';
 
 const api = Router();
 api.get('/', (req, res) => res.status(200).json({
@@ -9,6 +10,7 @@ api.get('/', (req, res) => res.status(200).json({
 }));
 
 api.use('/auth', authentication);
+api.use('/meetups', meetup);
 
 api.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');

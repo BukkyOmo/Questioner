@@ -12,7 +12,13 @@ const authQuery = {
     `,
 	forgotPassword: 'UPDATE users SET password_reset_token=$1 WHERE email=$2',
 	checkResetToken: 'SELECT * FROM users WHERE password_reset_token=$1',
-	resetPassword: 'UPDATE users SET password_reset_token=$1, password=$2 WHERE password_reset_token=$3 AND email=$4'
+	resetPassword: `
+        UPDATE users 
+        SET password_reset_token=$1, password=$2 
+        WHERE password_reset_token=$3 
+        AND email=$4
+        RETURNING *
+    `
 };
 
 export default authQuery;
