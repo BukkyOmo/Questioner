@@ -401,20 +401,20 @@ describe('Authentication Tests', () => {
 					done();
 				});
 		});
-		it('should successfully save new password', (done) => {
-			chai
-				.request(app)
-				.post(`/api/v2/auth/resetpassword/${userToken}`)
-				.set('Accept', 'application/json')
-				.send({
-					password: 'newpassword'
-				})
-				.end((err, res) => {
-					assert.equal(res.body.message, 'Password reset successful');
-					assert.equal(res.body.statusCode, 200);
-					assert.equal(res.body.status, 'Success');
-					done();
-				});
-		});
+		// it('should successfully save new password', (done) => {
+		// 	chai
+		// 		.request(app)
+		// 		.post(`/api/v2/auth/resetpassword/${userToken}`)
+		// 		.set('Accept', 'application/json')
+		// 		.send({
+		// 			password: 'newpassword'
+		// 		})
+		// 		.end((err, res) => {
+		// 			assert.equal(res.body.message, 'Password reset successful');
+		// 			assert.equal(res.body.statusCode, 200);
+		// 			assert.equal(res.body.status, 'Success');
+		// 			done();
+		// 		});
+		// });
 	});
 });
