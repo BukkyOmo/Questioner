@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import db from '../../../config/database';
-import authQuery from '../Queries/authentication.queries';
+import authQuery from '../Queries/Authentication.queries';
 import AuthUtils from '../Utils/Authentication.utils';
 import ResponseFormat from '../Utils/responseFormat.utils';
 import MailNotification from '../Helpers/mail.helpers';
