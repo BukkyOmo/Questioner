@@ -7,5 +7,6 @@ const router = Router();
 
 router.post('/', Authorization.isLoggedIn, Authorization.isAdmin, MeetupMiddleware.createEditMeetup, Meetup.createMeetup);
 router.patch('/:id', Authorization.isLoggedIn, Authorization.isAdmin, MeetupMiddleware.createEditMeetup, Meetup.editMeetup);
+router.delete('/:id', Authorization.isLoggedIn, Authorization.isAdmin, Meetup.deleteMeetup);
 
 export default router;

@@ -447,4 +447,59 @@ describe('Meetup Tests', () => {
 				});
 		});
 	});
+
+	describe('Admin delete meetup tests', () => {
+		it('should return error if user is not an admin', (done) => {
+			chai
+				.request(app)
+				.delete('/api/v2/meetups/1')
+				.set('Accept', 'application/json')
+				.set('authorization', userToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Permission denied, You do not have authorized access.');
+					assert.equal(res.body.statusCode, 401);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if meetup is not in the database', (done) => {
+			chai
+				.request(app)
+				.delete('/api/v2/meetups/10')
+				.set('Accept', 'application/json')
+				.set('authorization', adminToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Meetup does not exist in database.');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should delete meetup successfully', (done) => {
+			chai
+				.request(app)
+				.delete('/api/v2/meetups/1')
+				.set('Accept', 'application/json')
+				.set('authorization', adminToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Meetup deleted successfully.');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+		it('should return error if meetup is already deleted', (done) => {
+			chai
+				.request(app)
+				.delete('/api/v2/meetups/1')
+				.set('Accept', 'application/json')
+				.set('authorization', adminToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Meetup has already been deleted from database.');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+	});
 });

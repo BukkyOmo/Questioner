@@ -2,7 +2,7 @@ import MeetupService from '../Services/meetups.services';
 
 class Meetup {
 	/**
-    *  Admin create meetup
+    * Admin create meetup
     * @static method
     * @param  {object} body - Request object
     * @return {promise} res
@@ -17,7 +17,7 @@ class Meetup {
 	}
 
 	/**
-    *  Admin edit meetup
+    * Admin edit meetup
     * @static method
     * @param  {object} body - Request object
     * @return {promise} res
@@ -25,6 +25,21 @@ class Meetup {
 	static async editMeetup(req, res) {
 		try {
 			const result = await MeetupService.editMeetup(req.body, req.params);
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(400).json(error);
+		}
+	}
+
+	/**
+	* Admin delete meetup
+	* @static method
+	* @param  {object} body - Request object
+	* @return {promise} res
+	*/
+	static async deleteMeetup(req, res) {
+		try {
+			const result = await MeetupService.deleteMeetup(req.params);
 			return res.status(200).json(result);
 		} catch (error) {
 			return res.status(400).json(error);
