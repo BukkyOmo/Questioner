@@ -14,11 +14,12 @@ const meetupQueries = {
         WHERE id=$7 RETURNING *;
     `,
 	checkDeleted: `
-        SELECT * FROM meetups WHERE id=$1 AND archived='true'
+        SELECT * FROM meetups WHERE id=$1 AND archived=true
     `,
 	deleteMeetup: `
         UPDATE meetups SET archived='true', updated_at=NOW() WHERE id=$1
-    `
+    `,
+	getAllMeetups: 'SELECT * FROM meetups WHERE archived=false ORDER BY created_at DESC'
 };
 
 export default meetupQueries;

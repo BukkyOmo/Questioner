@@ -89,6 +89,14 @@ class MeetupService {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}
 	}
+
+	static async getAllMeetups() {
+		const queryOb = {
+			text: meetupQueries.getAllMeetups
+		};
+		const { rows } = await db.query(queryOb);
+		return successResponseFormat('Meetups fetched successfully.', 200, 'Success', rows);
+	}
 }
 
 export default MeetupService;

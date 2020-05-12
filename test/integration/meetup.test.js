@@ -502,4 +502,31 @@ describe('Meetup Tests', () => {
 				});
 		});
 	});
+	describe('User get all meetup tests', () => {
+		it('should return error if user is not logged in', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/meetups')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Access denied. No token provided.');
+					assert.equal(res.body.statusCode, 401);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should successfully fetch all meetup', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/meetups')
+				.set('Accept', 'application/json')
+				.set('authorization', userToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Meetups fetched successfully.');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });
