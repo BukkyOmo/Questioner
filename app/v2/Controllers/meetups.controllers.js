@@ -1,6 +1,4 @@
 import MeetupService from '../Services/meetups.services';
-import db from '../../../config/database';
-import meetupQueries from '../Queries/meetup.queries';
 
 class Meetup {
 	/**
@@ -49,7 +47,7 @@ class Meetup {
 	}
 
 	/**
-	* User gets meetup
+	* User gets all meetup
 	* @static method
 	* @param  {object} body - Request object
 	* @return {promise} res
