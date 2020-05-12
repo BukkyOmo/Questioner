@@ -59,6 +59,36 @@ class MeetupService {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}
 	}
+
+	static async deleteMeetup(userPayload) {
+		const { id } = userPayload;
+		const queryObj = {
+			text: meetupQueries.findMeetup,
+			values: [id]
+		};
+		const queryObj1 = {
+			text: meetupQueries.checkDeleted,
+			values: [id]
+		};
+		const queryObj2 = {
+			text: meetupQueries.deleteMeetup,
+			values: [id]
+		};
+		try {
+			const { rowCount } = await db.query(queryObj);
+			if (rowCount === 0) {
+				return failureResponseFormat('Meetup does not exist in database.', 400, 'Failure');
+			}
+			const { rows } = await db.query(queryObj1);
+			if (rows.length) {
+				return failureResponseFormat('Meetup has already been deleted from database.', 400, 'Failure');
+			}
+			await db.query(queryObj2);
+			return successResponseFormat('Meetup deleted successfully.', 200, 'Success');
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
 }
 
 export default MeetupService;
