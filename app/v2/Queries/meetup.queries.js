@@ -19,7 +19,8 @@ const meetupQueries = {
 	deleteMeetup: `
         UPDATE meetups SET archived='true', updated_at=NOW() WHERE id=$1
     `,
-	getAllMeetups: 'SELECT * FROM meetups WHERE archived=false ORDER BY created_at DESC'
+	getAllMeetups: 'SELECT * FROM meetups WHERE archived=false ORDER BY created_at DESC',
+	findMeetupById: 'SELECT * FROM meetups WHERE id=$1 AND archived=false'
 };
 
 export default meetupQueries;

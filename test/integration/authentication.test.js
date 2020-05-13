@@ -6,7 +6,6 @@ import config from '../../config';
 
 chai.use(chaiHttp);
 const userToken = config.USER_TOKEN;
-const adminToken = config.ADMIN_TOKEN;
 const expiredToken = config.EXPIRED_TOKEN;
 const invalidToken = config.INVALID_TOKEN;
 
