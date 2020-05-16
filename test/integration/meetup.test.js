@@ -529,4 +529,45 @@ describe('Meetup Tests', () => {
 				});
 		});
 	});
+
+	describe('User get one meetup tests', () => {
+		it('should return error if no token is provided', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/meetups/1')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Access denied. No token provided.');
+					assert.equal(res.body.statusCode, 401);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if meetup does not exist', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/meetups/50')
+				.set('Accept', 'application/json')
+				.set('authorization', userToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Meetup does not exist in database.');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should get meetup successfully', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/meetups/2')
+				.set('Accept', 'application/json')
+				.set('authorization', userToken)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Meetup fetched successfully.');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });

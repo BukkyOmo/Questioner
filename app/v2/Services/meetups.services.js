@@ -94,8 +94,34 @@ class MeetupService {
 		const queryOb = {
 			text: meetupQueries.getAllMeetups
 		};
-		const { rows } = await db.query(queryOb);
-		return successResponseFormat('Meetups fetched successfully.', 200, 'Success', rows);
+		try {
+			const { rows } = await db.query(queryOb);
+			return successResponseFormat('Meetups fetched successfully.', 200, 'Success', rows);
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
+
+	static async getOneMeetup(meetupPayload) {
+		const { id } = meetupPayload;
+		const queryObj = {
+			text: meetupQueries.findMeetupById,
+			values: [id]
+		};
+		const queryObj1 = {
+			text: meetupQueries.getOneMeetup,
+			values: [id]
+		};
+		try {
+			const { rowCount } = await db.query(queryObj);
+			if (rowCount === 0) {
+				return failureResponseFormat('Meetup does not exist in database.', 400, 'Failure');
+			}
+			const { rows } = await db.query(queryObj1);
+			return successResponseFormat('Meetup fetched successfully.', 200, 'Success', rows[0]);
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
 	}
 }
 
