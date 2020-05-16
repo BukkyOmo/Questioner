@@ -20,7 +20,32 @@ const meetupQueries = {
         UPDATE meetups SET archived='true', updated_at=NOW() WHERE id=$1
     `,
 	getAllMeetups: 'SELECT * FROM meetups WHERE archived=false ORDER BY created_at DESC',
-	findMeetupById: 'SELECT * FROM meetups WHERE id=$1 AND archived=false'
+	findMeetupById: 'SELECT * FROM meetups WHERE id=$1 AND archived=false',
+	getOneMeetup: `
+        SELECT 
+            meetups.id, meetups.topic, meetups.description, 
+            meetups.location, meetups.date, meetups.time, 
+            meetups.image_url,
+        CASE WHEN
+            count(q) = 0
+            THEN ARRAY[]::json[] 
+            ELSE array_agg(q.questions)
+            END AS questions 
+        FROM meetups LEFT JOIN (
+        SELECT meetup_id,
+        json_build_object(
+            'id', question.id,
+            'title', question.title,
+            'body', question.body,
+            'user_id', question.user_id,
+            'created_at', question.created_at
+            ) AS questions 
+            FROM questions AS question
+        ) AS q 
+        ON q.meetup_id=meetups.id 
+        WHERE meetups.id=$1
+        GROUP BY meetups.id;
+    `
 };
 
 export default meetupQueries;

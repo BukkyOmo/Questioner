@@ -8,7 +8,9 @@ const createMeetupSchema = Joi.object().keys({
 	time: Joi.string().required(),
 	image_url: Joi.string().required()
 });
-
+const integerSchema = Joi.object().keys({
+	params: Joi.number().required()
+});
 class MeetupMiddleware {
 	static async createEditMeetup(req, res, next) {
 		if (Object.keys(req.body).length === 0) {
@@ -29,6 +31,20 @@ class MeetupMiddleware {
 			});
 		}
 	}
+
+	static async validateParams(req, res, next) {
+		try {
+			await Joi.validate(req.params, integerSchema);
+			return next();
+		} catch (error) {
+			return res.status(400).json({
+				message: error.details[0].message.replace(/"/g, ''),
+				statusCode: 400,
+				status: 'Failure'
+			});
+		}
+	}
 }
+
 
 export default MeetupMiddleware;

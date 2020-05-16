@@ -1,6 +1,6 @@
 import MeetupService from '../Services/meetups.services';
 
-class Meetup {
+class MeetupController {
 	/**
     * Admin creates meetup
     * @static method
@@ -60,6 +60,21 @@ class Meetup {
 			return res.status(400).json(error);
 		}
 	}
+
+	/**
+	* User gets one meetup
+	* @static method
+	* @param  {object} body - Request object
+	* @return {promise} res
+	*/
+	static async getOneMeetup(req, res) {
+		try {
+			const result = await MeetupService.getOneMeetup(req.params);
+			return res.status(200).json(result);
+		} catch (error) {
+			return res.status(400).json(error);
+		}
+	}
 }
 
-export default Meetup;
+export default MeetupController;
