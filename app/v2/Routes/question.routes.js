@@ -6,5 +6,6 @@ import Authorization from '../Middlewares/authorization.middleware';
 const router = Router();
 
 router.post('/meetup/:meetup_id', Authorization.isLoggedIn, QuestionMiddleware.createQuestion, QuestionController.createQuestion);
+router.get('/', Authorization.isLoggedIn, QuestionController.getAllUserQuestion);
 
 export default router;

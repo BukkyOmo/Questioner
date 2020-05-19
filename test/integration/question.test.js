@@ -110,4 +110,32 @@ describe('Question Tests', () => {
 				});
 		});
 	});
+
+	describe('User get all questions he/she has posted', () => {
+		it('should return error if user is not logged in', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/questions')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Access denied. No token provided.');
+					assert.equal(res.body.statusCode, 401);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should get all questions user has ever asked', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/questions')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'User questions fetched successfully.');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });

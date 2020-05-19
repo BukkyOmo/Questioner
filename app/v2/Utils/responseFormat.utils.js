@@ -1,7 +1,7 @@
 class ResponseFormat {
-	static successResponseFormat(message, statusCode, status, data) {
+	static successResponseFormat(message, statusCode, status, data, count) {
 		return Promise.resolve({
-			message, statusCode, status, data
+			message, statusCode, status, data, count
 		});
 	}
 

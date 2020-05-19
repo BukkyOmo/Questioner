@@ -5,7 +5,8 @@ const questionQueries = {
         (title, body, user_id, meetup_id)
         VALUES($1, $2, $3, $4)
         RETURNING *
-    `
+    `,
+	getAllUserQuestion: 'SELECT * FROM questions WHERE user_id=$1 ORDER BY created_at DESC'
 };
 
 export default questionQueries;

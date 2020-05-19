@@ -41,6 +41,20 @@ class QuestionService {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}
 	}
+
+	static async getAllUserQuestion(user) {
+		const { id } = user;
+		const queryObj = {
+			text: questionQueries.getAllUserQuestion,
+			values: [id]
+		};
+		try {
+			const { rows, rowCount } = await db.query(queryObj);
+			return successResponseFormat('User questions fetched successfully.', 200, 'Success', rows, rowCount);
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
 }
 
 export default QuestionService;
