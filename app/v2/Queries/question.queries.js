@@ -6,7 +6,8 @@ const questionQueries = {
         VALUES($1, $2, $3, $4)
         RETURNING *
     `,
-	getAllUserQuestion: 'SELECT * FROM questions WHERE user_id=$1 ORDER BY created_at DESC'
+	getAllUserQuestion: 'SELECT * FROM questions WHERE user_id=$1 ORDER BY created_at DESC',
+	getQuestion: 'SELECT * FROM questions WHERE id=$1'
 };
 
 export default questionQueries;
