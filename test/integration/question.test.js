@@ -6,30 +6,7 @@ import config from '../../config';
 
 chai.use(chaiHttp);
 const userToken = config.USER_TOKEN;
-const adminToken = config.ADMIN_TOKEN;
 let token = null;
-
-before((done) => {
-	chai
-		.request(app)
-		.post('/api/v2/meetups')
-		.set('Accept', 'application/json')
-		.set('authorization', adminToken)
-		.send({
-			topic: 'Genius meetup',
-			description: 'A gathering of female techies interested in Cloud computing',
-			location: 'Oriental hotel',
-			date: '2021-06-22',
-			time: '15:00:00',
-			image_url: 'blackboy.hjkjdgcvdjgdhcgdd.png'
-		})
-		.end((err, res) => {
-			assert.equal(res.body.message, 'Meetup created successfully.');
-			assert.equal(res.body.statusCode, 200);
-			assert.equal(res.body.status, 'Success');
-			done();
-		});
-});
 
 before((done) => {
 	chai
@@ -38,8 +15,8 @@ before((done) => {
 		.set('Accept', 'application/json')
 		.send({
 			firstname: 'Bolutife',
-			lastname: 'Mathias',
-			email: 'behance@gmail.com',
+			lastname: 'Martins',
+			email: 'behancegirl@gmail.com',
 			password: 'password'
 		})
 		.end((err, res) => {
