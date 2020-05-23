@@ -55,6 +55,28 @@ class QuestionService {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}
 	}
+
+	static async getOneQuestion(userPayload) {
+		const { question_id } = userPayload;
+		const getQuestion = {
+			text: questionQueries.getQuestion,
+			values: [question_id]
+		};
+		const queryObj1 = {
+			text: questionQueries.getOneQuestion,
+			values: [question_id]
+		};
+		try {
+			const { rowCount } = await db.query(getQuestion);
+			if (rowCount === 0) {
+				return failureResponseFormat('Question you try to retrieve does not exist.', 400, 'Failure');
+			}
+			const { rows } = await db.query(queryObj1);
+			return successResponseFormat('Question retrieved successfully.', 200, 'Success', rows);
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
 }
 
 export default QuestionService;
