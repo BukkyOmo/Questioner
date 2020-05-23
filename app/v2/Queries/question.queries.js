@@ -7,7 +7,35 @@ const questionQueries = {
         RETURNING *
     `,
 	getAllUserQuestion: 'SELECT * FROM questions WHERE user_id=$1 ORDER BY created_at DESC',
-	getQuestion: 'SELECT * FROM questions WHERE id=$1'
+	getQuestion: 'SELECT * FROM questions WHERE id=$1',
+	getOneQuestion: `
+        SELECT 
+            questions.id, title, questions.body, 
+            users.first_name, users.last_name,
+            questions.created_at, questions.updated_at,
+	    CASE WHEN
+    		count(c) = 0
+  		THEN ARRAY[]::json[] 
+  		ELSE array_agg(c.comments)
+  		END AS comments	
+        FROM questions
+        LEFT JOIN users ON users.id = questions.user_id
+        LEFT JOIN (
+		SELECT 
+            question_id,
+            json_build_object(
+                'id', com.id,
+                'comment', com.body,
+                'posted by', com.user_id,
+                'posted at', com.created_at,
+                'edited at', com.updated_at
+            ) AS comments
+		FROM comments AS com
+	    ) AS c
+        ON c.question_id = questions.id 
+        WHERE questions.id=$1
+        GROUP BY questions.id, users.first_name, users.last_name;
+    `
 };
 
 export default questionQueries;

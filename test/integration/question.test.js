@@ -115,4 +115,45 @@ describe('Question Tests', () => {
 				});
 		});
 	});
+
+	describe('User get one question', () => {
+		it('should return error if user is not logged in', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/questions/1')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Access denied. No token provided.');
+					assert.equal(res.body.statusCode, 401);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if question does not exist', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/questions/10')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Question you try to retrieve does not exist.');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should successfully get a question', (done) => {
+			chai
+				.request(app)
+				.get('/api/v2/questions/1')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Question retrieved successfully.');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });

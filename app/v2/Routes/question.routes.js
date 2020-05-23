@@ -10,5 +10,6 @@ const router = Router();
 router.post('/meetup/:meetup_id', Authorization.isLoggedIn, QuestionMiddleware.createQuestion, QuestionController.createQuestion);
 router.get('/', Authorization.isLoggedIn, QuestionController.getAllUserQuestion);
 router.post('/:question_id/comment', Authorization.isLoggedIn, CommentMiddleware.createComment, CommentController.createComment);
+router.get('/:question_id', Authorization.isLoggedIn, QuestionController.getOneQuestion);
 
 export default router;
