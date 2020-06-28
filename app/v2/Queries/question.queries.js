@@ -35,7 +35,9 @@ const questionQueries = {
         ON c.question_id = questions.id 
         WHERE questions.id=$1
         GROUP BY questions.id, users.first_name, users.last_name;
-    `
+    `,
+	getQuestionOwner: 'SELECT * FROM questions WHERE id=$1 AND user_id=$2',
+	editQuestion: 'UPDATE questions SET title=$1, body=$2 WHERE id=$3 RETURNING *'
 };
 
 export default questionQueries;

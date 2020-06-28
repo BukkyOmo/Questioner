@@ -156,4 +156,84 @@ describe('Question Tests', () => {
 				});
 		});
 	});
+
+	describe('User edit a question', () => {
+		it('should return error if user is not logged in', (done) => {
+			chai
+				.request(app)
+				.patch('/api/v2/questions/1')
+				.set('Accept', 'application/json')
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Access denied. No token provided.');
+					assert.equal(res.body.statusCode, 401);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if question does not exist', (done) => {
+			chai
+				.request(app)
+				.patch('/api/v2/questions/10')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.send({
+					title: 'Ask about time',
+					body: 'Are we not supposed to get the time?'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'The question you tried to edit does not exist.');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should return error if question field is empty', (done) => {
+			chai
+				.request(app)
+				.patch('/api/v2/questions/10')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.send({})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Please fill all fields');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should throw error if question does not belong to user', (done) => {
+			chai
+				.request(app)
+				.patch('/api/v2/questions/1')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.send({
+					title: 'Ask about time',
+					body: 'Are we not supposed to get the time?'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'You cannot edit this question as it doesn\'t belong to you.');
+					assert.equal(res.body.statusCode, 400);
+					assert.equal(res.body.status, 'Failure');
+					done();
+				});
+		});
+		it('should successfully edit question', (done) => {
+			chai
+				.request(app)
+				.patch('/api/v2/questions/2')
+				.set('Accept', 'application/json')
+				.set('authorization', token)
+				.send({
+					title: 'Ask about time',
+					body: 'Are we not supposed to get the time?'
+				})
+				.end((err, res) => {
+					assert.equal(res.body.message, 'Question edited successfully.');
+					assert.equal(res.body.statusCode, 200);
+					assert.equal(res.body.status, 'Success');
+					done();
+				});
+		});
+	});
 });
