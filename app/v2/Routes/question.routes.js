@@ -11,5 +11,6 @@ router.post('/meetup/:meetup_id', Authorization.isLoggedIn, QuestionMiddleware.c
 router.get('/', Authorization.isLoggedIn, QuestionController.getAllUserQuestion);
 router.post('/:question_id/comment', Authorization.isLoggedIn, CommentMiddleware.createComment, CommentController.createComment);
 router.get('/:question_id', Authorization.isLoggedIn, QuestionController.getOneQuestion);
+router.patch('/:question_id', Authorization.isLoggedIn, QuestionMiddleware.editQuestion, QuestionController.editQuestion);
 
 export default router;

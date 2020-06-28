@@ -215,7 +215,7 @@ describe('Meetup Tests', () => {
 					topic: 'Women in tech meetup',
 					description: 'A gathering of female techies',
 					location: 'Arcade events center',
-					date: '2020-06-22',
+					date: '2022-06-22',
 					time: '15:00:00',
 					image_url: 'blackboy.hjkjdgcvdjgdhcgdd.png'
 				})
@@ -236,7 +236,7 @@ describe('Meetup Tests', () => {
 					topic: 'Women in tech meetup',
 					description: 'A gathering of female techies',
 					location: 'Arcade events center',
-					date: '2020-06-22',
+					date: '2022-06-22',
 					time: '15:00:00',
 					image_url: 'blackboy.hjkjdgcvdjgdhcgdd.png'
 				})

@@ -77,6 +77,38 @@ class QuestionService {
 			return failureResponseFormat('Internal server error', 500, 'Failure', error);
 		}
 	}
+
+	static async editQuestion(questionPayload, userPayload, params) {
+		const { title, body } = questionPayload;
+		const { id: user_id } = userPayload;
+		const { question_id } = params;
+		const queryObj1 = {
+			text: questionQueries.getQuestion,
+			values: [question_id]
+		};
+		const queryObj2 = {
+			text: questionQueries.getQuestionOwner,
+			values: [question_id, user_id]
+		};
+		const queryObj3 = {
+			text: questionQueries.editQuestion,
+			values: [title, body, question_id]
+		};
+		try {
+			const { rowCount } = await db.query(queryObj1);
+			if (rowCount === 0) {
+				return failureResponseFormat('The question you tried to edit does not exist.', 400, 'Failure');
+			}
+			const checkQuestionUser = await db.query(queryObj2);
+			if (checkQuestionUser.rowCount === 0) {
+				return failureResponseFormat('You cannot edit this question as it doesn\'t belong to you.', 400, 'Failure');
+			}
+			const { rows } = await db.query(queryObj3);
+			return successResponseFormat('Question edited successfully.', 200, 'Success', rows);
+		} catch (error) {
+			return failureResponseFormat('Internal server error', 500, 'Failure', error);
+		}
+	}
 }
 
 export default QuestionService;
