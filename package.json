@@ -68,7 +68,7 @@
     "db-migrate-pg": "^1.0.0",
     "del": "^2.2.2",
     "dotenv": "^6.2.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-validator": "^5.3.1",
     "file-stream-rotator": "^0.5.7",
     "gulp": "^3.9.1",
